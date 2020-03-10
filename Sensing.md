@@ -1,6 +1,6 @@
 Sensing
 =========
-<!-- comment out  -->
+
 # Overview 
 
 For autonomous driving, a vehicle needs to know an environment surrounding itself.
@@ -46,7 +46,8 @@ Through drivers and converters for each sensors, raw sensing data is comverted t
 ### Common preprocessing of sensing data (if forming is needed)
 
 For pointcloud data, some preprocessings are required before the data is utilized on other stacks.
-For example, we think preprocessings below are commonly needed.
+
+For example, we think preprocessings below will be commonly needed.
 
 - Ground filter : Removes pointclouds correspond to the ground.
 - Outlier filter : Removes outlier pointclounds which are appeared due to leaves, insects, and so on.
@@ -112,23 +113,81 @@ In the twest estimation process, the data is combined with the GNSS data and a t
 
 A sensing implementation must satisfy a requirement in order to be compatible with the aforementioned use cases.
 
-- An implementation of drivers and converters to form sensor data to ROS messages.
+- Provide the neatly arrenged data
 
 # Mechanisms
 
-上記のRequirementsを満たすために必要なbehavior, IOなど
+The mechanisms to satisfy a repuirement above:
+
+- Specific drivers are needed for each sensor
+- A mechanism to remove the noise and the distortion from raw data is needed
 
 # Design
 
-ここからは実際の実装についての説明。
+In order to support the above stated use cases and derived requirements, a decomposition of the sensing stack is proposed below.
 
 ## Components
 
-具体的に上記のRequirementを満たすために必要なノードの説明
+We defined following componentes in sensing stack. Depending on the use case and capabilities of various components, only some subset of the components may be needed.
 
-## Inputs
+### Drivers
 
-## Outputs
+- LiDAR driver
+- Camera driver
+- gnss driver
+- imu driver
+
+### Preprocessor
+
+- Pointcloud
+	- Ground filter
+	- Outlier filter
+	- Concat filter
+	- Ego-vehicle cropping filter
+	- Distortion correction
+- GNSS
+	- MGRS conversion
+
+#### LiDAR driver
+
+TBU
+
+#### Camera driver
+
+TBU
+
+#### gnss driver
+
+TBU
+
+#### imu driver
+
+TBU
+
+#### Ground filter
+
+TBU
+
+#### Outlier filter
+
+TBU
+
+#### Concat filter
+
+TBU
+
+#### Ego-vehicle cropping filter
+
+TBU
+
+#### Distortion correction
+
+TBU
+
+#### MGRS conversion
+
+TBU
 
 # References
 
+TBU
