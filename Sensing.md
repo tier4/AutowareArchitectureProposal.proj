@@ -8,6 +8,8 @@ A sensing stack has a role to correct the environment information and form it ap
 
 # Use Cases
 
+![Sensing_overview](/img/Sensing_overview.svg)
+
 This sensing stack has 2 main roles:
 
 - Conversion of sensing data to ROS message
