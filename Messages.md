@@ -18,9 +18,6 @@ the difinition of each message is shown in following subsection.
 
 ## autoware control messages
 
-There are 2 types of messages related with control stack.
-The difinitions are as below.
-
 ### ControlCommand.msg
 
 `float64 steering_angle`  
