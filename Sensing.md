@@ -64,8 +64,6 @@ Following sensors are considered:
 - GNSS
 - IMU
 
-(LiDAR, Camera, GNSS, IMUのデータについて何か述べておくことがあれば追記。)
-
 ## Output use cases
 
 The outputs can be used to many stacks in the autonomous driving.
