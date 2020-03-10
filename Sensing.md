@@ -130,6 +130,8 @@ In order to support the above stated use cases and derived requirements, a decom
 
 We defined following componentes in sensing stack. Depending on the use case and capabilities of various components, only some subset of the components may be needed.
 
+![Sensing_component](/img/Sensing_component.svg)
+
 ### Drivers
 
 - LiDAR driver
