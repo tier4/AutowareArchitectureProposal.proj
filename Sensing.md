@@ -52,7 +52,7 @@ For example, we think preprocessings below will be commonly needed.
 - Ground filter : Removes pointclouds correspond to the ground.
 - Outlier filter : Removes outlier pointclounds which are appeared due to leaves, insects, and so on.
 - Concat filter : Concatenates pointclouds come from some LiDARs.
-- Ego-vehicle cropping filter : Removes pointclouds correspond to the ego-vehicle.
+- Self cropping filter : Removes pointclouds correspond to the ego-vehicle.
 - Distortion correction : Corrects the distortion of the pointclouds due to observation time gaps.
 
 ## Input use cases / Sensors
@@ -143,7 +143,7 @@ We defined following componentes in sensing stack. Depending on the use case and
 	- Ground filter
 	- Outlier filter
 	- Concat filter
-	- Ego-vehicle cropping filter
+	- Self cropping filter
 	- Distortion correction
 - GNSS
 	- MGRS conversion
@@ -176,7 +176,7 @@ TBU
 
 TBU
 
-#### Ego-vehicle cropping filter
+#### Self cropping filter
 
 TBU
 
