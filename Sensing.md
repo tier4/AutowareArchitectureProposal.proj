@@ -2,71 +2,64 @@ Sensing
 =========
 
 # Overview 
-
-For autonomous driving, a vehicle needs to know an environment surrounding itself.
-A sensing stack has a role to collect the environment information and form it appropriately.
-
-# Use Cases
+For autonomous driving, a vehicle needs to be aware of its surrouding environment.
+Sensing stack collects the environment information through various sensors and format/manipulate data appropriately to be used by other stacks.
 
 ![Sensing_overview](/img/Sensing_overview.svg)
 
-This sensing stack has 2 main roles:
 
-- Conversion of sensing data to ROS message
-- Common preprocessing of sensing data (if forming is needed)
+## Role
+There are two main roles of Sensing stack:
+- **Conversion of sensing data to ROS message**  
+  Sensing stack unifies the output format of sensors so that following AD stacks (e.g. percpetion) do not have to be aware of the hardware to use sensor data.
+- **Preprocessing of sensing data**  
+  Raw data from sensors usually contains errors/noise due to hardware limitations. Sensing stack is responsible for removing such inaccuracies as much as possible before distributing sensor outputs to following stacks. Sensing stack may also do extra restructuring/formatting of data for so that there will be no duplicate data preprocessing done in different stacks.
 
-Various input modalities can be considered, including:
-
+## Input
+Sensing stack supports following sensors:
 - LiDAR
 - Camera
 - GNSS
 - IMU
 
-After prosessing, row / formed data and ROS messages are output.
-These output are widely used in other stacks:
+Inputs from a sensor can be in various formats(USB, CAN bus, tcp/ip, etc.) as it depends on hardware specifications.
+Autoware sets [reference platform](link_to_reference_platform) and provides drivers for supported sensors.
+Although Autoware does not limit the use of other sensors, it is user's responsibility to prepare ROS sensor driver for the sensor in such case.
 
-- Formed pointcloud:
-	- Localization (Pose estimation)
-	- Perception (Detection)
-	- Planning (Costmap generation)
-- Camera image:
-	- Perception (Detection)
-	- Localization (Pose estimation)
-- GNSS data:
-	- Localization (Pose estimation)
-- IMU data:
-	- Localization (Twist estimation)
+## Output
+The table below sumarizes the output from Sensing stack:
+| Sensor Type | Data Type                                                                        | Use Cases of the output    |
+| ----------- | -------------------------------------------------------------------------------- | -------------------------- |
+| LiDAR       | sensor_msgs::PointCloud2                                                         | Localization (Pose estimation)<br>Perception (Object Recognition)<br>Planning (Costmap generation) |
+| Camera      | sensor_msgs::Image                                                               | Perception (Traffic Light Recognition, Object Recognition)<br>Localization (Pose estimation)       |
+| GNSS        | sensor_msgs::NavSatFix (Raw)<br>geometry_msgs::PoseWithCovariance (preprocessed) | Localization (Pose estimation)                                                                     |
+| IMU         | sensor_msgs::Imu                                                                 | Localization (Twist estimation)                                                                    |
 
-## High-level use cases
+For each of the sensors, there will be two types of outputs: raw data and preprocessed data. Note that preprocessed data might be same as raw data if no preprocessing is required. All other AD stacks should be subscribing to preprocessed data in most cases, and raw data should only be used for debugging purposes such as visualization and data recording.
 
-### Conversion of sensing data to ROS message
+In general, the final output of Sensing stack should be in sensor_msgs type which is de facto standard in ROS systems. This allows developers to use default ROS tools such as RVIZ to visualize outputs. One of the exception is GNSS data, which is published as geometry_msgs/PoseWithCovariance instead of sensor_msgs/NavSatFix. We came to conclusion that PoseWithCovariance message essentially contains the same information and is more convenient for Localization stack(the main user of the data) since localization is done in Cartesian coordinate.
 
-Through drivers and converters for each sensors, raw sensing data is comverted to ROS message format.
 
-### Common preprocessing of sensing data (if forming is needed)
+# Design
 
-For pointcloud data, some preprocessings are required before the data is utilized on other stacks.
+In order to support the above use cases and output requirements, Sensing stack is decomposed as below.
+Depending on the use case and hardware configuration of the vehicle, users may choose to use a subset of the components stated in the diagram.
+![Sensing_component](/img/Sensing_component.svg)
 
-For example, we think preprocessings below will be commonly needed.
+The components are separated into drivers and preprocessors. Drivers are responsible for converting sensor data into ROS message and modification of the data during conversion should be minimal. It is preprocessors' responsibility to manipulate sensor data for ease of use.
 
-- Ground filter : Removes pointclouds correspond to the ground.
-- Outlier filter : Removes outlier pointclounds which are appeared due to leaves, insects, and so on.
-- Concat filter : Concatenates pointclouds come from some LiDARs.
-- Self cropping filter : Removes pointclouds correspond to the ego-vehicle.
-- Distortion correction : Corrects the distortion of the pointclouds due to observation time gaps.
+## Drivers
 
-## Input use cases / Sensors
+### LiDAR driver
+TBU
+### Camera driver
+TBU
+### GNSS driver
+TBU
+### IMU driver
+TBU
 
-Following sensors are considered:
-
-- LiDAR
-- Camera
-- GNSS
-- IMU
-
-## Output use cases
-
-The outputs can be used to many stacks in the autonomous driving.
+## Preprocessors
 
 ### Pointcloud
 
@@ -107,86 +100,6 @@ The IMU data is output as `~output/imu_raw`.
 The output can be used for "twist estimater" in the localization stack.
 In the twest estimation process, the data is combined with the GNSS data and a twist data with covariance, and the current velocity of the ego-vehicle is estimated.
 
-# Requirements
-
-A sensing implementation must satisfy a requirement in order to be compatible with the aforementioned use cases.
-
-- Provide the neatly arrenged data
-
-# Mechanisms
-
-The mechanisms to satisfy a repuirement above:
-
-- Specific drivers are needed for each sensor
-- A mechanism to remove the noise and the distortion from raw data is needed
-
-# Design
-
-In order to support the above stated use cases and derived requirements, a decomposition of the sensing stack is proposed below.
-
-## Components
-
-We defined following componentes in sensing stack. Depending on the use case and capabilities of various components, only some subset of the components may be needed.
-
-![Sensing_component](/img/Sensing_component.svg)
-
-### Drivers
-
-- LiDAR driver
-- Camera driver
-- gnss driver
-- imu driver
-
-### Preprocessor
-
-- Pointcloud
-	- Ground filter
-	- Outlier filter
-	- Concat filter
-	- Self cropping filter
-	- Distortion correction
-- GNSS
-	- MGRS conversion
-
-#### LiDAR driver
-
-TBU
-
-#### Camera driver
-
-TBU
-
-#### gnss driver
-
-TBU
-
-#### imu driver
-
-TBU
-
-#### Ground filter
-
-TBU
-
-#### Outlier filter
-
-TBU
-
-#### Concat filter
-
-TBU
-
-#### Self cropping filter
-
-TBU
-
-#### Distortion correction
-
-TBU
-
-#### MGRS conversion
-
-TBU
 
 # References
 
