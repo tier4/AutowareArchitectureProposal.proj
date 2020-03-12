@@ -50,58 +50,109 @@ The components are separated into drivers and preprocessors. Drivers are respons
 
 ## Drivers
 
+Depends on use cases, the sensor configurations are different from each case.
+Here, we describe our implementation design as a reference.
+
 ### LiDAR driver
-TBU
+
+#### Input
+Row data from LiDAR.
+
+#### Output
+`velodyne_msgs/VelodyneScan`
+
+The output is sent to "packets to pointcloud" node in the pointcloud preprocessor.
+
 ### Camera driver
-TBU
+
+#### Input
+Row data from camera.
+
+#### Output
+The camera image is output as `sensor_msgs::Image.msg` through the camera driver.
+The output can be used for "image detection" in the perception stack and "pose estimater" in the localization stack.
+In the imange detection process, objects are detected on the image with some detection algorithms.
+In the pose estimation process, the image can be used as an optional information to estimate a current position of the ego-vehicle.
+
 ### GNSS driver
-TBU
+
+#### Input
+Row data from GNSS
+
+#### Output
+`sensor_msgs::NavSatFix`
+
+The output is sent to "MGRS conversion" node.
+
 ### IMU driver
-TBU
+
+#### Input
+Row data from IMU.
+
+#### Output
+`sensor_msgs::Imu`
+
+The output can be used for "twist estimater" in the localization stack.
+In the twest estimation process, the data is combined with the GNSS data and a twist data with covariance, and the current velocity of the ego-vehicle is estimated.
 
 ## Preprocessors
 
+Depends on the sensors, the required preprocessings are different.
+Here, we describe our implementation design as a reference.
+
 ### Pointcloud
 
-2 types of pointclouds are output through the preprocessor:
+There are 7 preprocess nodes in the pointcloud preprocessor:
+- Packets to pointcloud
+- Self cropping
+- Distortion correction
+- Outlier filter
+- Concat filter
+- Ground filter
+- Multiplexer
 
-- pointcloud including ground points : `~output/pointcloud`
-- pointcloud without ground points : `~output/no_ground/pointcloud`
+The constitution relation of these nodes is as below.
+![Sensing_overview](/img/Sensing_overview.svg)
 
-#### Pointcloud including ground points
+The details of the preprocess nodes are described in each page.
+
+#### Input
+`velodyne_msgs/VelodyneScan`
+
+The inputs are come from the LiDAR driver. If the autonomous vehicle has some LiDARs, there are inputs as same number as LiDARs.
+
+#### Output
+`sensor_msgs::PointCloud2`
+
+2 types of pointclouds are output through the pointcloud preprocessor:
+- pointcloud including ground points
+- pointcloud without ground points
+
+**Pointcloud including ground points**
 
 This pointcloud can be used for "costmap generation" in the planning stack.
 In the costmap generation process, the pointcloud is combined with a map data, a predicted object information and an estimated current position.
 
-
-#### Pointcloud without ground points
+** Pointcloud without ground points**
 
 This pointcloud can be used for "pose estimater" in the localization stack and "detection" in the perception stack.
 In the pose estimation process, the pointcloud is compared with the pointcloud map and the result of the comparison is used for the current position estimation.
 In the detection process, the pointcloud is segmented and combined with a detection result of camera images and a costmap is estimated.
 
-### Camera image
+### MGRS Conversion
 
-The camera image is output as `~output/image_raw`.
-The output can be used for "image detection" in the perception stack and "pose estimater" in the localization stack.
-In the imange detection process, objects are detected on the image with some detection algorithms.
-In the pose estimation process, the image can be used as an optional information to estimate a current position of the ego-vehicle.
+#### Input
+`sensor_msgs::NavSatFix`
 
-### GNSS
+The inputs are come from the GNSS driver.
 
-The GNSS data is output as `~output/pose_with_covariance`.
+#### Output
+`geometry_msgs::PoseWithCovariance`
+
 The output can be used for "pose estimater" and "twist estimater" in the localization stack.
 In the pose estimation process, the data is utilized for the pose initialization of the current ego-vehicle.
 In the twist estimation process, the data is combined with the imu data and a twist data with covariance from the vehicle, and the current velocity of the ego-vehicle is estimated.
 
-### IMU
-
-The IMU data is output as `~output/imu_raw`.
-The output can be used for "twist estimater" in the localization stack.
-In the twest estimation process, the data is combined with the GNSS data and a twist data with covariance, and the current velocity of the ego-vehicle is estimated.
-
-
 # References
 
 TBU
-
