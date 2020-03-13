@@ -106,7 +106,8 @@ There are 7 preprocess nodes in the pointcloud preprocessor:
 - Multiplexer
 
 The constitution relation of these nodes is as below.
-![Sensing_overview](/img/Sensing_overview.svg)
+
+![Sensing_preprocessor](/img/Sensing_preprocessor.svg)
 
 The details of the preprocess node's implementation are described in each page.
 
