@@ -71,6 +71,7 @@ Detection component is responsible for clarifying following objects' property.
 Tracking component deals with time-series processing.
 
 Tracking component is responsible for clarifying following objects' property.
+
  Property  | Content |Data Type                                 | Parent Data Type|
 |-------------|--|-------------------------------------------|----|
 | id      | Unique object id over frames|`uuid_msgs::UniqueID`                 |`autoware_perception_msgs::DynamicObject`|
@@ -82,6 +83,7 @@ Tracking component is responsible for clarifying following objects' property.
 | Shape |Shape in 3D bounding box, cylinder or polygon.|`autoware_planning_msgs::Shape`            ||
 ####  Prediction
 Prediction component is responsible for clarifying following objects' property.
+
  Property  | Content |Data Type                                 | Parent Data Type|
 |-------------|--|-------------------------------------------|----|
 | predicted_path      | Predicted furuter paths for an object.|`autoware_perception_msgs::PredictedPath[]	`| |
