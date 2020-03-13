@@ -212,7 +212,7 @@ the difinition of each message is shown in following subsection.
 `autoware_traffic_light_msgs/LampState[] lamp_states`  
 `int32 id`  
 
-###TrafficLightStateArray.msg
+### TrafficLightStateArray.msg
 
 `std_msgs/Header header`  
 `autoware_traffic_light_msgs/TrafficLightState[] states`  
@@ -228,10 +228,53 @@ the difinition of each message is shown in following subsection.
 
 ## autoware vehicle messages
 
-`ControlMode.msg`  
-`Pedal.msg`  
-`Shift.msg`  
-`ShiftStamped.msg`  
-`Steering.msg`  
-`TurnSignal.msg`  
-`VehicleCommand.msg`  
+### ControlMode.msg
+
+`std_msgs/Header header`  
+`uint8 MANUAL = 0`  
+`uint8 AUTO = 1`  
+`uint8 AUTO_STEER_ONLY = 2`  
+`uint8 AUTO_PEDAL_ONLY = 3`  
+`int32 data`
+  
+### Pedal.msg
+
+`std_msgs/Header header`  
+`float64 throttle`  
+`float64 brake`  
+
+### Shift.msg
+
+`uint8 NONE=0`  
+`uint8 PARKING=1`  
+`uint8 REVERSE=2`  
+`uint8 NEUTRAL=3`  
+`uint8 DRIVE=4`  
+`uint8 LOW=5`  
+`int32 data`  
+
+### ShiftStamped.msg
+
+`std_msgs/Header header`  
+`autoware_vehicle_msgs/Shift shift`  
+
+### Steering.msg
+
+`std_msgs/Header header`  
+`float32 data`  
+
+### TurnSignal.msg
+
+`std_msgs/Header header`  
+`uint8 NONE = 0`  
+`uint8 LEFT = 1`  
+`uint8 RIGHT = 2`  
+`uint8 HAZARD = 3`  
+`int32 data`  
+
+### VehicleCommand.msg
+
+`std_msgs/Header header`  
+`autoware_control_msgs/ControlCommand control`  
+`autoware_vehicle_msgs/Shift shift`  
+`int32 emergency`  

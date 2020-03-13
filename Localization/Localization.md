@@ -2,12 +2,22 @@ Localization
 =============
 
 # Overview
-Introduction TBU
-## Role
-
 The localization stack has a role to recognize where ego vehicle is in local coordinates on reference map with sensor and map information.
 
+## Role
+There are two main roles of Localization stack:
+- Integration of each sensor data
+- Estimation of a self-position and a self-velocity
+
 ## Input
+
+| Input Type  | Data Type                                            |
+|-------------|------------------------------------------------------|
+| LiDAR       | `sensor_msgs::PointCoud2`, ``                        |
+| GNSS        | `geometry_msgs::PoseWithCovariance`                  |
+| IMU         | `sensor_msgs::Imu`                                   |
+| Map         | `autoware_lanelet2_msgs::MapBin`                     |
+| Vehicle CAN | `geometry_msgs/TwistWithCovariance twist_covariance` |
 
 ### Sensors
 
@@ -41,8 +51,14 @@ Multiple sensor information described below is considered.
 
 - Point Cloud Map
   
-
 ## Output
+
+| Output Type         | Data Type                                          | Use Cases of the output         |
+|---------------------|----------------------------------------------------|---------------------------------|
+| Vehicle Pose      | `autoware_perception_msgs::DynamicObjectArray`     | Planning                        |
+| Vehicle Twist | `autoware_perception_msgs::TrafficLightStateArray` | Planning                        |
+| Diagnostics | `autoware_perception_msgs::TrafficLightStateArray` | Planning                        |
+
 - Ego Vehicle Pose
 - Ego Vehicle Twist
 - Diagnostics
