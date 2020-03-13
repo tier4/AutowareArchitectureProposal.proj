@@ -8,8 +8,8 @@ Perception stack recognize surrounding of the vehicle in order to achieve safe a
 
 # Role
 Perception stack has 2 main roles.
-- Obstacles recognition
-- Traffic light recognition
+- **Obstacles recognition**
+- **Traffic light recognition**
 
 ## Input
 
@@ -44,18 +44,21 @@ This Perception stack cosists of 2 separated modules and each module can be subd
 
 ### Role
 Recognize obstacles which could potentially move.
-Provide detail information of obstacles which are required in Planning stack.
+Provide detail information of obstacles required in Planning stack.
 
 The motinvation behind recoginizing obstales comes from a requirement for balancing safety and efficiency in autonomous driving.
 If emphasizing safety too much, need to consider every possible movements of obstacles. Autonomous vehicle could end up freezed.
-If emphasizing efficiency too much, think every objects as static obstcles. A car could hit a pedestrian in an intersection because of the efficient drive to a destination.
+If emphasizing efficiency too much, recognize every objects as static obstcles. A car could hit a pedestrian in an intersection because of the efficient drive to a destination.
 Balanced autonomous driving is achieved by recoginizing obstacles.
 
 ### Requirement
 
+![Perception_object_if](/img/Perception_object_if.svg)
+
+
 Need to fill information in `autoware_perception_msgs::DynamicObjectArray`
 
-![Perception_msg](/img/Perception_object_msg.svg)
+![Perception_msg](/img/tmp.svg)
 
 ### Input
 
@@ -63,7 +66,7 @@ Need to fill information in `autoware_perception_msgs::DynamicObjectArray`
 `sensor_msgs::PointCloud2`
 
 LiDAR input is essential input for recognizing objects. Its ability to describe 3D world is utilized in detecting obstacles surrounding of the vehicle.
-#### Camera: optional
+#### Camera (optional)
 `sensor_msgs::Image`
 
 Camera input is used when requiring detail information of obstacles. Fine resolution in camera data can help easily detect objects detail informaiton.
@@ -103,7 +106,7 @@ Mainly using camera data to make sense of traffic light's color.
 
 By using map with traffic light's location, clarify which part of image need to be paid attention.
 
-#### Drive Route: optional
+#### Drive Route (optional)
 `autoware_planning_msgs::Route`
 
 With the route associated with traffic light, improve the accuracy of traffic light recognition.
