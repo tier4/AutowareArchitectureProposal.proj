@@ -65,7 +65,7 @@ Detection component is responsible for clarifying following objects' property.
 | confidence  |Class's confidence. 0.0~1.0.| `float64`              |`autoware_perception_msgs::Semantic`|
 | pose        |Position and orientation. |`geometry_msgs::Pose` |`autoware_perception_msgs::State`|
 | orientation_reliable |Boolean for stable orientation or not.| `bool`           |`autoware_perception_msgs::State`|
-| Shape |Shape in 3D bounding box, cylinder or polygon.|`autoware_planning_msgs::Shape`           ||
+| Shape |Shape in 3D bounding box, cylinder or polygon.|`autoware_perception_msgs::Shape`           |`autoware_perception_msgs::DynamicObject`|
 
 ####  Tracking
 Tracking component deals with time-series processing.
@@ -80,13 +80,14 @@ Tracking component is responsible for clarifying following objects' property.
 | twist_reliable |Boolean for stable twist or not.| `bool`           |`autoware_perception_msgs::State`|
 | acceleration |Acceleration in ROS twist format.|`geometry_msgs::Twist`           |`autoware_perception_msgs::State`|
 | acceleration_reliable |Boolean for stable acceleration or not.|`bool`           |`autoware_perception_msgs::State`|
-| Shape |Shape in 3D bounding box, cylinder or polygon.|`autoware_planning_msgs::Shape`            ||
+| Shape |Shape in 3D bounding box, cylinder or polygon.|`autoware_planning_msgs::Shape`|`autoware_perception_msgs::DynamicObject`|
+
 ####  Prediction
 Prediction component is responsible for clarifying following objects' property.
 
  Property  | Content |Data Type                                 | Parent Data Type|
 |-------------|--|-------------------------------------------|----|
-| predicted_path      | Predicted furuter paths for an object.|`autoware_perception_msgs::PredictedPath[]	`| |
+| predicted_path      | Predicted furuter paths for an object.|`autoware_perception_msgs::PredictedPath[]	`|`autoware_perception_msgs::State` |
 
 Necessary information is defined in `autoware_perception_msg::DynamicObjectArray.msg` with layered msg structure.
 ![Perception_msg](/img/Perception_object_msg.svg)
