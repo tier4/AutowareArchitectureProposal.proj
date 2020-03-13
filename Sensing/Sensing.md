@@ -50,13 +50,10 @@ The components are separated into drivers and preprocessors. Drivers are respons
 
 ## Drivers
 
-Depends on use cases, the sensor configurations are different from each case.
-Here, we describe our implementation design as a reference.
-
 ### LiDAR driver
 
 #### Input
-Row data from LiDAR.
+Raw data from LiDAR.
 
 #### Output
 `velodyne_msgs/VelodyneScan`
@@ -66,7 +63,7 @@ The output is sent to "packets to pointcloud" node in the pointcloud preprocesso
 ### Camera driver
 
 #### Input
-Row data from camera.
+Raw data from camera.
 
 #### Output
 The camera image is output as `sensor_msgs::Image.msg` through the camera driver.
@@ -77,7 +74,7 @@ In the pose estimation process, the image can be used as an optional information
 ### GNSS driver
 
 #### Input
-Row data from GNSS
+Raw data from GNSS
 
 #### Output
 `sensor_msgs::NavSatFix`
@@ -87,7 +84,7 @@ The output is sent to "MGRS conversion" node.
 ### IMU driver
 
 #### Input
-Row data from IMU.
+Raw data from IMU.
 
 #### Output
 `sensor_msgs::Imu`
@@ -96,9 +93,6 @@ The output can be used for "twist estimater" in the localization stack.
 In the twest estimation process, the data is combined with the GNSS data and a twist data with covariance, and the current velocity of the ego-vehicle is estimated.
 
 ## Preprocessors
-
-Depends on the sensors, the required preprocessings are different.
-Here, we describe our implementation design as a reference.
 
 ### Pointcloud
 
@@ -114,7 +108,7 @@ There are 7 preprocess nodes in the pointcloud preprocessor:
 The constitution relation of these nodes is as below.
 ![Sensing_overview](/img/Sensing_overview.svg)
 
-The details of the preprocess nodes are described in each page.
+The details of the preprocess node's implementation are described in each page.
 
 #### Input
 `velodyne_msgs/VelodyneScan`
