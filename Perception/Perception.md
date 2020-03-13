@@ -58,7 +58,7 @@ Balanced autonomous driving is achieved by recoginizing obstacles.
 
 Need to fill information in `autoware_perception_msgs::DynamicObjectArray`
 
-![Perception_msg](/img/tmp.svg)
+![Perception_msg](/img/Perception_object_msg.svg)
 
 ### Input
 
