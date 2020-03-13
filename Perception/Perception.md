@@ -8,8 +8,8 @@ Perception stack recognize surrounding of the vehicle in order to achieve safe a
 
 # Role
 Perception stack has 2 main roles.
-- Obstacles recognition
-- Traffic light recognition
+- **Dynamic Object Recognition**
+- **Traffic Light Recognition**
 
 ## Input
 
@@ -30,31 +30,66 @@ Perception stack has 2 main roles.
 # Design
 
 This Perception stack cosists of 2 separated modules and each module can be subdevided into some components:
-- Dynamic object recognition
+- Dynamic Object Recognition
 	- Detection
 	- Tracking
 	- Prediction
-- Traffic light recognition
-	- Traffic light detection
-	- Traffic light classifier
+- Traffic Light Recognition
+	- Detection
+	- Classification
 
 ![Perception_component](/img/Perception_component.svg)
 
-## Dynamic object recognition
+## Dynamic Object Recognition
 
 ### Role
 Recognize obstacles which could potentially move.
-Provide detail information of obstacles which are required in Planning stack.
+Provide detail information of obstacles required in Planning stack.
 
 The motinvation behind recoginizing obstales comes from a requirement for balancing safety and efficiency in autonomous driving.
 If emphasizing safety too much, need to consider every possible movements of obstacles. Autonomous vehicle could end up freezed.
-If emphasizing efficiency too much, think every objects as static obstcles. A car could hit a pedestrian in an intersection because of the efficient drive to a destination.
+If emphasizing efficiency too much, recognize every objects as static obstcles. A car could hit a pedestrian in an intersection because of the efficient drive to a destination.
 Balanced autonomous driving is achieved by recoginizing obstacles.
 
 ### Requirement
 
-Need to fill information in `autoware_perception_msgs::DynamicObjectArray`
+![Perception_object_if](/img/Perception_object_if.svg)
 
+#### Detection 
+Detection component detects object from sensor data.
+
+Detection component is responsible for clarifying following objects' property.
+| Property  | Definition |Data Type                                 | Parent Data Type|
+|-------------|--|-------------------------------------------|----|
+| type       | Class information|`uint8`                 |`autoware_perception_msgs::Semantic`|
+| confidence  |Class's confidence. 0.0~1.0.| `float64`              |`autoware_perception_msgs::Semantic`|
+| pose        |Position and orientation. |`geometry_msgs::Pose` |`autoware_perception_msgs::State`|
+| orientation_reliable |Boolean for stable orientation or not.| `bool`           |`autoware_perception_msgs::State`|
+| shape |Shape in 3D bounding box, cylinder or polygon.|`autoware_perception_msgs::Shape`           |`autoware_perception_msgs::DynamicObject`|
+
+####  Tracking
+Tracking component deals with time-series processing.
+
+Tracking component is responsible for clarifying following objects' property.
+
+ Property  | Definition |Data Type                                 | Parent Data Type|
+|-------------|--|-------------------------------------------|----|
+| id      | Unique object id over frames|`uuid_msgs::UniqueID`                 |`autoware_perception_msgs::DynamicObject`|
+| pose  |Position and orientaion.| `geometry_msgs::Pose`              |`autoware_perception_msgs::State`|
+| twist        |Velocity in ROS twist format. |`geometry_msgs::Twist` |`autoware_perception_msgs::State`|
+| twist_reliable |Boolean for stable twist or not.| `bool`           |`autoware_perception_msgs::State`|
+| acceleration |Acceleration in ROS twist format.|`geometry_msgs::Twist`           |`autoware_perception_msgs::State`|
+| acceleration_reliable |Boolean for stable acceleration or not.|`bool`           |`autoware_perception_msgs::State`|
+| shape |Shape in 3D bounding box, cylinder or polygon.|`autoware_planning_msgs::Shape`|`autoware_perception_msgs::DynamicObject`|
+
+####  Prediction
+Prediction component is responsible for clarifying following objects' property.
+
+ Property  | Definition |Data Type                                 | Parent Data Type|
+|-------------|--|-------------------------------------------|----|
+| predicted_path      | Predicted furuter paths for an object.|`autoware_perception_msgs::PredictedPath[]	`|`autoware_perception_msgs::State` |
+
+Necessary information is defined in `autoware_perception_msg::DynamicObjectArray.msg` with layered msg structure.
 ![Perception_msg](/img/Perception_object_msg.svg)
 
 ### Input
@@ -63,7 +98,7 @@ Need to fill information in `autoware_perception_msgs::DynamicObjectArray`
 `sensor_msgs::PointCloud2`
 
 LiDAR input is essential input for recognizing objects. Its ability to describe 3D world is utilized in detecting obstacles surrounding of the vehicle.
-#### Camera: optional
+#### Camera (optional)
 `sensor_msgs::Image`
 
 Camera input is used when requiring detail information of obstacles. Fine resolution in camera data can help easily detect objects detail informaiton.
@@ -82,14 +117,18 @@ Recognized objects with predicted paths are used in situations like intersection
 Make sense of traffic light's signal. 
 
 ### Definition
-Not only classifying its color, but also understanding unique signal like arrow signals.
+Not only classifying its color, but also understanding unique signals like arrow signals.
 
 Need to recognize traffic light's signal in order to ensure safe autonomous driving.
 
 ### Requirement
-Need to fill information in `autoware_perception_msg::TrafficLightState.msg`
+Need to fill `lamp_states` in `autoware_perception_msg::TrafficLightState.msg`
 
 ![Perception_msg](/img/Perception_trafficlight_msg.svg)
+
+Property  | Definition |Data Type                                 | Parent Data Type|
+|-------------|--|-------------------------------------------|----|
+| lamp_states      | Seguence of traffic light result from the closest traffic light|`autoware_perception_msgs::LampState[]`                 |`autoware_perception_msgs::TrafficLightState`|
 
 ### Input
 
@@ -103,7 +142,7 @@ Mainly using camera data to make sense of traffic light's color.
 
 By using map with traffic light's location, clarify which part of image need to be paid attention.
 
-#### Drive Route: optional
+#### Drive Route (optional)
 `autoware_planning_msgs::Route`
 
 With the route associated with traffic light, improve the accuracy of traffic light recognition.
