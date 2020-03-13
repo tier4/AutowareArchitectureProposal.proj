@@ -59,7 +59,7 @@ Balanced autonomous driving is achieved by recoginizing obstacles.
 Detection component detects object from sensor data.
 
 Detection component is responsible for clarifying following objects' property.
-| Property  | Content |Data Type                                 | Parent Data Type|
+| Property  | Definition |Data Type                                 | Parent Data Type|
 |-------------|--|-------------------------------------------|----|
 | type       | Class information|`uint8`                 |`autoware_perception_msgs::Semantic`|
 | confidence  |Class's confidence. 0.0~1.0.| `float64`              |`autoware_perception_msgs::Semantic`|
@@ -72,7 +72,7 @@ Tracking component deals with time-series processing.
 
 Tracking component is responsible for clarifying following objects' property.
 
- Property  | Content |Data Type                                 | Parent Data Type|
+ Property  | Definition |Data Type                                 | Parent Data Type|
 |-------------|--|-------------------------------------------|----|
 | id      | Unique object id over frames|`uuid_msgs::UniqueID`                 |`autoware_perception_msgs::DynamicObject`|
 | pose  |Position and orientaion.| `geometry_msgs::Pose`              |`autoware_perception_msgs::State`|
@@ -85,7 +85,7 @@ Tracking component is responsible for clarifying following objects' property.
 ####  Prediction
 Prediction component is responsible for clarifying following objects' property.
 
- Property  | Content |Data Type                                 | Parent Data Type|
+ Property  | Definition |Data Type                                 | Parent Data Type|
 |-------------|--|-------------------------------------------|----|
 | predicted_path      | Predicted furuter paths for an object.|`autoware_perception_msgs::PredictedPath[]	`|`autoware_perception_msgs::State` |
 
@@ -126,7 +126,7 @@ Need to fill `lamp_states` in `autoware_perception_msg::TrafficLightState.msg`
 
 ![Perception_msg](/img/Perception_trafficlight_msg.svg)
 
-Property  | Content |Data Type                                 | Parent Data Type|
+Property  | Definition |Data Type                                 | Parent Data Type|
 |-------------|--|-------------------------------------------|----|
 | lamp_states      | Seguence of traffic light result from the closest traffic light|`autoware_perception_msgs::LampState[]`                 |`autoware_perception_msgs::TrafficLightState`|
 
