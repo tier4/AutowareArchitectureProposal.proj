@@ -1,43 +1,70 @@
 Map
 =============
 
-(注意書き：確認された後は消していただいて結構です。)
-Autoware.autoのドキュメントでは、LocalizationやPerceptionレベルをStack, その下のレベルのまとまりををComponentと呼んでいるようでしたので、呼び方をそちらに合わせています。
-
 # Overview 
 
-このStackが自動運転の中で果たす役割について説明。
+Map is responsible for distributing static information about the environment that autonomous vehicle might drive. Currently, this is separated into two categories:
 
-# Use Cases
+- Geometric information about the environment (pointcloud map)
+- Semantic information about roads (vector map)
 
-このStackが具体的に何を行うのか。どんなインプットを受け、どんなアウトプットを出すのかの概要。
+## Role 
 
-## High-level use cases
+The role of map is to publish map information to other stacks.
 
-上記の"具体的に何を行うのか"のところに記載した項目について、もうすこし詳しく説明
+## Input
 
-## Input use cases / Sensors
+The input to Map stack:
 
-入力が複数ある場合はそれぞれの説明
+| Input      | Data Type | Explanation          | 
+|------------|-----------|----------------------|
+| PointCloud Map file | PCD format | This includes the shape of surrounding environment as collection of raster points, including grounds and buildings. It may include other additional information such as intensity and colors for visualization. |
+| Vector Map file | Lanelet2 format | This should describe all semantic information about roads. This includes road connection, road geometry, and traffic rules. Supporting format may change to OpenDRIVE in the future as discussed in Map WG. |
 
-## Output use cases
+### Output
 
-出力が何/どこに使われるのかの説明
+The table below summarizes the output from Map stack:
 
-# Requirements
-
-implementationで満たす必要があるrequirements=implementationで実装されるべき機能
-
-# Mechanisms
-
-上記のRequirementsを満たすために必要なbehavior, IOなど
+| Output      | Data Type | Explanation          | 
+|-------------|-----------|----------------------|
+| PointCloud map | `sensor_msgs::PointCloud2` | This includes the shape of surrounding environment as collection of points. <br> This is assumed to be used by Localization module for map matching with LiDAR pointclouds. |
+| Vector Map | `autoware_lanelet2_msgs::MapBin` | Lanelet2 map information will be dumped as serialized data, and passed down to other stacks. Then, it will be converted back to internal data structure to enable Lanelet2 library API access to each data. <br> This is assumed to be used by Localization stack for lane-based localization, Perception stack for trajectory prediction of other vehicles, and Planning to plan behavior to follow traffic rules.
 
 # Design
 
-## Components
+Map module consist of two modules: pointcloud map loader and vector map loader. Since map data are converted into binary data array, it is meant to be converted back to internal data structure using appropriate library, for example PCL for pointcloud and Lanelet2 for vector map. The access to each data element is also assumed to be done through map library.
 
-具体的に上記のRequirementを満たすために必要なノードの説明。一旦はノード名だけリストアップし、TBUとしておく。
+![Map_component](/img/Map_overview.svg)
+
+## PointCloud Map Loader
+
+### Role
+
+Role of this module is to output pointcloud map in `map` frame to be used by other stacks.
+
+### Input
+
+- PCD File <br> This contains collection of point coordinates from reference point.
+- YAML File <br> This is meant to contain the coordinate of origin of PCD file in earth frame (either in ECEF or WGS84)
+
+### Output
+
+- pointcloud_map: `sensor_msgs::PointCloud2` <br> This module should output environment information as pointcloud message type. The points in the message should be projected into map frame since the main user is assumed to be Localization stack.
+
+## Lanelet2 Map Loader
+
+### Role
+
+Role of this module is to output road information in map frame to be used by other stacks.
+
+### Input
+
+- Lanelet2 Map File (OSM file) <br> This includes all lane-related information. The specification about the format is specified [here](link_TBU). 
+
+### Output
+
+- vector_map `autoware_lanelet_msgs::MapBin` <br> This contains serialized data of Lanelet2 map. All coordinate data contained in the map should be already projected into map frame using specified ECEF parameter. 
 
 # References
 
-記入できれば記入。不明な場合は一旦TBU.
+TBU

@@ -9,7 +9,7 @@ Control stack generates control signals to drive a vehicle following trajectorys
 
 The input to Control stack:
 
-| Input Type     | Data Type                                  | Explanation                             |
+| Input          | Data Type                                  | Explanation                             |
 |----------------|--------------------------------------------|-----------------------------------------|
 | Trajectory     | `autoware_planning_msgs::Trajectory`       | Target trajectory to follow             |
 | Twist Command  | `geometry_msgs::TwistStamped`              | Current twist of the vehicle            |
@@ -21,14 +21,14 @@ The input to Control stack:
 
 The table below summarizes the output from Control stack:
 
-| Output Type         | Data Type                                  | Explanation                             |
+| Output              | Data Type                                  | Explanation                             |
 |---------------------|--------------------------------------------|-----------------------------------------|
 | Vehicle Command     | autoware_vehicle_msgs/VehicleCommand       | Table Below                             |
 | Turn signal Command | autoware_vehicle_msgs/TurnSignal           | State of turn signal light              |
 
 The main outputs included in Vehicle Command are as follows.
 
-| Output Type             | Data Type         |
+| Output                  | Data Type         |
 |-------------------------|-------------------|
 | Velocity                | std_msgs/Float64  |
 | Acceleration            | std_msgs/Float64  |
@@ -42,6 +42,8 @@ The main outputs included in Vehicle Command are as follows.
 ![Control_component](/img/Control_overview.svg)
 
 ## Trajectory follower
+
+### Role
 
 Generate control command for following given trajectory smoothly.
 
@@ -60,6 +62,8 @@ Generate control command for following given trajectory smoothly.
 - Acceleration command
 
 ## Vehicle command gate
+
+### Role
 
 Systematic post-processing of vehicle control command, independent of trajectory following process
 

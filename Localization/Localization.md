@@ -14,7 +14,7 @@ There are two main roles of Localization stack:
 
 ## Input
 
-| Input Type     | Data Type                                            |
+| Input          | Data Type                                            |
 |----------------|------------------------------------------------------|
 | LiDAR          | `sensor_msgs::PointCoud2`                            |
 | GNSS           | `geometry_msgs::PoseWithCovarianceStamped`           |
@@ -52,7 +52,7 @@ Multiple sensor information described below is considered.
   
 ## Output
 
-| Output Type   | Data Type                         | Use Cases of the output         |
+| Output        | Data Type                         | Use Cases of the output         |
 |---------------|-----------------------------------|---------------------------------|
 | Vehicle Pose  | `tf2_msgs/TFMessage`              | Planning, Control               |
 | Vehicle Twist | `geometry_msgs/TwistStamped`      | Planning, Control               |
@@ -64,6 +64,8 @@ The localization stack provides indispensable information to achieve autonomous 
 ![Localization_component](/img/Localization_overview.svg)
 
 ## Pose estimator
+
+### Role
 
 Pose estimator is a component to estimate ego vehicle pose in local coordinates on reference map. We basically adopt 3D NDT registration method for pose estimation algorithm. In order to realize fully automatic localization, initial pose estimation with GNSS is required. In general, iterative methods such as pointcloud registration method require a good initial guess. Therefore it is preferable to utilize pose output of pose twist fusion filter as initial guess of NDT registration. Also, pose estimator should stop publishing pose when the score of NDT matching is less than threshold to avoid misleading wrong estimation.
 
@@ -94,6 +96,8 @@ Twist estimator is a component to estimate ego vehicle twist for precise velocit
 - Twist with Covariance
 
 ## Pose Twist Fusion Filter
+
+### Role
 
 Pose Twist Fusion Filter is a component to integrate the poses estimated by pose estimator and the twists estimated by twist estimator considering time delay of sensor data. This component improves the robustness, e.g. even when the NDT scan matching  fail, vehicle can keep autonomous driving based on vehicle twist information.
 
