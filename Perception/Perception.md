@@ -97,7 +97,7 @@ Prediction component is responsible for clarifying the following objects' proper
 
 Necessary information is defined in `autoware_perception_msg::DynamicObjectArray.msg` with layered msg structure.
 
-![Perception_msg](/img/Perception_object_msg.svg)
+![Perception_object_msg](/img/Perception_object_msg.svg)
 
 ### Input
 
@@ -139,7 +139,7 @@ It needs to recognize traffic light signals in order to ensure safe autonomous d
 
 Need to fill `lamp_states` in `autoware_traffic_light_msg::TrafficLightState.msg`
 
-![Perception_msg](/img/Perception_trafficlight_msg.svg)
+![Perception_trafficlight_msg_msg](/img/Perception_trafficlight_msg.svg)
 
 Property  | Definition |Data Type                                 | Parent Data Type|
 |-------------|--|-------------------------------------------|----|
