@@ -2,161 +2,111 @@ Localization
 =============
 
 # Overview
-The localization stack has a role to recognize where ego vehicle is in local coordinates on reference map with sensor and map information.
+
+The localization stack has a role to recognize where ego vehicle is in local coordinates on reference map with sensor and map information. Additionally this stack estimates twist of ego vehicle for precise velocity planning and control.
 
 ## Role
+
 There are two main roles of Localization stack:
-- Integration of each sensor data
-- Estimation of a self-position and a self-velocity
+
+- Estimation of a self-position and a self-twist
+- Integration of pose and  twist information estimated by multiple sensors for robustness
 
 ## Input
 
-| Input Type  | Data Type                                            |
-|-------------|------------------------------------------------------|
-| LiDAR       | `sensor_msgs::PointCoud2`, ``                        |
-| GNSS        | `geometry_msgs::PoseWithCovariance`                  |
-| IMU         | `sensor_msgs::Imu`                                   |
-| Map         | `autoware_lanelet2_msgs::MapBin`                     |
-| Vehicle CAN | `geometry_msgs/TwistWithCovariance twist_covariance` |
+| Input Type     | Data Type                                            |
+|----------------|------------------------------------------------------|
+| LiDAR          | `sensor_msgs::PointCoud2`                            |
+| GNSS           | `geometry_msgs::PoseWithCovarianceStamped`           |
+| IMU            | `sensor_msgs::Imu`                                   |
+| Pointcloud Map | `sensor_msgs::PointCoud2`                            |
+| Vehicle CAN    | `geometry_msgs::TwistStamped`                        |
 
 ### Sensors
 
-Multiple sensor information described below is considered.   
+Multiple sensor information described below is considered.
 
-- Lidar
+- LiDAR
 
-  Point cloud resistration method such as ICP, NDT estimates ego vehicle pose by refining the relative transformation between 3D point cloud from lidar with reference point cloud map.
+  Pointcloud registration method such as ICP, NDT estimates ego vehicle pose by refining the relative transformation between 3D point cloud from lidar with reference pointcloud map.
 
 - GNSS
 
-  The pose information recieved from GNSS is projected to local coordinates on reference map.
-  Intial pose is estimated by refining the projected GNSS pose.
-
-- Vehicle CAN
-
-  Vehicle CAN outputs useful information such as vehicle velocity, steering wheel angle to estimate vehicle twist.
-  We adapt vehicle velocity from vehicle CAN as vehicle twist.
+  The pose information received from GNSS is projected to local coordinates on reference map. Initial pose is estimated by refining the projected GNSS pose.
 
 - IMU
 
-  Angular velocity recieved from IMU has a small bias.
-  We adopt angular velocity from IMU as vehicle twist.
+  Angular velocity received from IMU has a small bias. We adopt angular velocity from IMU as vehicle twist.
+
+- Vehicle CAN
+
+  Vehicle CAN outputs useful information such as vehicle velocity, steering wheel angle to estimate vehicle twist. We adapt vehicle velocity from vehicle CAN as vehicle twist.
 
 - Camera
 
-  We do not implement camera based pose or twist estimator.
-  You can easily integrate image based estimator such as visual odometry, visual slam into the localization stack.
+  We do not implement camera based pose or twist estimator. You can easily integrate image based estimator such as visual odometry, visual slam into the localization stack.
 
 ### Reference Map
 
-- Point Cloud Map
+- Pointcloud Map
   
 ## Output
 
-| Output Type         | Data Type                                          | Use Cases of the output         |
-|---------------------|----------------------------------------------------|---------------------------------|
-| Vehicle Pose      | `autoware_perception_msgs::DynamicObjectArray`     | Planning                        |
-| Vehicle Twist | `autoware_perception_msgs::TrafficLightStateArray` | Planning                        |
-| Diagnostics | `autoware_perception_msgs::TrafficLightStateArray` | Planning                        |
+| Output Type   | Data Type                         | Use Cases of the output         |
+|---------------|-----------------------------------|---------------------------------|
+| Vehicle Pose  | `tf2_msgs/TFMessage`              | Planning, Control               |
+| Vehicle Twist | `geometry_msgs/TwistStamped`      | Planning, Control               |
 
-- Ego Vehicle Pose
-- Ego Vehicle Twist
-- Diagnostics
+# Design
 
-# Module Design
-TBU
+The localization stack provides indispensable information to achieve autonomous driving. Therefore it is not preferable to depend on only one estimator component for output of the localization stack. We insert pose twist fusion filter after pose and twist estimator to improve robustness of the estimated pose and twist. Also, developers can easily add new estimator based on another sensor, e.g. camera based visual SLAM and visual odometry, into the localization stack.  The localization stack should output the transformation from map to base_link as /tf to utilize tf interpolation system. 
 
-![Localization_component](/img/Localization_component.svg)
+![Localization_component](/img/Localization_overview.svg)
 
 ## Pose estimator
-* Role
 
-  estimate initial pose of ego vehicle
+Pose estimator is a component to estimate ego vehicle pose in local coordinates on reference map. We basically adopt 3D NDT registration method for pose estimation algorithm. In order to realize fully automatic localization, initial pose estimation with GNSS is required. In general, iterative methods such as pointcloud registration method require a good initial guess. Therefore it is preferable to utilize pose output of pose twist fusion filter as initial guess of NDT registration. Also, pose estimator should stop publishing pose when the score of NDT matching is less than threshold to avoid misleading wrong estimation.
 
-  estimate relative pose of ego vehicle based on estimated initial pose
+### Input
 
-* Input
-  * Lidar
-  * GNSS
-  * Camera (not implemented yet)
-  * Point Cloud Map
-* Ouput
-  * Initial Pose
-  * Pose with Covariance
-  * Pose Estimator Diagnostics
+- LiDAR
+- GNSS
+- Camera (not implemented yet)
+- Pointcloud Map
 
-* Implemented Feature
-  * Pose Initializer
-
-    - Automatic initial self position estimation by GNSS + Monte-Carlo method
-
-  * NDT scan matcher
-    
-    - Uses an estimated value of EKF as an initial position of the scan matching i.e. if scan matching was failed, localization can be returned
-    
-    - Performance and accuracy are improved (Open-MP implementation, accuracy improvement of the initial position, improvement of the  gradient method, distortion correction of pointclouds, and etc.)
-
-  * Scan matching failure judgement
-    
-    - Monitors statuses of scan matching based on a score
-
-    - If score is lower than a threshold, an estimated result isn’t output
-    
+### Ouput
+- Pose with Covariance
+- Pose Estimator Diagnostics
 
 
-  
-## Twist Estimator 
-* Role
-  
-  estimate ego vehicle twist i.e. velocity and angular velocity of ego vehicle.
+## Twist Estimator
 
-* Input
-  * Vehicle CAN
-  * IMU
-  * Camera (not implemeted yet) 
-  
-* Ouput
-  * Twist with Covariance
-  * Twist Estimator Diagnostics
+Twist estimator is a component to estimate ego vehicle twist for precise velocity planning and control. The  x-axis velocity and z-axis angular velocity in vehicle twist is mainly considered. Also, this information can be odometry information. These values are preferable to be noise-free and unbiased.
 
-* Impremented Feature
-  * IMU-VehicleTwist fusion
-    * Uses a translation velocity of CAN and yaw rate of IMU
+### Input
+
+- Vehicle CAN
+- IMU
+- Camera (not implemented yet)
+
+### Output
+
+- Twist with Covariance
 
 ## Pose Twist Fusion Filter
-* Role
 
-  integrate the poses estimated by pose eatimator and the twists estimated by twist estimator
+Pose Twist Fusion Filter is a component to integrate the poses estimated by pose estimator and the twists estimated by twist estimator considering time delay of sensor data. This component improves the robustness, e.g. even when the NDT scan matching  fail, vehicle can keep autonomous driving based on vehicle twist information.
 
-* Input
-  * Initial Pose
-  * Pose with Covariance
-  * Twist with Covariance
+### Input
 
-* Ouput
-  * Ego Vehicle Pose (/tf from map frame to base_link frame)
-  * Ego Vehicle Twist
-  * Pose Twist Fusion Filter Diagnostics
+- Initial Pose
+- Pose with Covariance
+- Twist with Covariance
 
-* Implemented Feature
-  * EKF localizer
-    * Integrates the estimated self position of the scan matching and the twist of CAN＋IMU
-    * If scan matching breaks down, the vehicle can drive a certain distance with odometry only
+### Output
 
-## Localizer Diagnostics
-* Role
-
-  aggeregate diagnostics information from each localization module to stop autonomous driving system safely
-
-  when the estimated pose or twist do not provide assuarance sufficient for autonomous driving.
-
-* Input
-  * Pose Estimator Diagnostics
-  * Twist Estimator Diagnostics
-  * Pose Twist Fusion Filter Diagnostics
-
-* Ouput
-  * Localization Diagnostics
+- Ego Vehicle Pose (/tf from map frame to base_link frame)
+- Ego Vehicle Twist
 
 # References
 TBU

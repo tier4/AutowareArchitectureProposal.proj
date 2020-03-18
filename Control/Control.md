@@ -1,43 +1,83 @@
 Control
 =============
 
-(注意書き：確認された後は消していただいて結構です。)
-Autoware.autoのドキュメントでは、LocalizationやPerceptionレベルをStack, その下のレベルのまとまりををComponentと呼んでいるようでしたので、呼び方をそちらに合わせています。
-
 # Overview 
 
-このStackが自動運転の中で果たす役割について説明。
+Control stack generates control signals to drive a vehicle following trajectorys considering vehicle dynamics.
 
-# Use Cases
+## Input
 
-このStackが具体的に何を行うのか。どんなインプットを受け、どんなアウトプットを出すのかの概要。
+The input to Control stack:
 
-## High-level use cases
+| Input Type     | Data Type                                  | Explanation                             |
+|----------------|--------------------------------------------|-----------------------------------------|
+| Trajectory     | `autoware_planning_msgs::Trajectory`       | Target trajectory to follow             |
+| Twist Command  | `geometry_msgs::TwistStamped`              | Current twist of the vehicle            |
+| Steer Command  | `autoware_vehicle_msgs::Steering`          | Current steer of the vehicle            |
+| Engage Command | `std_msgs::Bool`                           | Whether to send commands to the vehicle |
+| Remote Command | -                                          | Control command from remote             |
 
-上記の"具体的に何を行うのか"のところに記載した項目について、もうすこし詳しく説明
+### Output
 
-## Input use cases / Sensors
+The table below summarizes the output from Control stack:
 
-入力が複数ある場合はそれぞれの説明
+| Output Type         | Data Type                                  | Explanation                             |
+|---------------------|--------------------------------------------|-----------------------------------------|
+| Vehicle Command     | autoware_vehicle_msgs/VehicleCommand       | Table Below                             |
+| Turn signal Command | autoware_vehicle_msgs/TurnSignal           | State of turn signal light              |
 
-## Output use cases
+The main outputs included in Vehicle Command are as follows.
 
-出力が何/どこに使われるのかの説明
-
-# Requirements
-
-implementationで満たす必要があるrequirements=implementationで実装されるべき機能
-
-# Mechanisms
-
-上記のRequirementsを満たすために必要なbehavior, IOなど
+| Output Type             | Data Type         |
+|-------------------------|-------------------|
+| Velocity                | std_msgs/Float64  |
+| Acceleration            | std_msgs/Float64  |
+| Steering angle          | std_msgs/Float64  |
+| Steering angle velocity | std_msgs/Float64  |
+| Gear shifting command   | std_msgs/Int32    |
+| Emergency command       | std_msgs/Int32    |
 
 # Design
 
-## Components
+![Control_component](/img/Control_overview.svg)
 
-具体的に上記のRequirementを満たすために必要なノードの説明。一旦はノード名だけリストアップし、TBUとしておく。
+## Trajectory follower
+
+Generate control command for following given trajectory smoothly.
+
+### Input
+
+- Target trajectory
+	- Target trajectory includes target position, target orientation, target twist, target acceleration
+- Current velocity
+- Current steering
+
+### Output
+
+- Steering angle command
+- Steering angular velocity command
+- Velocity command 
+- Acceleration command
+
+## Vehicle command gate
+
+Systematic post-processing of vehicle control command, independent of trajectory following process
+
+- Reshape the vehicle control command
+- Select the command values (Trajectory follow command, Remote manual command)
+- Observe the maximum speed limit
+- Stop urgently when emergency command is received
+
+### Input
+
+- Control commands from Trajectory Follower module
+- Remote Control commands
+- Engage Commands
+
+### Output
+
+- Control signal for vehicles
 
 # References
 
-記入できれば記入。不明な場合は一旦TBU.
+TBU
