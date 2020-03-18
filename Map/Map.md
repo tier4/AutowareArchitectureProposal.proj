@@ -59,7 +59,7 @@ Role of this module is to output road information in map frame to be used by oth
 
 ### Input
 
-- Lanelet2 Map File (OSM file) <br> This includes all lane-related information. The specification about the format is specified [here](link_TBU). 
+- Lanelet2 Map File (OSM file) <br> This includes all lane-related information. The specification about the format is specified [here(TBU)](). 
 
 ### Output
 
