@@ -9,7 +9,7 @@ Perception stack recognizes the surrounding of the vehicle in order to achieve s
 # Role
 Perception stack has 2 main roles.
 
-- **Dynamic Object Recognition**
+- **Object Recognition**
 - **Traffic Light Recognition**
 
 ## Input
@@ -32,7 +32,7 @@ Perception stack has 2 main roles.
 
 This Perception stack consists of 2 separated modules and each module can be subdivided into following components:
 
-- Dynamic Object Recognition
+- Object Recognition
 	- Detection
 	- Tracking
 	- Prediction
@@ -48,7 +48,7 @@ This Perception stack consists of 2 separated modules and each module can be sub
 - Enable complex autonomous driving use cases by including information like objects' future movement.
 - Depends on technology development in the future, this structure might be changed (e.g. E2E).
 
-## Dynamic Object
+## Object Recognition
 
 ### Role
 Recognize obstacles that could potentially move. Provide detail information for obstacles required in the Planning stack.
