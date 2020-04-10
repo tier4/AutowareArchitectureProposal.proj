@@ -17,7 +17,7 @@ These are high-level roles of Planning stack:
 
 ## Input
 
-The input messages to Planning stack:
+The table below summarizes the overal input into Planning stack:
 
 | Input   | Data Type  | Explanation                             |
 |---------|------------|-----------------------------------------|
@@ -28,7 +28,7 @@ The input messages to Planning stack:
 
 ## Output
 
-The table below summarizes the output from Planning stack:
+The table below summarizes the final output from Planning stack:
 
 | Output  | Data Type  | Explanation                             |
 |---------|------------|-----------------------------------------|
