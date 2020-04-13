@@ -1,0 +1,2 @@
+## Lanelet Format for Autoware
+Autoware uses extended Lanelet2 Format for HD Map, which means you need to add some tags to default OSM file if you want to fully use Lanelet2 maps. For details about custom tags, please refer to this [document](./docs/lanelet2_format_extension.md).
