@@ -1,6 +1,6 @@
 # Planning Architecture Rationale
 
-## Requirements
+## Requirements for Planning
 Plannig architecture must be able to support any functions required to achieve the overall use case stated in [Overview](/Overview.md)
 
 This includes: 
@@ -30,7 +30,7 @@ The planner is decomposed into three layers: mission, behavior, and motion. Miss
 **cons** 
 * Behavior layer can only make "conservative" decisions. Since the behavior layer has no way of knowing the actual trajectory that is calculated by following motion layer, the behavior layer cannot be certain about the validity of decisions. For example, the behavior planner can command lane change only when it is obvious that there is no obstacle in the target lane, and it is not possible to do "aggressive" lane change as an architecture.
 
-### CMU Doctor Thesis by 
+### Unified Behavior and Motion
 This [paper](https://www.researchgate.net/publication/315067229_Improved_Trajectory_Planning_for_On-Road_Self-Driving_Vehicles_Via_Combined_Graph_Search_Optimization_Topology_Analysis) reviews planning architecture used in the Darpa Urban Challenge and addresses the demerit of splitting behavior layer and motion layer. It also proposes an algorithm to handle decision making and trajectory optimization simultaneously.
 
 **pros** 

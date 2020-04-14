@@ -1,12 +1,11 @@
 Sensing
 =========
 
-# Overview 
+## Overview 
 
 For autonomous driving, a vehicle needs to be aware of its own state and surrouding environment. Sensing stack collects the environment information through various sensors and manipulates data appropriately to be used by other stacks.
 
 ![Sensing_overview](/img/Sensing_overview.svg)
-
 
 ## Role
 
