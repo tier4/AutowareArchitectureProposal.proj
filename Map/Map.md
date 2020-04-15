@@ -2,15 +2,44 @@ Map
 =============
 
 # Overview 
-
 Map is responsible for distributing static information about the environment that autonomous vehicle might drive. Currently, this is separated into two categories:
 
 - Geometric information about the environment (pointcloud map)
 - Semantic information about roads (vector map)
 
-## Role 
+## Use Cases
 
-The role of map is to publish map information to other stacks.
+### Pointcloud Map
+Uses cases of the maps are the following:
+* Localization: Autoware must always be aware of its position in Earth frame. Poincloud map is used for local localization with LiDAR based localization algorithm such as NDT matching.
+
+### Vector Map
+Vector map provides sematinc information about roads and is used for various uses cases in both Planning and Perception. Note that some of the following use cases might be removed as performance of perception improves. For example, retrieving lane shapes and detecting traffic lights can be done online e.g. using camera images. However, with consideration of [spoofing attacks](https://www.nassiben.com/mobilbye) and reliablilty of current Perception stack, following uses cases must be supported by vector map for now.
+
+* Planning:
+  * Calculating route from start to goal
+  * Creating trajectory along lane during lane following
+  * Driving according to traffic rules, such as speed limit, traffic light, and right of way.
+* Perception: 
+  * predicting other participant's trajectory along lanes
+  * Detecting traffic lights
+
+
+## Requirements
+The role of map is to publish map information to other stacks. In order to satisfy use cases above, the following requirements must be met.
+
+### PointCloud map 
+  * The map should provide goemetric information of surrounding environment that includes any region 200m away from any possible route that the vehicle might take.
+  * Resolution of pointcloud map must be at least 0.2m. (from past experience)
+  * Size of the map should be less than 1GB in binary format. (Limit of ROS messsage)
+  * Pointcloud must be georeferenced.
+
+### Vector Map
+  * The map should be georeferenced.
+  * The map should include region within 200m away from any possible route that autonomous vehicle might drive with following information:
+    * Routing: the map should be able to retrieve next lane, previous lane, right lane, and left lane of a lane with availablility of lane change.
+    * Geometry: shape and position of lanes, traffic lights, stop lines, crosswalk, parking space, and parking lots.
+    * Traffic rules: the map should be able to retrieve traffic lights, stop lines, traffic signs, right of way, speed limit, direction of lanes, and any other traffic rules from associated lane.
 
 ## Input
 
@@ -51,20 +80,13 @@ Role of this module is to output pointcloud map in `map` frame to be used by oth
 
 - pointcloud_map: `sensor_msgs::PointCloud2` <br> This module should output environment information as pointcloud message type. The points in the message should be projected into map frame since the main user is assumed to be Localization stack.
 
-## Lanelet2 Map Loader
+## Vector Map Loader
 
 ### Role
-
-Role of this module is to output road information in map frame to be used by other stacks.
+Role of this module is to semantic road information in map frame to be used by other stacks.
 
 ### Input
-
-- Lanelet2 Map File (OSM file) <br> This includes all lane-related information. The specification about the format is specified [here(TBU)](). 
+- Lanelet2 Map File (OSM file) <br> This includes all lane-related information. The specification about the format is specified [here](./VectorcMap/AutowareLanelet2Format.md). 
 
 ### Output
-
 - vector_map `autoware_lanelet_msgs::MapBin` <br> This contains serialized data of Lanelet2 map. All coordinate data contained in the map should be already projected into map frame using specified ECEF parameter. 
-
-# References
-
-TBU

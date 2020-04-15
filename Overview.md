@@ -25,7 +25,7 @@ An example would be the following:
 
 
 **Description:** Travelling from to grocery store in the same city  
-**Actors:** User, Fleet Management System(FMS), Vehicle with Autoware installed (Autoware)  
+**Actors:** User, Vehicle with Autoware installed (Autoware)  
 **Assumption:**  
 The environment is assumed to be 
 - urban or suburban area that is less than 1 km^2.
@@ -33,7 +33,7 @@ The environment is assumed to be
 - Accurate HD map for the environment is available
 
 **Basic Flow:**  
-1. **User:** starts the FMS app from phone and press "Summon", and the app sends user’s GPS location to Autoware
+1. **User:** starts a browser and access Autoware page from phone. Press "Summon", and the app sends user’s GPS location to Autoware
 2. **Autoware:** plans the route to the user’s location, and show it on the user’s phone
 3. **User:** confirms the route and press “Engage”
 4. **Autoware:** starts driving autonomously to the requested location and pulls over to the side of the road
