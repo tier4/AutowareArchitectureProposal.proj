@@ -5,8 +5,8 @@ Detection in Object Recognition detects objects by processing sensor data. Detec
 
 ## Input
 
-| Input       | Data Type
-|-------------|-------------------------------------------|-|
+| Input       | Data Type|
+|-------------|-------------------------------------------|
 | LiDAR       | `sensor_msgs::PointCoud2`                 |
 | Camera      | `sensor_msgs::Image`                      |
 | Camera info       | `sensor_msgs::CameraInfo`          |
@@ -14,7 +14,7 @@ Detection in Object Recognition detects objects by processing sensor data. Detec
 
 ## Output
 
-| Output       | Data Type| Output Module | TF Frame
+| Output       | Data Type| Output Module | TF Frame|
 |----|-|-|-|
 |Dynamic Objects|`autoware_perception_msgs::DynamicObjectArray`|Object Recognition: Tracking| `base_link`|
 
