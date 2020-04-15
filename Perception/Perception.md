@@ -31,7 +31,7 @@ Perception stack has 2 main roles.
 | Traffic Light State | `autoware_perception_msgs::TrafficLightStateArray` | This includes the status of traffic light signals in array format.  The closest traffic signal status is in front of the array, the f arrest one is in the end of the array.                         |
 
 ## Usecases
-| Usecase              | Requirement in `Perception` | Output         |How it is used|
+| Usecase| Requirement in `Perception` | Output         |How it is used|
 |---------------------|----------------------------------------------------|---------------------------------|-|
 | Changing lane      | **Object Recognition-Prediction**:<br>-  Predicted paths of objects on target lane     | Planning|To decide `when` and `where` changing lane depending on objects' predicted paths. <br>`when`: which timing to trigger lane change  depending on obstacles position and velocity.  <br> `where`: where to go depending on objects' position and shape. |
 | Turning at intersection | **Object Recognition- Prediction**:<br>- Predicted paths of objects at an intersection |Planning |To decide `when` turning at an intersection depending on objects' predicted path.  <br>`when`: which timing to turning depending on objects' future paths.|
