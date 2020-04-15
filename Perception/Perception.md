@@ -12,21 +12,36 @@ Perception stack has 2 main roles.
 - **Object Recognition**
 - **Traffic Light Recognition**
 
+
+
 ## Input
 
-| Input       | Data Type                                 |
-|-------------|-------------------------------------------|
-| LiDAR       | `sensor_msgs::PointCoud2`                 |
-| Camera      | `sensor_msgs::Image`                      |
-| Map         | `autoware_lanelet2_msgs::MapBin`          |
-| Drive Route | `autoware_planning_msgs::Route`           |
+| Input       | Data Type                                 |Explanation|
+|-------------|-------------------------------------------|-|
+| LiDAR       | `sensor_msgs::PointCoud2`                 |Pointcloud data captured by LiDAR comes from Sensing stack. Perception stack is allowed to choose subscribing to pointcloud with/without background depending on algorithms.|
+| Camera      | `sensor_msgs::Image`                      |Image data captured by Camera comes from Sensing stack. CameraInfo contains intrinsic parameters for the image. |
+| Map         | `autoware_lanelet2_msgs::MapBin`          |This is Map data in lanelet2 format. Map stack has utility packages for processing map data.|
+| Drive Route | `autoware_planning_msgs::Route`           |This is route information for reaching  a destination. In Perception stack, it is used for detecting the traffic lights associated with route information. |
 
 ## Output
 
-| Output              | Data Type                                          | Use Cases of the output         |
+| Output              | Data Type                                          | Explanation         |
 |---------------------|----------------------------------------------------|---------------------------------|
-| Dynamic Object      | `autoware_perception_msgs::DynamicObjectArray`     | Planning                        |
-| Traffic Light State | `autoware_perception_msgs::TrafficLightStateArray` | Planning                        |
+| Dynamic Object      | `autoware_perception_msgs::DynamicObjectArray`     | This includes obstacles' information. An obstacle is described by 4 major properties; State, Shape, Semantic and PredictedPath. Detail design for these properties is in below  Object Recognition section.                        |
+| Traffic Light State | `autoware_perception_msgs::TrafficLightStateArray` | This includes the status of traffic light signals in array format.  The closest traffic signal status is in front of the array, the f arrest one is in the end of the array.                         |
+
+## Usecases
+| Usecase              | Requirement in `Perception` | Output         |How it is used|
+|---------------------|----------------------------------------------------|---------------------------------|-|
+| Changing lane      | **Object Recognition-Prediction**: Predicted paths of objects on target lane     | Planning|To decide `when` and `where` changing lane depending on objects' predicted paths.`when`: which timing to trigger lane change  depending on obstacles position and velocity`where`: where to go depending on objects' position and shape. |
+| Turning at intersection | **Object Recognition- Prediction**: Predicted paths of objects at an intersection |Planning |To decide `when` turning at an intersection depending on objects' predicted path. `when`: which timing to turning depending on objects' future paths.|
+|Avoiding parked vehicles |**Object Recognition- Detection**: Objects' class, shape and, position**Object Recognition- Tracking**: Objects' velocity|Planning|To decide `where` to avoid objects depending on objects' properties.`where`: where to avoid objects in given area depending on objects' class, velocity, shape and position.|
+| Stopping at a crosswalk when pedestrians are walking|**Object Recognition- Prediction**: Predicted paths of objects at a crosswalk |Planning|To decide where stopping based on pedestrians' position and velocity.|
+|Passing intersection without traffic lights|**Object Recognition- Detection**: Objects' shape**Object Recognition- Prediction**: Predicted paths of objects at an intersection |Planning|	To decide `when` passing intersection depending on objects' properties. `when`: which timing to pass intersection while negotiating with other objects based on objects' properties like, predicted paths and shape.|
+|Merging into another lane| **Object Recognition- Prediction**: Predicted paths of objects at  merging area|Planning|To decide when merging into another lane depending objects' predicted paths.|
+|Taking over Pedestrian/Cyclists|**Object Recognition- Detection**: Objects' shape, position and orientation. **Object Recognition- Tracking**: Objects' velocity |Planning|To decide `when` and `where` taking over depending on objects' predicted paths.`when`: which timing to taking over depending on obstacles position and velocity. `where`: where to go depending on objects' position and shape. |
+|Stopping/yielding to an obstacle|**Object Recognition- Detection**: Objects' shape, position, and orientation. **Object Recognition- Tracking**: Objects' velocity |Planning|To decide where to stop/yield based on pedestrians' position and velocity.|
+|Passing intersection with traffic lights                      | **Traffic Light Recognition- Classification**: Traffic signal status|Planning|To decide whether to go or stop based on traffic signal status.|
 
 # Design
 
@@ -59,7 +74,7 @@ The motivation behind recognizing obstacles comes from a requirement for balanci
 
 ![Perception_object_if](/img/Perception_object_if.svg)
 
-#### Detection 
+#### Detection
 
 Detection component detects objects from sensor data.
 
@@ -69,7 +84,7 @@ Detection component is responsible for clarifying the following objects' propert
 |-------------|--|-------------------------------------------|----|
 | type       | Class information|`uint8`                 |`autoware_perception_msgs::Semantic`|
 | confidence  |Class's confidence 0.0~1.0.| `float64`              |`autoware_perception_msgs::Semantic`|
-| pose        |Position and orientation |`geometry_msgs::Pose` |`autoware_perception_msgs::State`|
+| pose        |Position and orientation |`geometry_msgs::PoseWithCovariance` |`autoware_perception_msgs::State`|
 | orientation_reliable |Boolean for stable orientation or not| `bool`           |`autoware_perception_msgs::State`|
 | shape |Shape in 3D bounding box, cylinder or polygon|`autoware_perception_msgs::Shape`           |`autoware_perception_msgs::DynamicObject`|
 
@@ -82,9 +97,9 @@ Tracking component is responsible for clarifying the following objects' property
 | Property  | Definition |Data Type                                 | Parent Data Type|
 |-------------|--|-------------------------------------------|----|
 | id      | Unique object id over frames|`uuid_msgs::UniqueID`                 |`autoware_perception_msgs::DynamicObject`|
-| twist        |Velocity in ROS twist format. |`geometry_msgs::Twist` |`autoware_perception_msgs::State`|
+| twist        |Velocity in ROS twist format. |`geometry_msgs::TwistWithCovariance` |`autoware_perception_msgs::State`|
 | twist_reliable |Boolean for stable twist or not.| `bool`           |`autoware_perception_msgs::State`|
-| acceleration |Acceleration in ROS twist format.|`geometry_msgs::Twist`           |`autoware_perception_msgs::State`|
+| acceleration |Acceleration in ROS accel format.|`geometry_msgs::AccelWithCovariance`           |`autoware_perception_msgs::State`|
 | acceleration_reliable |Boolean for stable acceleration or not.|`bool`           |`autoware_perception_msgs::State`|
 
 ####  Prediction
@@ -127,7 +142,7 @@ Recognized objects with predicted paths are used in situations like intersection
 
 ## Traffic light recognition
 
-Make sense of traffic light's signal. 
+Make sense of traffic light's signal.
 
 ### Definition
 
@@ -147,7 +162,7 @@ Property  | Definition |Data Type                                 | Parent Data 
 
 ### Input
 
-#### Camera 
+#### Camera
 
 `sensor_msgs::Image`
 
@@ -170,7 +185,3 @@ With the route associated with the traffic light, improve the accuracy of traffi
 `autoware_perception_msgs::TrafficLightStateArray`
 
 Planning stack receives data from this module. It changes the vehicle maneuver based on the result of traffic light recognition.
-
-# References
-
-TBU
