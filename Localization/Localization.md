@@ -54,9 +54,19 @@ Multiple sensor information described below is considered.
 
 | Output        | Data Type                         | Use Cases of the output         |
 |---------------|-----------------------------------|---------------------------------|
-| Vehicle Pose  | `tf2_msgs/TFMessage`              | Planning, Control               |
+| Vehicle Pose  | `tf2_msgs/TFMessage`              | Perception, Planning, Control   |
 | Vehicle Twist | `geometry_msgs/TwistStamped`      | Planning, Control               |
 
+## Usecases
+
+| Usecase | Requirement in `Localization` | Output | How it is used |
+|-|-|-|-|
+| Passing intersection<br>with traffic lights  | Self pose on the map | Perception | To detect traffic lights associated  with the lane<br>where ego vehicle is in the camera image |
+| Changing lane | Self pose on the map | Perception<br>Planning | To predict object motion on the lane<br>with lane information<br><br>To recognize drivable area based on lane information<br>and the position where ego vehicle is |
+| Stopping at crosswalk<br>when pedestrian is walking | Self pose on the map | Perception | To recognize where crosswalk is<br>based on ego vehicle position and map information |
+| Reaching a goal<br>by driving on lanes | Self pose on the map | Planning | To plan the global path from the position where ego vehicle is to<br>a goal with lane information |
+| Driving<br>with following speed limits | Self pose on the map<br>Self twist | Planning | To recognize speed limit on the lane<br>where ego vehicle is<br><br>To plan target velocity<br>based on velocity of ego vehicle and speed limit |
+| Driving<br>on the target lane | Self pose on the map<br>Self twist | Control | To calculate target throttle/brake value and steering angle<br>based on pose and twist of ego vehicle and target trajectory |
 # Design
 
 The localization stack provides indispensable information to achieve autonomous driving. Therefore it is not preferable to depend on only one estimator component for output of the localization stack. We insert pose twist fusion filter after pose and twist estimator to improve robustness of the estimated pose and twist. Also, developers can easily add new estimator based on another sensor, e.g. camera based visual SLAM and visual odometry, into the localization stack.  The localization stack should output the transformation from map to base_link as /tf to utilize tf interpolation system. 
