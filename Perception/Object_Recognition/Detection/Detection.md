@@ -1,0 +1,40 @@
+Detection
+=====
+# Role
+Detection in Object Recognition detects objects by processing sensor data. Detection is triggered on every sensor data callback independently from previous detection results. The Detection module is responsible for calculating objects' pose, class, and shape.
+
+## Input
+
+| Input       | Data Type
+|-------------|-------------------------------------------|-|
+| LiDAR       | `sensor_msgs::PointCoud2`                 |
+| Camera      | `sensor_msgs::Image`                      |
+| Camera info       | `sensor_msgs::CameraInfo`          |
+|TF  | `tf2_msgs::TFMessage`           |
+
+## Output
+
+| Output       | Data Type| Output Module | TF Frame
+|----|-|-|-|
+|Dynamic Objects|`autoware_perception_msgs::DynamicObjectArray`|Object Recognition: Tracking| `base_link`|
+
+## Design
+The Detection module is designed to adopt various detection algorithms.
+![msg](/img/ObjectDetectionDesign.png)
+This is one of our sample implementations for the Detection module.
+![msg](/img/ObjectDetectionDesign2.png)
+
+
+## Requirement in Output
+
+![msg](/img/ObjectDetectionRequirement.png)
+
+Designated objects' properties in `autoware_perception_msgs::DynamicObject` need to be filled in the Detection module before passing to the Tracking module.
+
+| Property  | Definition |Data Type                                 | Parent Data Type|
+|-------------|--|-------------------------------------------|----|
+| type       | Class information|`uint8`                 |`autoware_perception_msgs::Semantic`|
+| confidence  |Class's confidence 0.0~1.0.| `float64`              |`autoware_perception_msgs::Semantic`|
+| pose        |Position and orientation |`geometry_msgs::PoseWithCovariance` |`autoware_perception_msgs::State`|
+| orientation_reliable |Boolean for stable orientation or not| `bool`           |`autoware_perception_msgs::State`|
+| shape |Shape in 3D bounding box, cylinder or polygon|`autoware_perception_msgs::Shape`           |`autoware_perception_msgs::DynamicObject`|
