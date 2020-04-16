@@ -6,18 +6,18 @@ Detection module in Traffic Light Recognition finds traffic lights' region of in
 
 ## Input
 
-| Input       | Data Type
-|-|-|
-| Camera       | `sensor_msgs::Image`|
-|Camera info | `sensor_msgs::CameraInfo`|
-|Map | `autoware_lanelet2_msgs::MapBin`|
-|TF | `tf2_msgs::TFMessage`|
+| Input       | Data Type| Topic|
+|-|-|-|
+| Camera       | `sensor_msgs::Image`|/sensing/camera/*/image_raw|
+|Camera info | `sensor_msgs::CameraInfo`|/sensing/camera/*/camera_info|
+|Map | `autoware_lanelet2_msgs::MapBin`|/map/vecotor_map|
+|TF | `tf2_msgs::TFMessage`|/tf|
 
 ## Output
 
-| Output       | Data Type| Output Module |
-|----|-|-|
-|Cropped traffic light ROI information|`autoware_perception_msgs::TrafficLightRoiArray.msg`|Traffic LIght Recognition: Classification|
+| Output       | Data Type| Output Module |Topic|
+|----|-|-|-|
+|Cropped traffic light ROI information|`autoware_perception_msgs::TrafficLightRoiArray.msg`|Traffic Light Recognition: Classification|/perception/traffic_light_recognition/rois|
 
 ## Design
 The Detection module is designed to modularize some patterns of detecting traffic lights' ROI.

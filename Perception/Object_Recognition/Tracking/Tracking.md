@@ -5,16 +5,16 @@ Tracking in Object Recognition keeps objects' unique id over time. This time ser
 
 ## Input
 
-| Input       | Data Type
-|-|-|
-| Dynamic Objects       | `autoware_perception_msgs::DynamicObjectArray`|
-|TF  | `tf2_msgs::TFMessage`           |
+| Input       | Data Type|Topic
+|-|-|-|
+| Dynamic Objects       | `autoware_perception_msgs::DynamicObjectArray`|/perception/object_recognition/detection/objects|
+|TF  | `tf2_msgs::TFMessage`|/tf|
 
 ## Output
 
-| Output       | Data Type| Output Module | TF Frame
-|----|-|-|-|
-|Dynamic Objects|`autoware_perception_msgs::DynamicObjectArray`|Object Recognition: Prediction| `map`|
+| Output       | Data Type| Output Module | TF Frame| Topic|
+|----|-|-|-|-|
+|Dynamic Objects|`autoware_perception_msgs::DynamicObjectArray`|Object Recognition: Prediction| `map`|/perception/object_recognition/tracking/objects|
 
 ## Design
 This is our sample implementation for the Tracking module.

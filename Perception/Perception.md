@@ -55,7 +55,7 @@ This Perception stack consists of 2 separated modules and each module can be sub
 	- Detection
 	- Classification
 
-![Perception_component](/img/Perception_component.svg)
+![Perception_component](/img/Perception_component.png)
 
 **Key points of the structure**
 
@@ -72,7 +72,7 @@ The motivation behind recognizing obstacles comes from a requirement for balanci
 
 ### Requirement
 
-![Perception_object_if](/img/Perception_object_if.svg)
+![Perception_object_if](/img/Perception_object_if.png)
 
 #### Detection
 
@@ -154,7 +154,7 @@ It needs to recognize traffic light signals in order to ensure safe autonomous d
 
 Need to fill `lamp_states` in `autoware_traffic_light_msg::TrafficLightState.msg`
 
-![Perception_trafficlight_msg_msg](/img/Perception_trafficlight_msg.svg)
+![Perception_trafficlight_msg_msg](/img/Perception_trafficlight_msg.png)
 
 Property  | Definition |Data Type                                 | Parent Data Type|
 |-------------|--|-------------------------------------------|----|

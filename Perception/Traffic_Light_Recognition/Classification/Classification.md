@@ -6,16 +6,16 @@ Classification module recognizes traffic signal status. Unique signal types are 
 
 ## Input
 
-| Input       | Data Type
-|-|-|
-| Cropped traffic light information       | `autoware_perception_msgs::TrafficLightRoiArray.msg`|
-|Camera | `sensor_msgs::Image`|
+| Input| Data Type| Topic|
+|-|-|-|
+| Cropped traffic light information | `autoware_perception_msgs::TrafficLightRoiArray.msg`|/perception/traffic_light_recognition/rois
+|Camera | `sensor_msgs::Image`|/sensing/camera/*/image_raw|
 
 ## Output
 
-| Output       | Data Type| Output Component |
-|----|-|-|
-|Traffic signal status|`autoware_traffic_light_msgs::TrafficLightStateArray`|Planning|
+| Output| Data Type| Output Component |Topic|
+|----|-|-|-|
+|Traffic signal status|`autoware_traffic_light_msgs::TrafficLightStateArray`|Planning|/perception/traffic_light_recognition/traffic_light_states|
 
 ## Design
 This is our sample implementation for the Classification module.
@@ -23,4 +23,4 @@ This is our sample implementation for the Classification module.
 
 
 Unique signals are handled in `autoware_traffic_light_msgs::LampState`. When requiring to detect local unique signals which are not defined here, need to add them in `autoware_traffic_light_msgs::LampState`.
-![msg](/img/Perception_trafficlight_msg.svg)
+![msg](/img/Perception_trafficlight_msg.png)

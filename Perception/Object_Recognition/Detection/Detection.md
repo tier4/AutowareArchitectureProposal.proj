@@ -5,18 +5,18 @@ Detection in Object Recognition detects objects by processing sensor data. Detec
 
 ## Input
 
-| Input       | Data Type|
-|-------------|-------------------------------------------|
-| LiDAR       | `sensor_msgs::PointCoud2`                 |
-| Camera      | `sensor_msgs::Image`                      |
-| Camera info       | `sensor_msgs::CameraInfo`          |
-|TF  | `tf2_msgs::TFMessage`           |
+| Input       | Data Type| Topic |
+|-------------|----------------------------------|-|
+| LiDAR       | `sensor_msgs::PointCoud2`        |/sensing/lidar/pointcloud|
+| Camera      | `sensor_msgs::Image`             |/sensing/camera/*/image_raw|
+| Camera info       | `sensor_msgs::CameraInfo`  |/sensing/camera/*/camera_info|
+|TF  | `tf2_msgs::TFMessage`           |/tf|
 
 ## Output
 
-| Output       | Data Type| Output Module | TF Frame|
-|----|-|-|-|
-|Dynamic Objects|`autoware_perception_msgs::DynamicObjectArray`|Object Recognition: Tracking| `base_link`|
+| Output       | Data Type| Output Module | TF Frame| Topic|
+|----|-|-|-|-|
+|Dynamic Objects|`autoware_perception_msgs::DynamicObjectArray`|Object Recognition: Tracking|`base_link`|/perception/object_recognition/detection/objects|
 
 ## Design
 The Detection module is designed to adopt various detection algorithms.
