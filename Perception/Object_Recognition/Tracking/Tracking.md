@@ -1,6 +1,20 @@
 Detection
 =====
-# Role
+
+## Use Cases and Requirements
+Tracking in Object Recognition is required for usecases involved with obstacles:
+* Changing lane
+* Turning at intersection
+* Avoiding parked vehicles
+* Stopping at a crosswalk when pedestrians are walking
+* Passing intersection without traffic lights
+* Merging into another lane
+* Taking over Pedestrian/Cyclists
+* Stopping/yielding to an obstacle
+
+For the details about related requirements, please refer to the [document for Perception stack](/Perception/Perception.md).
+
+## Role
 Tracking in Object Recognition keeps objects' unique id over time. This time series processing leads to estimating objects' property such as their velocity and/or acceleration. Furthermore, it could estimate more accurate objects' orientation by leveraging the Detection results over time.
 
 ## Input

@@ -1,6 +1,18 @@
 Detection
 =====
-# Role
+## Use Cases and Requirements
+Prediction in Object Recognition is required for usecases involved with obstacles:
+* Changing lane
+* Turning at intersection
+* Stopping at a crosswalk when pedestrians are walking
+* Passing intersection without traffic lights
+* Merging into another lane
+* Taking over Pedestrian/Cyclists
+* Stopping/yielding to an obstacle
+
+For the details about related requirements, please refer to the [document for Perception stack](/Perception/Perception.md).
+
+## Role
 Prediction in Object Recognition estimate objects' intention. Intentions are represented as objects' future trajectories with covariance. The Planning module makes a decision and plans a future ego-motion based on the results of predicted objects.
 
 ## Input

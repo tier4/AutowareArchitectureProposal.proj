@@ -1,6 +1,19 @@
 Detection
 =====
-# Role
+## Use Cases and Requirements
+Detection in Object Recognition is required for usecases involved with obstacles:
+* Changing lane
+* Turning at intersection
+* Avoiding parked vehicles
+* Stopping at a crosswalk when pedestrians are walking
+* Passing intersection without traffic lights
+* Merging into another lane
+* Taking over Pedestrian/Cyclists
+* Stopping/yielding to an obstacle
+
+For the details about related requirements, please refer to the [document for Perception stack](/Perception/Perception.md).
+
+## Role
 Detection in Object Recognition detects objects by processing sensor data. Detection is triggered on every sensor data callback independently from previous detection results. The Detection module is responsible for calculating objects' pose, class, and shape.
 
 ## Input

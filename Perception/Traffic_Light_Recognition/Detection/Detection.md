@@ -1,6 +1,15 @@
 Detection
 =====
-# Role
+
+## Use Cases and Requirements
+## Use Cases and Requirements
+Detection in Traffic Light Recognition is required for usecases involved with traffic light:
+* Passing intersection when traffic light is greed
+* Stopping intersection when traffic sinal is red
+
+For the details about related requirements, please refer to the [document for Perception stack](/Perception/Perception.md).
+
+## Role
 
 Detection module in Traffic Light Recognition finds traffic lights' region of interest(ROI) in the image. For example one image could contain many traffic signals at intersection. However, the number of traffic signals in which an autonomous vehicle is interested is limited. Map information is used for which part of an image needs to be paid attention to.
 

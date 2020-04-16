@@ -1,6 +1,13 @@
-Detection
+Classification
 =====
-# Role
+## Use Cases and Requirements
+Classification in Traffic Light Recognition is required for usecases involved with traffic light:
+* Passing intersection when traffic light is greed
+* Stopping intersection when traffic sinal is red
+
+For the details about related requirements, please refer to the [document for Perception stack](/Perception/Perception.md).
+
+## Role
 
 Classification module recognizes traffic signal status. Unique signal types are handled in  LampState.msg definition.
 
