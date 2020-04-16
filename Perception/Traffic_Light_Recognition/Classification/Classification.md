@@ -30,4 +30,5 @@ This is our sample implementation for the Classification module.
 
 
 Unique signals are handled in `autoware_traffic_light_msgs::LampState`. When requiring to detect local unique signals which are not defined here, need to add them in `autoware_traffic_light_msgs::LampState`.
+
 ![msg](/img/Perception_trafficlight_msg.png)
