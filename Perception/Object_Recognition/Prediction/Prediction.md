@@ -24,6 +24,7 @@ This is our sample implementation for the Tracking module.
 
 ## Requirement in Output
 Designated objects' property in autoware_perception_msgs::DynamicObject needs to be filled in the Prediction module before passing to the Planning component.
+
 ![msg](/img/ObjectPredictionRequirement.png)
 
 

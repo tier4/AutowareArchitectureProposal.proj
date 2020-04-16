@@ -22,8 +22,10 @@ This is our sample implementation for the Tracking module.
 
 
 ## Requirement in Output
-![msg](/img/ObjectTrackingRequirement.png)
+
 Designated objects' properties in autoware_perception_msgs::DynamicObject need to be filled in the Tracking module before passing to the Prediction module.
+
+![msg](/img/ObjectTrackingRequirement.png)
 
 
 | Property  | Definition |Data Type                                 | Parent Data Type|

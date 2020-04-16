@@ -27,8 +27,8 @@ Perception stack has 2 main roles.
 
 | Output              | Data Type                                          | Explanation         |
 |---------------------|----------------------------------------------------|---------------------------------|
-| Dynamic Object      | `autoware_perception_msgs::DynamicObjectArray`     | This includes obstacles' information. An obstacle is described by 4 major properties; State, Shape, Semantic and PredictedPath. Detail design for these properties is in below  Object Recognition section.                        |
-| Traffic Light State | `autoware_perception_msgs::TrafficLightStateArray` | This includes the status of traffic light signals in array format.  The closest traffic signal status is in front of the array, the f arrest one is in the end of the array.                         |
+| Dynamic Object      | `autoware_perception_msgs::DynamicObjectArray`     | This includes obstacles' information. An obstacle is described by 3 major properties; State, Shape, Semantic. Detail design for these properties is in below  Object Recognition section.                        |
+| Traffic Light State | `autoware_perception_msgs::TrafficLightStateArray` | This includes the status of traffic light signals in array format.  The closest traffic signal status is in front of the array, the farrest one is in the end of the array.                         |
 
 ## Usecases
 | Usecase| Requirement in `Perception` | Output         |How it is used|
