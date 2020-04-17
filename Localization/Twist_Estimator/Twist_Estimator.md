@@ -16,7 +16,7 @@ Twist estimator is a component to estimate ego vehicle twist for precise velocit
 
 | Output            | Data Type                                   | Use Cases of the output         |
 |-------------------|---------------------------------------------|---------------------------------|
-| Estimated Twist   | `geometry_msgs::TwistStamped`               | Pose Twist Fusion Filter        |
+| Estimated Twist   | `geometry_msgs::TwistWithCovarianceStamped` | Pose Twist Fusion Filter        |
 
 ## Design
  

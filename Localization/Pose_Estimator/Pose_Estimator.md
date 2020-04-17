@@ -19,7 +19,7 @@ Pose estimator is a component to estimate ego vehicle pose in local coordinates 
 | Output         | Data Type                                   | Use Cases of the output         |
 |----------------|---------------------------------------------|---------------------------------|
 | Initial Pose   | `geometry_msgs::PoseWithCovarianceStamped`  | Pose Twist Fusion Filter        |
-| Estimated Pose | `geometry_msgs/PoseStamped`                 | Pose Twist Fusion Filter        |
+| Estimated Pose | `geometry_msgs::PoseWithCovarianceStamped`  | Pose Twist Fusion Filter        |
 
 ## Design
 

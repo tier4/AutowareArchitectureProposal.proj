@@ -10,8 +10,8 @@ Pose Twist Fusion Filter is a component to integrate the poses estimated by pose
 | Input           | Data Type                                            |
 |-----------------|------------------------------------------------------|
 | Initial Pose    | `geometry_msgs::PoseWithCovarianceStamped`           |
-| Estimated Pose  | `geometry_msgs::PoseStamped`                         |
-| Estimated Twist | `geometry_msgs::TwistStamped`                        |
+| Estimated Pose  | `geometry_msgs::PoseWithCovarianceStamped`           |
+| Estimated Twist | `geometry_msgs::TwistWithCovarianceStamped`          |
 
 ## Output
 
