@@ -27,7 +27,7 @@ Control stack supports the following use cases.
 In order to achieve above use case, control stack require the following conditions.
 
 - The input trajectory includes speed limit at each point (Use case 1).
-- The input trajectory includes gradient information (Use case 2).
+- The input pose includes gradient information (=vehicle orientation) (Use case 2).
 - The output vehicle command includes accleration but also velocity (Use case 2, 3).
 - The output vehicle command includes the command to shift drive/reverse gear(Use case 4.).
 
@@ -38,12 +38,13 @@ The input to Control stack:
 | Input          | Topic (Data Type)                                                                   | Explanation                             |
 | -------------- | ----------------------------------------------------------------------------------- | --------------------------------------- |
 | Trajectory     | `/planning/scenario_planning/trajectory` <br>(`autoware_planning_msgs::Trajectory`) | Target trajectory to follow             |
+| Pose           | `/tf` <br>(`tf2_msgs::TFMessage`)                                                   | Current pose of the vehicle             |
 | Twist          | `/vehicle/status/twist` <br> (`geometry_msgs::TwistStamped`)                        | Current twist of the vehicle            |
 | Steer          | `/vehicle/status/steering`<br>(`autoware_vehicle_msgs::Steering`)                   | Current steer of the vehicle            |
 | Engage Command | `/autoware/engage`<br>(`std_msgs::Bool`)                                            | Whether to send commands to the vehicle |
 | Remote Command | -                                                                                   | Control command from remote             |
 
-As above requirements, the data type of target trajectory, `autoware_planning_msgs::Trajectory`, includes the speed and gradient information (orientation) at each point.
+As above requirements, the data type of target trajectory, `autoware_planning_msgs::Trajectory`, includes the speed at each point.
 
 ### Output
 
@@ -79,7 +80,8 @@ Generate control command for following given trajectory smoothly.
 ### Input
 
 - Target trajectory
-  - Target trajectory includes target position, target orientation, target twist, target acceleration
+  - Target trajectory includes target position, target twist, target acceleration
+- Current pose
 - Current velocity
 - Current steering
 
