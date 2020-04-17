@@ -45,19 +45,19 @@ The role of map is to publish map information to other stacks. In order to satis
 
 The input to Map stack:
 
-| Input      | Data Type | Explanation          | 
-|------------|-----------|----------------------|
-| PointCloud Map file | PCD format | This includes the shape of surrounding environment as collection of raster points, including grounds and buildings. It may include other additional information such as intensity and colors for visualization. |
-| Vector Map file | Lanelet2 format | This should describe all semantic information about roads. This includes road connection, road geometry, and traffic rules. Supporting format may change to OpenDRIVE in the future as discussed in Map WG. |
+| Input               | Data Type       | Explanation                                                                                                                                                                                                     |
+| ------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PointCloud Map file | PCD format      | This includes the shape of surrounding environment as collection of raster points, including grounds and buildings. It may include other additional information such as intensity and colors for visualization. |
+| Vector Map file     | Lanelet2 format | This should describe all semantic information about roads. This includes road connection, road geometry, and traffic rules. Supporting format may change to OpenDRIVE in the future as discussed in Map WG.     |
 
 ### Output
 
 The table below summarizes the output from Map stack:
 
-| Output      | Data Type | Explanation          | 
-|-------------|-----------|----------------------|
-| PointCloud map | `sensor_msgs::PointCloud2` | This includes the shape of surrounding environment as collection of points. <br> This is assumed to be used by Localization module for map matching with LiDAR pointclouds. |
-| Vector Map | `autoware_lanelet2_msgs::MapBin` | Lanelet2 map information will be dumped as serialized data, and passed down to other stacks. Then, it will be converted back to internal data structure to enable Lanelet2 library API access to each data. <br> This is assumed to be used by Localization stack for lane-based localization, Perception stack for trajectory prediction of other vehicles, and Planning to plan behavior to follow traffic rules.
+| Output         | Topic Name          | Data Type                        | Explanation                                                                                                                                                                                                                                                                                                                                                                                                         |
+| -------------- | ------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PointCloud map | /map/pointcloud_map | `sensor_msgs::PointCloud2`       | This includes the shape of surrounding environment as collection of points. <br> This is assumed to be used by Localization module for map matching with LiDAR pointclouds.                                                                                                                                                                                                                                         |
+| Vector Map     | /map/vector_map     | `autoware_lanelet2_msgs::MapBin` | Lanelet2 map information will be dumped as serialized data, and passed down to other stacks. Then, it will be converted back to internal data structure to enable Lanelet2 library API access to each data. <br> This is assumed to be used by Localization stack for lane-based localization, Perception stack for trajectory prediction of other vehicles, and Planning to plan behavior to follow traffic rules. |
 
 # Design
 

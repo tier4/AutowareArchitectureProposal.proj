@@ -2,7 +2,9 @@
 
 # Overview
 
-Control stack generates control signals to drive a vehicle following trajectorys considering vehicle dynamics.
+Control stack generates control signals to drive a vehicle following trajectories considering vehicle dynamics.
+This layer ensures that vehicle follows trajectory planned by planning.
+The output of Control stack is includes velocity, acceleration, and steering.
 
 ## Role
 
@@ -33,13 +35,13 @@ In order to achieve above use case, control stack require the following conditio
 
 The input to Control stack:
 
-| Input          | Data Type                            | Explanation                             |
-| -------------- | ------------------------------------ | --------------------------------------- |
-| Trajectory     | `autoware_planning_msgs::Trajectory` | Target trajectory to follow             |
-| Twist          | `geometry_msgs::TwistStamped`        | Current twist of the vehicle            |
-| Steer          | `autoware_vehicle_msgs::Steering`    | Current steer of the vehicle            |
-| Engage Command | `std_msgs::Bool`                     | Whether to send commands to the vehicle |
-| Remote Command | -                                    | Control command from remote             |
+| Input          | Topic Name                             | Data Type                            | Explanation                             |
+| -------------- | -------------------------------------- | ------------------------------------ | --------------------------------------- |
+| Trajectory     | /planning/scenario_planning/trajectory | `autoware_planning_msgs::Trajectory` | Target trajectory to follow             |
+| Twist          | /vehicle/status/twist                  | `geometry_msgs::TwistStamped`        | Current twist of the vehicle            |
+| Steer          | /vehicle/status/steering               | `autoware_vehicle_msgs::Steering`    | Current steer of the vehicle            |
+| Engage Command | /autoware/engage                       | `std_msgs::Bool`                     | Whether to send commands to the vehicle |
+| Remote Command | -                                      | Control command from remote          |
 
 As above requirements, the data type of target trajectory, `autoware_planning_msgs::Trajectory`, includes the speed and gradient information (orientation) at each point.
 
@@ -47,9 +49,9 @@ As above requirements, the data type of target trajectory, `autoware_planning_ms
 
 The table below summarizes the output from Control stack:
 
-| Output          | Data Type                            | Explanation |
-| --------------- | ------------------------------------ | ----------- |
-| Vehicle Command | autoware_vehicle_msgs/VehicleCommand | Table Below |
+| Output          | Topic Name           | Data Type                            | Explanation |
+| --------------- | -------------------- | ------------------------------------ | ----------- |
+| Vehicle Command | /control/vehicle_cmd | autoware_vehicle_msgs/VehicleCommand | Table Below |
 
 The main outputs included in Vehicle Command are as follows.
 
