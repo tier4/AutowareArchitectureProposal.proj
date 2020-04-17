@@ -14,6 +14,7 @@ The input to Lateral Controller module:
 | Input | Data Type | Explanation |
 | -------------- | ------------------------------------ | --------------------------------------- |
 | Trajectory | `autoware_planning_msgs::Trajectory` | Target trajectory to follow (target position, orientation, twist, acceleration) |
+| Pose | `/tf` <br>(`tf2_msgs::TFMessage`) | Current pose of the vehicle |
 | Twist | `geometry_msgs::TwistStamped` | Current twist of the vehicle |
 | Steer | `autoware_vehicle_msgs::Steering` | Current steer of the vehicle |
 
