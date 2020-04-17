@@ -52,10 +52,10 @@ Multiple sensor information described below is considered.
   
 ## Output
 
-| Output        | Topic Name                                   | Data Type                    | Use Cases of the output       |
-| ------------- | -------------------------------------------- | ---------------------------- | ----------------------------- |
-| Vehicle Pose  | /tf                                          | `tf2_msgs/TFMessage`         | Perception, Planning, Control |
-| Vehicle Twist | /localization/pose_twist_fusion_filter/twist | `geometry_msgs/TwistStamped` | Planning, Control             |
+| Output(Topic Name)                                                | Data Type                    | Use Cases of the output       |
+| ----------------------------------------------------------------- | ---------------------------- | ----------------------------- |
+| Vehicle Pose<br>(`/tf`)                                           | `tf2_msgs/TFMessage`         | Perception, Planning, Control |
+| Vehicle Twist<br>(`/localization/pose_twist_fusion_filter/twist`) | `geometry_msgs/TwistStamped` | Planning, Control             |
 
 ## Usecases
 
