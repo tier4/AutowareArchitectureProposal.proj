@@ -5,6 +5,8 @@ Architecture overview
 
 This architecture is a proposal by Tier IV. We thought a new Autoware architecture is required to accelerate the development of Autoware.
 
+(Please also refer [this presentation](https://discourse.ros.org/uploads/short-url/woUU7TGLPXFCTJLtht11rJ0SqCL.pdf) shared  at AWF TSC in March 2020.)
+
 We thought now it is difficult to improve Autoware.AI capabilities because of:
 - No concrete architecture designed
 - A lot of technical debt
@@ -48,7 +50,7 @@ To achieve the above use case, we set the functional requirement of the Autoware
 - Autoware can drive along the planned route without violation of traffic rules.
 - (Nice to have) Autoware drives smooth driving for a comfortable ride with a limited jerk and acceleration.
 
-The above requirements are broken down into detailed requirements, which are explained in [this page](/requirements).
+The above requirements are broken down into detailed requirements, which are explained in each stack page.
 
 Since Autoware is open source and is meant to be used/developed by anyone around the world, we also set some non-functional requirements for the architecture:
 - Architecture is extensible for new algorithms without changing the interface
