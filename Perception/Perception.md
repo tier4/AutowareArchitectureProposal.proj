@@ -16,32 +16,32 @@ Perception stack has 2 main roles.
 
 ## Input
 
-| Input       | Data Type                                 |Explanation|
-|-------------|-------------------------------------------|-|
-| LiDAR       | `sensor_msgs::PointCoud2`                 |Pointcloud data captured by LiDAR comes from Sensing stack. Perception stack is allowed to choose subscribing to pointcloud with/without background depending on algorithms.|
-| Camera      | `sensor_msgs::Image`                      |Image data captured by Camera comes from Sensing stack. CameraInfo contains intrinsic parameters for the image. |
-| Map         | `autoware_lanelet2_msgs::MapBin`          |This is Map data in lanelet2 format. Map stack has utility packages for processing map data.|
-| Drive Route | `autoware_planning_msgs::Route`           |This is route information for reaching  a destination. In Perception stack, it is used for detecting the traffic lights associated with route information. |
+| Input                  | Topic Name                   | Data Type                        | Explanation                                                                                                                                                                  |
+| ---------------------- | ---------------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| LiDAR                  | /sensing/lidar/pointcloud    | `sensor_msgs::PointCoud2`        | Pointcloud data captured by LiDAR comes from Sensing stack. Perception stack is allowed to choose subscribing to pointcloud with/without background depending on algorithms. |
+| Camera                 | /sensing/{camera_name}/image | `sensor_msgs::Image`             | Image data captured by Camera comes from Sensing stack. CameraInfo contains intrinsic parameters for the image.                                                              |
+| Map                    | /map/vector_map              | `autoware_lanelet2_msgs::MapBin` | This is Map data in lanelet2 format. Map stack has utility packages for processing map data.                                                                                 |
+| Drive Route (optional) | /planning/route              | `autoware_planning_msgs::Route`  | This is route information for reaching  a destination. In Perception stack, it is used for detecting the traffic lights associated with route information.                   |
 
 ## Output
 
-| Output              | Data Type                                          | Explanation         |
-|---------------------|----------------------------------------------------|---------------------------------|
-| Dynamic Object      | `autoware_perception_msgs::DynamicObjectArray`     | This includes obstacles' information. An obstacle is described by 3 major properties; State, Shape, Semantic. Detail design for these properties is in below  Object Recognition section.                        |
-| Traffic Light State | `autoware_perception_msgs::TrafficLightStateArray` | This includes the status of traffic light signals in array format.  The closest traffic signal status is in front of the array, the farrest one is in the end of the array.                         |
+| Output              | Topic Name                                                 | Data Type                                          | Explanation                                                                                                                                                                               |
+| ------------------- | ---------------------------------------------------------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Dynamic Object      | /perception/object_recognition/objects                     | `autoware_perception_msgs::DynamicObjectArray`     | This includes obstacles' information. An obstacle is described by 3 major properties; State, Shape, Semantic. Detail design for these properties is in below  Object Recognition section. |
+| Traffic Light State | /perception/traffic_light_recognition/traffic_light_states | `autoware_perception_msgs::TrafficLightStateArray` | This includes the status of traffic light signals in array format.  The closest traffic signal status is in front of the array, the farrest one is in the end of the array.               |
 
 ## Usecases
-| Usecase| Requirement in `Perception` | Output         |How it is used|
-|---------------------|----------------------------------------------------|---------------------------------|-|
-| Changing lane      | **Object Recognition-Prediction**:<br>-  Predicted paths of objects on target lane     | Planning|To decide `when` and `where` changing lane depending on objects' predicted paths. <br>`when`: which timing to trigger lane change  depending on obstacles position and velocity.  <br> `where`: where to go depending on objects' position and shape. |
-| Turning at intersection | **Object Recognition- Prediction**:<br>- Predicted paths of objects at an intersection |Planning |To decide `when` turning at an intersection depending on objects' predicted path.  <br>`when`: which timing to turning depending on objects' future paths.|
-|Avoiding parked vehicles |**Object Recognition- Detection**:<br>- Objects' class, shape and, position <br> **Object Recognition- Tracking**:<br>- Objects' velocity|Planning|To decide `where` to avoid objects depending on objects' properties. <br> `where`: where to avoid objects in given area depending on objects' class, velocity, shape and position.|
-| Stopping at a crosswalk when pedestrians are walking|**Object Recognition- Prediction**:<br>- Predicted paths of objects at a crosswalk |Planning|To decide where stopping based on pedestrians' position and velocity.|
-|Passing intersection without traffic lights|**Object Recognition- Detection**:<br>- Objects' shape.  <br> **Object Recognition- Prediction**:<br>- Predicted paths of objects at an intersection |Planning|	To decide `when` passing intersection depending on objects' properties.  <br>`when`: which timing to pass intersection while negotiating with other objects based on objects' properties like, predicted paths and shape.|
-|Merging into another lane| **Object Recognition- Prediction**:<br>- Predicted paths of objects at  merging area|Planning|To decide when merging into another lane depending objects' predicted paths.|
-|Taking over Pedestrian/Cyclists|**Object Recognition- Detection**:<br>- Objects' shape, position and orientation.  <br> **Object Recognition- Tracking**:<br>- Objects' velocity |Planning|To decide `when` and `where` taking over depending on objects' predicted paths <br> `when`: which timing to taking over depending on obstacles position and velocity. <br> `where`: where to go depending on objects' position and shape. |
-|Stopping/yielding to an obstacle|**Object Recognition- Detection**:<br>- Objects' shape, position, and orientation <br>  **Object Recognition- Tracking**:<br>- Objects' velocity |Planning|To decide where to stop/yield based on pedestrians' position and velocity.|
-|Passing intersection with traffic lights                      | **Traffic Light Recognition- Classification**:<br>- Traffic signal status|Planning|To decide whether to go or stop based on traffic signal status.|
+| Usecase                                              | Requirement in `Perception`                                                                                                                          | Output   | How it is used                                                                                                                                                                                                                                        |
+| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Changing lane                                        | **Object Recognition-Prediction**:<br>-  Predicted paths of objects on target lane                                                                   | Planning | To decide `when` and `where` changing lane depending on objects' predicted paths. <br>`when`: which timing to trigger lane change  depending on obstacles position and velocity.  <br> `where`: where to go depending on objects' position and shape. |
+| Turning at intersection                              | **Object Recognition- Prediction**:<br>- Predicted paths of objects at an intersection                                                               | Planning | To decide `when` turning at an intersection depending on objects' predicted path.  <br>`when`: which timing to turning depending on objects' future paths.                                                                                            |
+| Avoiding parked vehicles                             | **Object Recognition- Detection**:<br>- Objects' class, shape and, position <br> **Object Recognition- Tracking**:<br>- Objects' velocity            | Planning | To decide `where` to avoid objects depending on objects' properties. <br> `where`: where to avoid objects in given area depending on objects' class, velocity, shape and position.                                                                    |
+| Stopping at a crosswalk when pedestrians are walking | **Object Recognition- Prediction**:<br>- Predicted paths of objects at a crosswalk                                                                   | Planning | To decide where stopping based on pedestrians' position and velocity.                                                                                                                                                                                 |
+| Passing intersection without traffic lights          | **Object Recognition- Detection**:<br>- Objects' shape.  <br> **Object Recognition- Prediction**:<br>- Predicted paths of objects at an intersection | Planning | To decide `when` passing intersection depending on objects' properties.  <br>`when`: which timing to pass intersection while negotiating with other objects based on objects' properties like, predicted paths and shape.                             |
+| Merging into another lane                            | **Object Recognition- Prediction**:<br>- Predicted paths of objects at  merging area                                                                 | Planning | To decide when merging into another lane depending objects' predicted paths.                                                                                                                                                                          |
+| Taking over Pedestrian/Cyclists                      | **Object Recognition- Detection**:<br>- Objects' shape, position and orientation.  <br> **Object Recognition- Tracking**:<br>- Objects' velocity     | Planning | To decide `when` and `where` taking over depending on objects' predicted paths <br> `when`: which timing to taking over depending on obstacles position and velocity. <br> `where`: where to go depending on objects' position and shape.             |
+| Stopping/yielding to an obstacle                     | **Object Recognition- Detection**:<br>- Objects' shape, position, and orientation <br>  **Object Recognition- Tracking**:<br>- Objects' velocity     | Planning | To decide where to stop/yield based on pedestrians' position and velocity.                                                                                                                                                                            |
+| Passing intersection with traffic lights             | **Traffic Light Recognition- Classification**:<br>- Traffic signal status                                                                            | Planning | To decide whether to go or stop based on traffic signal status.                                                                                                                                                                                       |
 
 # Design
 
@@ -80,13 +80,13 @@ Detection component detects objects from sensor data.
 
 Detection component is responsible for clarifying the following objects' property.
 
-| Property  | Definition |Data Type                                 | Parent Data Type|
-|-------------|--|-------------------------------------------|----|
-| type       | Class information|`uint8`                 |`autoware_perception_msgs::Semantic`|
-| confidence  |Class's confidence 0.0~1.0.| `float64`              |`autoware_perception_msgs::Semantic`|
-| pose        |Position and orientation |`geometry_msgs::PoseWithCovariance` |`autoware_perception_msgs::State`|
-| orientation_reliable |Boolean for stable orientation or not| `bool`           |`autoware_perception_msgs::State`|
-| shape |Shape in 3D bounding box, cylinder or polygon|`autoware_perception_msgs::Shape`           |`autoware_perception_msgs::DynamicObject`|
+| Property             | Definition                                    | Data Type                           | Parent Data Type                          |
+| -------------------- | --------------------------------------------- | ----------------------------------- | ----------------------------------------- |
+| type                 | Class information                             | `uint8`                             | `autoware_perception_msgs::Semantic`      |
+| confidence           | Class's confidence 0.0~1.0.                   | `float64`                           | `autoware_perception_msgs::Semantic`      |
+| pose                 | Position and orientation                      | `geometry_msgs::PoseWithCovariance` | `autoware_perception_msgs::State`         |
+| orientation_reliable | Boolean for stable orientation or not         | `bool`                              | `autoware_perception_msgs::State`         |
+| shape                | Shape in 3D bounding box, cylinder or polygon | `autoware_perception_msgs::Shape`   | `autoware_perception_msgs::DynamicObject` |
 
 ####  Tracking
 
@@ -94,21 +94,21 @@ Tracking component deals with time-series processing.
 
 Tracking component is responsible for clarifying the following objects' property.
 
-| Property  | Definition |Data Type                                 | Parent Data Type|
-|-------------|--|-------------------------------------------|----|
-| id      | Unique object id over frames|`uuid_msgs::UniqueID`                 |`autoware_perception_msgs::DynamicObject`|
-| twist        |Velocity in ROS twist format. |`geometry_msgs::TwistWithCovariance` |`autoware_perception_msgs::State`|
-| twist_reliable |Boolean for stable twist or not.| `bool`           |`autoware_perception_msgs::State`|
-| acceleration |Acceleration in ROS accel format.|`geometry_msgs::AccelWithCovariance`           |`autoware_perception_msgs::State`|
-| acceleration_reliable |Boolean for stable acceleration or not.|`bool`           |`autoware_perception_msgs::State`|
+| Property              | Definition                              | Data Type                            | Parent Data Type                          |
+| --------------------- | --------------------------------------- | ------------------------------------ | ----------------------------------------- |
+| id                    | Unique object id over frames            | `uuid_msgs::UniqueID`                | `autoware_perception_msgs::DynamicObject` |
+| twist                 | Velocity in ROS twist format.           | `geometry_msgs::TwistWithCovariance` | `autoware_perception_msgs::State`         |
+| twist_reliable        | Boolean for stable twist or not.        | `bool`                               | `autoware_perception_msgs::State`         |
+| acceleration          | Acceleration in ROS accel format.       | `geometry_msgs::AccelWithCovariance` | `autoware_perception_msgs::State`         |
+| acceleration_reliable | Boolean for stable acceleration or not. | `bool`                               | `autoware_perception_msgs::State`         |
 
 ####  Prediction
 
 Prediction component is responsible for clarifying the following objects' property.
 
-| Property  | Definition |Data Type                                 | Parent Data Type|
-|-------------|--|-------------------------------------------|----|
-| predicted_path      | Predicted furuter paths for an object.|`autoware_perception_msgs::PredictedPath[]	`|`autoware_perception_msgs::State` |
+| Property       | Definition                             | Data Type                                    | Parent Data Type                  |
+| -------------- | -------------------------------------- | -------------------------------------------- | --------------------------------- |
+| predicted_path | Predicted furuter paths for an object. | `autoware_perception_msgs::PredictedPath[]	` | `autoware_perception_msgs::State` |
 
 Necessary information is defined in `autoware_perception_msg::DynamicObjectArray.msg` with layered msg structure.
 
@@ -156,9 +156,9 @@ Need to fill `lamp_states` in `autoware_traffic_light_msg::TrafficLightState.msg
 
 ![Perception_trafficlight_msg_msg](/img/Perception_trafficlight_msg.png)
 
-Property  | Definition |Data Type                                 | Parent Data Type|
-|-------------|--|-------------------------------------------|----|
-| lamp_states      | Seguence of traffic light result from the closest traffic light|`autoware_perception_msgs::LampState[]`                 |`autoware_perception_msgs::TrafficLightState`|
+| Property    | Definition                                                      | Data Type                               | Parent Data Type                              |
+| ----------- | --------------------------------------------------------------- | --------------------------------------- | --------------------------------------------- |
+| lamp_states | Seguence of traffic light result from the closest traffic light | `autoware_perception_msgs::LampState[]` | `autoware_perception_msgs::TrafficLightState` |
 
 ### Input
 

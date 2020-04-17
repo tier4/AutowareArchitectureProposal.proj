@@ -73,21 +73,21 @@ These are high-level roles of Planning stack:
 
 The table below summarizes the overal input into Planning stack:
 
-| Input   | Data Type  | Explanation                             |
-|---------|------------|-----------------------------------------|
-|Map data        | `autoware_lanelet2_msgs::LaneletMapBin` | This includes all static information about the environment, such as: <ul><li>Lane connection information used for route planning from starting position to goal position</li><li>Lane geometry to generate reference path used to calculate trajectory </li><li> All information related to traffic rules</li></ul> |
-| Detected Obstacle Information | `autoware_planning_msgs::DynamicObjectsArray` | This includes information that cannot be known beforehand such as pedestrians and other vehicles. Planning stack will plan maneuvers to avoid collision with such objects. |
-| Goal position | `geometry_msgs::PoseStamped` | This is the final pose that Planning stack will try to achieve. |
-| TrafficLight recognition result | `autoware_traffic_light_msgs::TrafficLightStateArray` | This is the real time information about the state of each traffic light. Planning stack will extract the one that is relevant to planned path and use it to decide whether to stop at intersections. |
+| Input                           | Topic Name                                                 | Data Type                                             | Explanation                                                                                                                                                                                                                                                                                                         |
+| ------------------------------- | ---------------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Map data                        | /map/vector_map                                            | `autoware_lanelet2_msgs::LaneletMapBin`               | This includes all static information about the environment, such as: <ul><li>Lane connection information used for route planning from starting position to goal position</li><li>Lane geometry to generate reference path used to calculate trajectory </li><li> All information related to traffic rules</li></ul> |
+| Detected Obstacle Information   | /perception/object_recognition/objects                     | `autoware_planning_msgs::DynamicObjectsArray`         | This includes information that cannot be known beforehand such as pedestrians and other vehicles. Planning stack will plan maneuvers to avoid collision with such objects.                                                                                                                                          |
+| Goal position                   | /planning/goal_pose                                        | `geometry_msgs::PoseStamped`                          | This is the final pose that Planning stack will try to achieve.                                                                                                                                                                                                                                                     |
+| TrafficLight recognition result | /perception/traffic_light_recognition/traffic_light_states | `autoware_traffic_light_msgs::TrafficLightStateArray` | This is the real time information about the state of each traffic light. Planning stack will extract the one that is relevant to planned path and use it to decide whether to stop at intersections.                                                                                                                |
 
 ## Output
 
 The table below summarizes the final output from Planning stack:
 
-| Output  | Data Type  | Explanation                             |
-|---------|------------|-----------------------------------------|
-| Trajectory | `autoware_planning_msgs::Trajectory` |  This is the sequence of pose that Control stack must follow. This must be smooth, and kinematically possible to follow by the Control stack. |
-|  Turn Signal | `autoware_vehicle_msgs::TurnSignal` | This is the output to control turn signals of the vehicle. Planning stack will make sure that turn signal will be turned on according to planned maneuver. |
+| Output      | Topic Names              | Data Type                            | Explanation                                                                                                                                                |
+| ----------- | ------------------------ | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Trajectory  | /planning/trajectory     | `autoware_planning_msgs::Trajectory` | This is the sequence of pose that Control stack must follow. This must be smooth, and kinematically possible to follow by the Control stack.               |
+| Turn Signal | /vehicle/turn_signal_cmd | `autoware_vehicle_msgs::TurnSignal`  | This is the output to control turn signals of the vehicle. Planning stack will make sure that turn signal will be turned on according to planned maneuver. |
 
 # Design
 
