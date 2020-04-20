@@ -57,9 +57,9 @@ Multiple sensor information described below is considered.
 | Vehicle Pose  | `/tf` <br> (`tf2_msgs/TFMessage`)                                                | Perception, Planning, Control |
 | Vehicle Twist | `/localization/twist`<br>(`geometry_msgs/TwistStamped`) | Planning, Control             |
 
-## Usecases
+## Use Cases
 
-| Usecase                                             | Requirement in `Localization`      | Output                 | How it is used                                                                                                                                                     |
+| Use Case                                             | Requirement in `Localization`      | Output                 | How it is used                                                                                                                                                     |
 | --------------------------------------------------- | ---------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Passing intersection<br>with traffic lights         | Self pose on the map               | Perception             | To detect traffic lights associated  with the lane<br>where ego vehicle is in the camera image                                                                     |
 | Changing lane                                       | Self pose on the map               | Perception<br>Planning | To predict object motion on the lane<br>with lane information<br><br>To recognize drivable area based on lane information<br>and the position where ego vehicle is |
@@ -67,17 +67,17 @@ Multiple sensor information described below is considered.
 | Reaching a goal<br>by driving on lanes              | Self pose on the map               | Planning               | To plan the global path from the position where ego vehicle is to<br>a goal with lane information                                                                  |
 | Driving<br>with following speed limits              | Self pose on the map<br>Self twist | Planning               | To recognize speed limit on the lane<br>where ego vehicle is<br><br>To plan target velocity<br>based on velocity of ego vehicle and speed limit                    |
 | Driving<br>on the target lane                       | Self pose on the map<br>Self twist | Control                | To calculate target throttle/brake value and steering angle<br>based on pose and twist of ego vehicle and target trajectory                                        |
+
 # Design
 
-The localization stack provides indispensable information to achieve autonomous driving. Therefore it is not preferable to depend on only one estimator component for output of the localization stack. We insert pose twist fusion filter after pose and twist estimator to improve robustness of the estimated pose and twist. Also, developers can easily add new estimator based on another sensor, e.g. camera based visual SLAM and visual odometry, into the localization stack.  The localization stack should output the transformation from map to base_link as /tf to utilize tf interpolation system. 
+The localization stack provides indispensable information to achieve autonomous driving. Therefore, it is not preferable to depend on only one estimator component for output of the localization stack. We insert pose twist fusion filter after pose and twist estimator to improve robustness of the estimated pose and twist. Also, developers can easily add new estimator based on another sensor, e.g. camera based visual SLAM and visual odometry, into the localization stack.  The localization stack should output the transformation from map to base_link as /tf to utilize its interpolation system. 
 
 ![Localization_component](/img/Localization_overview.svg)
 
 ## Pose estimator
 
 ### Role
-
-Pose estimator is a component to estimate ego vehicle pose in local coordinates on reference map. We basically adopt 3D NDT registration method for pose estimation algorithm. In order to realize fully automatic localization, initial pose estimation with GNSS is required. In general, iterative methods such as pointcloud registration method require a good initial guess. Therefore it is preferable to utilize pose output of pose twist fusion filter as initial guess of NDT registration. Also, pose estimator should stop publishing pose when the score of NDT matching is less than threshold to avoid misleading wrong estimation.
+Pose estimator is a component to estimate ego vehicle pose which includes position and orientation. The final output should also include covariance, which represesents the estimator's confidence on estimated pose. A pose estimator could either be estimate pose on local map, or it can estimate absolute pose using global localizer. The output pose can be publihsed in any frame as long as /tf is provided to project into the "map" frame.
 
 ### Input
 
@@ -93,7 +93,7 @@ Pose estimator is a component to estimate ego vehicle pose in local coordinates 
 
 ## Twist Estimator
 
-Twist estimator is a component to estimate ego vehicle twist for precise velocity planning and control. The  x-axis velocity and z-axis angular velocity in vehicle twist is mainly considered. Also, this information can be odometry information. These values are preferable to be noise-free and unbiased.
+Twist estimator is a component to estimate ego vehicle twist for precise velocity planning and control. The  x-axis velocity and z-axis angular velocity in vehicle twist is mainly considered. These values are preferable to be noise-free and unbiased.
 
 ### Input
 
@@ -109,7 +109,10 @@ Twist estimator is a component to estimate ego vehicle twist for precise velocit
 
 ### Role
 
-Pose Twist Fusion Filter is a component to integrate the poses estimated by pose estimator and the twists estimated by twist estimator considering time delay of sensor data. This component improves the robustness, e.g. even when the NDT scan matching  fail, vehicle can keep autonomous driving based on vehicle twist information.
+Pose Twist Fusion Filter is a component to integrate the poses estimated by pose estimators and the twists estimated by twist estimators. This assumes sequential Bayesian Filter, such as EKF and particle filter, whch calculates vehicle's pose and twist probabilistically. This should also achieve following funcitons:
+* smoothing of estimated pose (see [Tf.md](/TF.md))
+* outlier rejection of inputs based on previously calucated pose and it's covariance (see [Tf.md](/TF.md))
+* time delay compensation in case pose estimators take time to calculate pose
 
 ### Input
 
