@@ -10,7 +10,7 @@ This module needs to be designed according to the vehicle to be used. How to imp
 
 ## Role
 
-There are two main roles of Vehicle Stack:
+There are two main roles of Vehicle stack:
 
 - **Conversion of Autoware commands to a vehicle-specific format**
 - **Conversion of vehicle status in a vehicle-specific format to Autoware messages**
@@ -26,13 +26,13 @@ It is assumed that the vehicle has one of the following control interfaces.
 The use case and requirements change according to this type.
 
 
-## Use Case
+## Use Cases
 
 Vehicle stack supports the following use cases.
 
  - Speed control with desired velocity or acceleration (for type A only)
  - Speed control with desired throttle and brake pedals (for type B only)
- - Steering control with desired steering angle or/and steering angle velocity (for both)
+ - Steering control with desired steering angle and/or steering angle velocity (for both)
  - Shift control (for both)
  - Turn signal control (for both)
 
@@ -51,10 +51,10 @@ To achieve the above use case, the vehicle stack requires the following conditio
  - The input vehicle command includes target throttle and brake pedals for the desired speed. 
  - The output to the vehicle includes desired throttle and brake pedals in a vehicle-specific format.
 
-**Steering control with the desired steering angle or/and steering angle velocity**
- - The vehicle can be controlled by the target steer angle or/and steering angle velocity.
- - The input vehicle command includes the target steering angle or/and target steering angle velocity. 
- - The output to the vehicle includes the desired steering angle or/and steering angle velocity in a vehicle-specific format.
+**Steering control with the desired steering angle and/or steering angle velocity**
+ - The vehicle can be controlled by the target steer angle and/or steering angle velocity.
+ - The input vehicle command includes the target steering angle and/or target steering angle velocity.
+ - The output to the vehicle includes the desired steering angle and/or steering angle velocity in a vehicle-specific format.
 
 
 **Shift control**
