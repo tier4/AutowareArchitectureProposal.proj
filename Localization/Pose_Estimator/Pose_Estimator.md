@@ -1,9 +1,8 @@
 Pose Estimator
 ==============
 
-## Role
-
-Pose estimator is a component to estimate ego vehicle pose in local coordinates on reference map. We basically adopt 3D NDT registration method for pose estimation algorithm. In order to realize fully automatic localization, initial pose estimation with GNSS is required. In general, iterative methods such as point cloud registration method require a good initial guess. Therefore it is preferable to utilize pose output of pose twist fusion filter as initial guess of NDT registration. Also, pose estimator should stop publishing pose when the score of NDT matching is less than threshold to avoid misleading wrong estimation.
+### Role
+Pose estimator is a component to estimate ego vehicle pose which includes position and orientation. The final output should also include covariance, which represesents the estimator's confidence on estimated pose. A pose estimator could either be estimate pose on local map, or it can estimate absolute pose using global localizer. The output pose can be publihsed in any frame as long as /tf is provided to project into the "map" frame. Also, pose estimator should stop publishing pose if it is possible to calculate reliability of estimated pose(e.g. matching score with map) and the reliability is low.
 
 ## Input
 
@@ -26,9 +25,7 @@ Pose estimator is a component to estimate ego vehicle pose in local coordinates 
 This is a sample design of our implementation using NDT Scan Matcher. 
 ![Pose_Estimator](/img/Pose_Estimator.svg)
 
-NDT Scan Matcher has two roles as below.
-- Initial pose alignment using poses generated randomly based on GNSS pose. (This is implemented as a service of ROS)
-- Pose alignment using output pose from Pose Twist Fusion Filter as a initial guess.
+We integrated 3D NDT registration method for sample pose estimation algorithm. The NDT registration method is an local localization method that requires a good intial guess before optimizing pose. In order to realize fully automatic localization, GNSS is used for first initialization. After first loop of pose estimation, the output of pose twist fusion filter is used as next initial guess of NDT registration.
 
 Note that NDT scan matcher does not publish pose when matching score calculated in alignment is less than threshold value to avoid publishing wrong estimated pose to Pose Twist Fusion Filter.
 
@@ -37,4 +34,3 @@ Lidar sensors usually operate at 10 ~ 20 Hz and therefore NDT alignment should b
 - DownSampler reduces the number of points by calculating a centroid of points in each voxelized grid.
 
 Pose initializer adds height information into initial pose obtained from GNSS by looking for minimum height point from points within 1 m. 
-
