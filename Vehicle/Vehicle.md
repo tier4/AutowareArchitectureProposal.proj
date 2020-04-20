@@ -3,7 +3,7 @@
 # Overview
 
 Vehicle stack is an interface between Autoware and vehicle. This layer converts signals from Autoware to vehicle-specific, and vice versa. 
-Basically, this part needs to be designed according to the vehicle to be used. How to implement a new interface is described [here.](# How to design a new vehicle interface
+This module needs to be designed according to the vehicle to be used. How to implement a new interface is described [here.](# How to design a new vehicle interface
 )
 
 
@@ -46,26 +46,26 @@ To achieve the above use case, the vehicle stack requires the following conditio
  - The input vehicle command includes target velocity or acceleration. 
  - The output to the vehicle includes desired velocity or acceleration in a vehicle-specific format.
 
-**Speed control with desired throttle and brake pedals (for type B)**
+**Speed control with the desired throttle and brake pedals (for type B)**
  - The vehicle can be controlled by the target throttle and brake pedals.
- - The input vehicle command includes target throttle and brake pedals for a desired speed. 
+ - The input vehicle command includes target throttle and brake pedals for the desired speed. 
  - The output to the vehicle includes desired throttle and brake pedals in a vehicle-specific format.
 
-**Steering control with desired steering angle or/and steering angle velocity**
+**Steering control with the desired steering angle or/and steering angle velocity**
  - The vehicle can be controlled by the target steer angle or/and steering angle velocity.
- - The input vehicle command includes a target steering angle or/and target steering angle velocity. 
+ - The input vehicle command includes the target steering angle or/and target steering angle velocity. 
  - The output to the vehicle includes the desired steering angle or/and steering angle velocity in a vehicle-specific format.
 
 
 **Shift control**
  - The vehicle can be controlled by the target shift mode.
- - The input vehicle command includes a desired shift.
+ - The input vehicle command includes the desired shift.
  - The output to the vehicle includes the desired shift in a vehicle-specific format.
 
 
 **Turn signal control**
  - The vehicle can be controlled by the target turn signal mode.
- - The input vehicle command includes a desired turn signal.
+ - The input vehicle command includes the desired turn signal.
  - The output to the vehicle includes the desired turn signal in a vehicle-specific format.
 
 ## Input
@@ -103,7 +103,7 @@ The table below summarizes the output from Vehicle stack:
 | Turn signal status (optional) | `/vehicle/status/turn_signal`<br>(`autoware_vehicle_msgs/TurnSignal`) | vehicle turn signal status to Autoware [m/s]|
 
 
-The output to the vehicle depends on each vehicle interfaces.
+The output to the vehicle depends on each vehicle interface.
 
 | Output (to vehicle)          | Topic(Data Type)                                                      | Explanation                                 |
 | ---------------              | ------------------------------------------------------------------    | ------------------------                    |
@@ -133,9 +133,9 @@ To convert Autoware control messages to vehicle-specific format, and generate ve
 ### Input
 
 - Vehicle Command (type A only)
-  - includes target velocity, acceleration, steering angle, steering angle velocity, gear shift and emergency.
+  - includes target velocity, acceleration, steering angle, steering angle velocity, gear shift, and emergency.
 - Raw Vehicle Command (type B only)
-  - includes target throttle pedal, brake pedal, steering angle, steering angle velocity, gear shift and emergency.
+  - includes target throttle pedal, brake pedal, steering angle, steering angle velocity, gear shift, and emergency.
 - Turn signal (optional)
 
 ### Output
@@ -162,7 +162,7 @@ To convert the target acceleration to the target throttle and brake pedals with 
 ### Output
 
 - Raw Vehicle Command
-  - includes target throttle pedal, brake pedal, steering angle, steering angle velocity, gear shift and emergency.
+  - includes target throttle pedal, brake pedal, steering angle, steering angle velocity, gear shift, and emergency.
 
 # How to design a new vehicle interface
 
@@ -188,7 +188,7 @@ With the use of `RawVehicleCmdConverter`, you need to create a module that satis
 
 **How to make an acceleration map (for type B)**
 
-When using the `RawVehicleCmdConverter` described above, it is necessary to create an acceleration map for each vehicle. The acceleration map is data in CSV format that show what acceleration is produced when the pedal is depressed in each vehicle speed range. You can find the default acceleration map data in `src/vehicle/raw_vehicle_cmd_converter/data` as a reference. In the CSV data, the horizontal axis is the current velocity [m/s], the vertical axis is the vehicle-specific pedal value [-], and the element is the acceleration [m/ss].
+When using the `RawVehicleCmdConverter` described above, it is necessary to create an acceleration map for each vehicle. The acceleration map is data in CSV format that describes how much acceleration is produced when the pedal pressed in each vehicle speed range. You can find the default acceleration map data in `src/vehicle/raw_vehicle_cmd_converter/data` as a reference. In the CSV data, the horizontal axis is the current velocity [m/s], the vertical axis is the vehicle-specific pedal value [-], and the element is the acceleration [m/ss].
 
 This is the reference data created by TierIV with the following steps.
  
