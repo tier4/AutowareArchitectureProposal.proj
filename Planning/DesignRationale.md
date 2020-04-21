@@ -69,7 +69,7 @@ More investigation is required to establish the definition of a “Scenario”, 
 
 For example, OnRoad is used to drive along public roads, whereas Parking is used for driving free space, and it would be difficult to develop an algorithm to support requirements for both scenarios. OnRoad wouldn't require complex path planner as the shape of lanes are already given from HD map, but it must be done at a higher frequency to drive at higher speed, whereas parking requires more complex maneuvers with cut-backs but with lower constraint about computation time. Therefore, it would make more sense to split them into different scenarios, and design a planner to support contradicting requirements. 
 
-Note that we didn't split OnRoad into smaller scenarios, unlike Apollo. We have considered all traffic rule related scenes on public roads, including yielding, traffic lights, crosswalks, and bare intersections, to be essentially velocity planning along lanes and can be handled within a single scheme. (explained in [Bahavior_velocity_planner.md](/Planning/On_road/Behavior/Bahavior_velocity_planner.md))
+Note that we didn't split OnRoad into smaller scenarios, unlike Apollo. We have considered all traffic rule related scenes on public roads, including yielding, traffic lights, crosswalks, and bare intersections, to be essentially velocity planning along lanes and can be handled within a single scheme. 
 
 
 # Reference
