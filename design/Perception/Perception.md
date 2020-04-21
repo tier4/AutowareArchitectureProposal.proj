@@ -1,7 +1,7 @@
 Perception
 =============
 # Overview
-Perception stack recognizes the surrounding of the vehicle in order to achieve safe and efficient autonomous driving. The output of Sensing describes environment "as is", and is usually too primitive to be used directly for high-level planning. Perception stack will extract key and organize it into more meaningful data for Planning stack.
+Perception stack recognizes the surrounding of the vehicle to achieve safe and efficient autonomous driving. The output of Sensing describes environment "as is", and is usually too primitive to be used directly for high-level planning. Perception stack will extract key and organize it into more meaningful data for Planning stack.
 
 ![Perception_overview](/design/img/PerceptionOverview.svg)
 
@@ -65,18 +65,18 @@ From above table, high-level requirements of Perception stack are summarized as 
 This Perception stack consists of 2 separated modules and each module can be subdivided into following components:
 
 - Object Recognition (satisfies Requirement 1 and 2)
-	- Detection
-	- Tracking
-	- Prediction
+   - Detection
+   - Tracking
+   - Prediction
 - Traffic Light Recognition (satisfies requirement 3)
-	- Detection
-	- Classification
+   - Detection
+   - Classification
 
 ![Perception_component](/design/img/PerceptionComponent.png)
 
 **Key points of the structure**
 
-- Interfaces are clearly separated at the current algorithm level.
+- Interfaces are separated accoriding to the current algorithm level.
 - Enable complex autonomous driving use cases by including information like objects' future movement.
 - Depends on technology development in the future, this structure might be changed (e.g. E2E).
 
@@ -125,7 +125,7 @@ Prediction component is responsible for clarifying the following objects' proper
 
 | Property       | Definition                             | Data Type                                    | Parent Data Type                  |
 | -------------- | -------------------------------------- | -------------------------------------------- | --------------------------------- |
-| predicted_path | Predicted furuter paths for an object. | `autoware_perception_msgs::PredictedPath[]	` | `autoware_perception_msgs::State` |
+| predicted_path | Predicted furuter paths for an object. | `autoware_perception_msgs::PredictedPath[]   ` | `autoware_perception_msgs::State` |
 
 Necessary information is defined in `autoware_perception_msg::DynamicObjectArray.msg` with layered msg structure.
 

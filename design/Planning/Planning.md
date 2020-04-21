@@ -35,7 +35,7 @@ Planning stack must satisfy following use cases:
 
 3. **Operating lane change** (Use Case 3)
    * Vehicle must change lane when
-     * lane change is necessary in order to follow planned route
+     * lane change is necessary to follow planned route
      * If current driving lane is blocked (e.g. by parked vehicle)
    * Vehicle must turn on appropriate turn signal 3 seconds before lane change and it must be turned on until lane change is finished
    * Vehicle should stay in lane at least for 3 second before operating lane change for other participants to recognize ego vehicle's turn signal.
@@ -61,7 +61,7 @@ Planning stack must satisfy following use cases:
 
 8. **General requirements to trajectory**
    * Planned trajectory must satisfy requirments from Control stack:
-     * Planned trajectory must have speed profile that satisfies given acceleration and jerk limits unless vehicle is under emergency situation e.g. when pedestrian suddenly jumps into driving lane or front vehicle suddenly stops.
+     * Planned trajectory must have speed profile that satisfies given acceleration and jerk limits unless vehicle is under emergency e.g. when pedestrian suddenly jumps into driving lane or front vehicle suddenly stops.
      * Planned trajectory must be feasible by the given vehicle kinematic model
      * Planned trajectory must to satisfy given lateral acceleration and jerk limit
      * Planned trajectory points within *n* [m] from ego vehicle should not change over time unless sudden steering or sudden acceleration is required to avoid collision with other vehicles.
@@ -98,16 +98,16 @@ Each requirements are met in following modules:
 * Requirement 8: Parking scenario plans trajectory in free space to park into parking space 
 * Requirement 9: Both LaneDriving and Parking should output trajectory that sastifies the requirement
 
-We have looked into different autonomous driving stacks and came to conclusion that it is technically difficult to use unified planner to handle every possible situation. (See [here](/design/Planning/DesignRationale.md) for more details). Therefore, we have decided to set different planners in parallel dedicated for each use case, and let scenario selector to decide depending on situations. Currently, we have reference implementation with two scenarios, on-road planner and parking planner, but any scenarios (e.g. highway, in-emergency, etc.) can be added as needed. 
+We have looked into different autonomous driving stacks and concluded that it is technically difficult to use unified planner to handle every possible situation. (See [here](/design/Planning/DesignRationale.md) for more details). Therefore, we have decided to set different planners in parallel dedicated for each use case, and let scenario selector to decide depending on situations. Currently, we have reference implementation with two scenarios, on-road planner and parking planner, but any scenarios (e.g. highway, in-emergency, etc.) can be added as needed. 
 
-It may be controversial whether new scenario is needed or existing scenario should be enhanced when adding new feature, and we still need more investigation to clearly set the definition of “Scenario” module.
+It may be controversial whether new scenario is needed or existing scenario should be enhanced when adding new feature, and we still need more investigation to set the definition of “Scenario” module.
 
 ![Planning_component](/design/img/PlanningOverview.svg)
 
 ## Mission planner
 
 ### Role
-The role of mission planner is to calculate route that navigates from current vehicle pose to goal pose. The route is made of sequence of lanes that vehicle must follow in order to reach goal pose. 
+The role of mission planner is to calculate route that navigates from current vehicle pose to goal pose. The route is made of sequence of lanes that vehicle must follow to reach goal pose. 
 
 This module is responsible for calculating full route to goal, and therefore only use static map information. Any dynamic obstacle information (e.g. pedestrians and vehicles) is not considered during route planning. Therefore, output route topic is only published when goal pose is given and will be latched until next goal is provided.
 
@@ -137,7 +137,7 @@ Note that all trajectory calculated by each scenario module passes is collected 
 - map: `autoware_lanelet_msgs::MapBin`
 - vehicle pose: `/tf` (map->base_link)
 - route: `autoware_planning_msgs::Route` <br> Scenario planner uses above three topics to decide which scenario to use. In general it should decide scenarios based on where in the map vehicle is located(map+vehicle pose) and where it is trying to go(route).
-- trajectory: `autoware_planning_msgs::Trajectory` <br> Scenario planner gets the output from all the scenarios and passes the trajectory from selected scenario down to following stacks. This must be done within scenario_selector module in order to sync with the timing of scenario changing.
+- trajectory: `autoware_planning_msgs::Trajectory` <br> Scenario planner gets the output from all the scenarios and passes the trajectory from selected scenario down to following stacks. This must be done within scenario_selector module to sync with the timing of scenario changing.
 
 ### Output
 

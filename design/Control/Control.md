@@ -3,8 +3,8 @@
 # Overview
 
 Control stack generates control signals to drive a vehicle following trajectories considering vehicle dynamics.
-This layer ensures that vehicle follows trajectory planned by planning.
-The output of Control stack is includes velocity, acceleration, and steering.
+This layer ensures that the vehicle follows the trajectory planned by planning.
+The output of Control stack includes velocity, acceleration, and steering.
 
 ## Role
 
@@ -17,18 +17,18 @@ There are two main roles of Control Stack:
 
 Control stack supports the following use cases.
 
-1. Driving without overspeed
+1. Driving without excessive speed
 2. Driving at slope
 3. Smooth stop by normal obstacles / Sudden stop by obstacle's running-out
-4. Foward/Reverse parking
+4. Forward/Reverse parking
 
 ## Requirement
 
-In order to achieve above use case, control stack require the following conditions.
+To achieve the above use case, Control stack requires the following conditions.
 
 - The input trajectory includes speed limit at each point (Use case 1).
 - The input pose includes gradient information (=vehicle orientation) (Use case 2).
-- The output vehicle command includes accleration but also velocity (Use case 2, 3).
+- The output vehicle command includes acceleration but also velocity (Use case 2, 3).
 - The output vehicle command includes the command to shift drive/reverse gear(Use case 4.).
 
 ## Input
@@ -44,7 +44,7 @@ The input to Control stack:
 | Engage Command | `/autoware/engage`<br>(`std_msgs::Bool`)                                            | Whether to send commands to the vehicle |
 | Remote Command | -                                                                                   | Control command from remote             |
 
-As above requirements, the data type of target trajectory, `autoware_planning_msgs::Trajectory`, includes the speed at each point.
+As the above requirements, the data type of target trajectory, `autoware_planning_msgs::Trajectory`, includes the speed at each point.
 
 ### Output
 
@@ -101,7 +101,7 @@ Systematic post-processing of vehicle control command, independent of trajectory
 - Reshape the vehicle control command
 - Select the command values (Trajectory follow command, Remote manual command)
 - Observe the maximum speed limit, maximum lateral/longitudinal jerk
-- Stop urgently when emergency command is received
+- Stop urgently when an emergency command is received
 
 ### Input
 
