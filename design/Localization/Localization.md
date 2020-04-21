@@ -52,14 +52,14 @@ Multiple sensor information described below is considered.
   
 ## Output
 
-| Output        | Topic (Data Type)                                                                | Use Cases of the output       |
-| ------------- | -------------------------------------------------------------------------------- | ----------------------------- |
-| Vehicle Pose  | `/tf` <br> (`tf2_msgs/TFMessage`)                                                | Perception, Planning, Control |
+| Output        | Topic (Data Type)                                       | Use Cases of the output       |
+| ------------- | ------------------------------------------------------- | ----------------------------- |
+| Vehicle Pose  | `/tf` <br> (`tf2_msgs/TFMessage`)                       | Perception, Planning, Control |
 | Vehicle Twist | `/localization/twist`<br>(`geometry_msgs/TwistStamped`) | Planning, Control             |
 
 ## Use Cases
 
-| Use Case                                             | Requirement in `Localization`      | Output                 | How it is used                                                                                                                                                     |
+| Use Cases                                           | Requirement in `Localization`      | Output                 | How it is used                                                                                                                                                     |
 | --------------------------------------------------- | ---------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Passing intersection<br>with traffic lights         | Self pose on the map               | Perception             | To detect traffic lights associated  with the lane<br>where ego vehicle is in the camera image                                                                     |
 | Changing lane                                       | Self pose on the map               | Perception<br>Planning | To predict object motion on the lane<br>with lane information<br><br>To recognize drivable area based on lane information<br>and the position where ego vehicle is |
@@ -92,7 +92,6 @@ Pose estimator is a component to estimate ego vehicle pose which includes positi
 
 
 ## Twist Estimator
-
 Twist estimator is a component to estimate ego vehicle twist for precise velocity planning and control. The  x-axis velocity and z-axis angular velocity in vehicle twist is mainly considered. These values are preferable to be noise-free and unbiased.
 
 ### Input
@@ -125,5 +124,3 @@ Pose Twist Fusion Filter is a component to integrate the poses estimated by pose
 - Ego Vehicle Pose (/tf from map frame to base_link frame)
 - Ego Vehicle Twist
 
-# References
-TBU

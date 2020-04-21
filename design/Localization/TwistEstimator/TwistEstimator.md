@@ -1,12 +1,10 @@
 Twist Estimator
 ==============
 
-## Role
-
-Twist estimator is a component to estimate ego vehicle twist for precise velocity planning and control. The x-axis velocity and z-axis angular velocity in vehicle twist is mainly considered. Also, this information can be odometry information. 
+## Twist Estimator
+Twist estimator is a component to estimate ego vehicle twist for precise velocity planning and control. The  x-axis velocity and z-axis angular velocity in vehicle twist is mainly considered. These values are preferable to be noise-free and unbiased.
 
 ## Input
-
 | Input          | Data Type                                            |
 |----------------|------------------------------------------------------|
 | Vehicle CAN    | `geometry_msgs::TwistStamped`                        |
