@@ -38,11 +38,22 @@ The role of map is to publish map information to other stacks. In order to satis
   * The map should be georeferenced.
   * The map should include region within 200m away from any possible route that autonomous vehicle might drive with following information:
     * Routing: the map should be able to retrieve next lane, previous lane, right lane, and left lane of a lane with availablility of lane change.
-    * Geometry: shape and position of lanes, traffic lights, stop lines, crosswalk, parking space, and parking lots.
-    * Traffic rules: the map should be able to retrieve traffic lights, stop lines, traffic signs, right of way, speed limit, direction of lanes, and any other traffic rules from associated lane.
+    * Geometry: shape and position of following objects must be provided:
+      * lanes
+      * traffic lights
+      * stop lines
+      * crosswalk
+      * parking space
+      * and parking lots.
+    * Traffic rules: the map should be able to retrieve following information from given lane:
+      * traffic lights
+      * stop lines
+      * traffic signs
+      * right of way
+      * speed limit
+      * direction of lanes
 
 ## Input
-
 The input to Map stack:
 
 | Input               | Data Type       | Explanation                                                                                                                                                                                                     |
