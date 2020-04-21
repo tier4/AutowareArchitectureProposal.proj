@@ -33,6 +33,6 @@ The following launch files has to be modified for the specific configulation.
 
 The `sensor.launch` defines what or which sensor driver nodes are launched. It is necessary to modify it according to the sensor configuration. The default setting is [here](https://github.com/tier4/AutowareArchitectureProposal/blob/master/src/launcher/sensing_launch/launch/sensing.launch).
 
-**vehicle.launch**
+<!-- **vehicle.launch**
 
-The `vehicle.launch` starts up the sensor TF or vehicle configs / interface described above. Please modify this file according to your setup. The default setting is [here]().
+The `vehicle.launch` starts up the sensor TF or vehicle configs / interface described above. Please modify this file according to your setup. The default setting is [here](). -->
