@@ -37,8 +37,8 @@ Some of other key topics are listed below:
 /perception/object_recognition/tracking/objects
 /perception/traffic_light_recognition/traffic_light_states
 /planning/mission_planning/route
-/planning/scenario_planning/lane_following/behavior_planning/path
-/planning/scenario_planning/lane_following/trajectory
+/planning/scenario_planning/lane_driving/behavior_planning/path
+/planning/scenario_planning/lane_driving/trajectory
 /planning/scenario_planning/parking/trajectory
 /planning/scenario_planning/scenario
 /planning/scenario_planning/scenario_selector/trajectory
