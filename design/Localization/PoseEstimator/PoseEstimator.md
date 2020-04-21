@@ -23,7 +23,7 @@ Pose estimator is a component to estimate ego vehicle pose which includes positi
 ## Design
 
 This is a sample design of our implementation using NDT Scan Matcher. 
-![Pose_Estimator](/design/img/Pose_Estimator.svg)
+![Pose_Estimator](/design/img/PoseEstimator.svg)
 
 We integrated 3D NDT registration method for sample pose estimation algorithm. The NDT registration method is an local localization method that requires a good intial guess before optimizing pose. In order to realize fully automatic localization, GNSS is used for first initialization. After first loop of pose estimation, the output of pose twist fusion filter is used as next initial guess of NDT registration.
 
