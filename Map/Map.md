@@ -86,7 +86,7 @@ Role of this module is to output pointcloud map in `map` frame to be used by oth
 Role of this module is to semantic road information in map frame to be used by other stacks.
 
 ### Input
-- Lanelet2 Map File (OSM file) <br> This includes all lane-related information. The specification about the format is specified [here](./VectorcMap/AutowareLanelet2Format.md). 
+- Lanelet2 Map File (OSM file) <br> This includes all lane-related information. The specification about the format is specified [here](./SemanticMap/AutowareLanelet2Format.md). 
 
 ### Output
 - vector_map `autoware_lanelet_msgs::MapBin` <br> This contains serialized data of Lanelet2 map. All coordinate data contained in the map should be already projected into map frame using specified ECEF parameter. 
