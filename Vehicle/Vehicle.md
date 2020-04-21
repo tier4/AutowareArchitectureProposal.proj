@@ -132,18 +132,18 @@ To convert Autoware control messages to vehicle-specific format, and generate ve
 
 ### Input
 
-- Vehicle Command (type A only)
+- Vehicle Command (`autoware_vehicle_msgs/VehicleCommand`) (type A only)
   - includes target velocity, acceleration, steering angle, steering angle velocity, gear shift, and emergency.
-- Raw Vehicle Command (type B only)
+- Raw Vehicle Command (`autoware_vehicle_msgs/RawVehicleCommand`) (type B only)
   - includes target throttle pedal, brake pedal, steering angle, steering angle velocity, gear shift, and emergency.
-- Turn signal (optional)
+- Turn signal (`autoware_vehicle_msgs/TurnSignal`) (optional)
 
 ### Output
 
-- Velocity status
-- Steering status (optional)
-- Shift status (optional)
-- Turn signal status (optional)
+- Velocity status (`geometry_msgs/TwistStamped`)
+- Steering status (`autoware_vehicle_msgs/Steering`) (optional)
+- Shift status (`autoware_vehicle_msgs/ShiftStamped`) (optional)
+- Turn signal status (`autoware_vehicle_msgs/TurnSignal`) (optional)
 
 NOTE: Lane driving is possible without the optional part. Design vehicle interface according to the purpose.
 
@@ -156,12 +156,12 @@ To convert the target acceleration to the target throttle and brake pedals with 
 
 ### Input
 
-- Vehicle Command
-- Current velocity
+- Vehicle Command (`autoware_vehicle_msgs/VehicleCommand`)
+- Current velocity (`geometry_msgs/TwistStamped`)
 
 ### Output
 
-- Raw Vehicle Command
+- Raw Vehicle Command (`autoware_vehicle_msgs/RawVehicleCommand`)
   - includes target throttle pedal, brake pedal, steering angle, steering angle velocity, gear shift, and emergency.
 
 # How to design a new vehicle interface
