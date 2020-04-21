@@ -32,7 +32,7 @@ Multiple sensor information described below is considered.
 
 - GNSS
 
-  The pose information received from GNSS is projected to local coordinates on reference map. Initial pose is estimated by refining the projected GNSS pose.
+  The pose information received from GNSS is projected into "map" frame. This can be used as one of the pose estimator mentioned below or it can be used to provide initial guess for sequential localization method.
 
 - IMU
 
