@@ -151,7 +151,7 @@ the difinition of each message is shown in following subsection.
 ### Scenario.msg
 
 `string Empty=Empty`  
-`string LaneFollowing=LaneFollowing`  
+`string LaneDriving=LaneDriving`  
 `string Parking=Parking`  
 `string current_scenario`  
 `string[] activating_scenarios`  

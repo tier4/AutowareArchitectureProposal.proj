@@ -1,6 +1,6 @@
-# Lane Following Scenario
+# Lane Driving Scenario
 ## Use Cases and Requirements
-Lane Following Scenario must satisfy the following use cases:
+Lane Driving Scenario must satisfy the following use cases:
 * Driving along lane
 * Operating lane change
 * Following speed limit of lane
@@ -21,9 +21,9 @@ For the details about related requirements, please refer to the [document for Pl
 - Turn Signal: `autoware_vehicle_msgs::TurnSignal` <br> Turn signal command should also be published because Scenario module is only aware of the traffic rules and operating maneuvers in the whole Autoware stack.
 
 ## Design
-Lane Following scenario is decomposed into following modules: LaneChangePlanner, BehaviorVelocityPlanner, MotionPlanner and TurnSignalDecider. 
+Lane Driving scenario is decomposed into following modules: LaneChangePlanner, BehaviorVelocityPlanner, MotionPlanner and TurnSignalDecider. 
 
-![LaneFollowingScenario](/design/img/LaneFollowingScenario.png)
+![LaneDrivingScenario](/design/img/LaneDrivingScenario.png)
 
 ### Behavior Planner
 Behavior Planner plans the path, which includes reference trajectory(i.e. path points) for motion planner to optimize and drivable area. General idea is that behavior layer sets constraints according to traffic rules to ensure optimized trajectory follows traffic rules.

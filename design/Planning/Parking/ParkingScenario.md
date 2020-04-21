@@ -1,8 +1,8 @@
 # Parking Scenario
-This scenario is meant to be used to plan manuevers to park vehicle in parking space. Compared to LaneFollowingScenario, this scenario has relative less constraints about the shape of trajectory.
+This scenario is meant to be used to plan manuevers to park vehicle in parking space. Compared to LaneDrivingScenario, this scenario has relative less constraints about the shape of trajectory.
 
 ## Requirements:
-Lane Following Scenario must satisfy the following use cases:
+Lane Driving Scenario must satisfy the following use cases:
 * Park vehicle in parking space
 
 For the details about related requirements, please refer to the [document for Planning stack](/design/Planning/Planning.md).

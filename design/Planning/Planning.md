@@ -93,11 +93,11 @@ The table below summarizes the final output from Planning stack:
 
 In order to achieve the role stated above, Planning stack is decomposed into the diagram below. Mission calculates the overall route to reach goal from starting position, the scenario selector chooses  which scenario module to activate depending on situation, and selected scenario module outputs trajectory message.
 
-We have looked into different autonomous driving stacks and came to conclusion that it is technically difficult to use unified planner to handle every possible situation. (See [here](/design/Planning/design_rationale) for more details). Therefore, we have decided to set different planners in parallel dedicated for each use case, and let scenario selector to decide depending on situations. Currently, we have reference implementation with two scenarios, on-road planner and parking planner, but any scenarios (e.g. highway, in-emergency, etc.) can be added as needed. 
+We have looked into different autonomous driving stacks and came to conclusion that it is technically difficult to use unified planner to handle every possible situation. (See [here](/design/Planning/DesignRationale.md) for more details). Therefore, we have decided to set different planners in parallel dedicated for each use case, and let scenario selector to decide depending on situations. Currently, we have reference implementation with two scenarios, on-road planner and parking planner, but any scenarios (e.g. highway, in-emergency, etc.) can be added as needed. 
 
 It may be controversial whether new scenario is needed or existing scenario should be enhanced when adding new feature, and we still need more investigation to clearly set the definition of “Scenario” module.
 
-![Planning_component](/design/img/Planning_overview.svg)
+![Planning_component](/design/img/PlanningOverview.svg)
 
 ## Mission planner
 
@@ -119,9 +119,9 @@ This module is responsible for calculating full route to goal, and therefore onl
 
 route: `autoware_planning_msgs::Route` <br> Message type is described below. Route is made of sequence of route section that vehicle must follow in order to reach goal, where a route section is a “slice” of a road that bundles lane changeable lanes. Note that the most atomic unit of route is lane_id, which is the unique id of a lane in vector map. Therefore, route message does not contain geometric information about the lane since we did not want to have planning module’s message to have dependency on map data structure.
 
-![Planning_component](/design/img/Planning_route_msg.svg)
+![Planning_component](/design/img/PlanningRouteMsg.svg)
 
-![Planning_component](/design/img/Planning_route_img.svg)
+![Planning_component](/design/img/PlanningRouteImg.svg)
 
 ## Scenario selector
 
