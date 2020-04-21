@@ -3,7 +3,7 @@
 # Overview
 
 Vehicle stack is an interface between Autoware and vehicle. This layer converts signals from Autoware to vehicle-specific, and vice versa. 
-This module needs to be designed according to the vehicle to be used. How to implement a new interface is described [below.](https://github.com/tier4/AutowareArchitectureProposal/blob/master/Vehicle/Vehicle.md#how-to-design-a-new-vehicle-interface)
+This module needs to be designed according to the vehicle to be used. How to implement a new interface is described [below.](#how-to-design-a-new-vehicle-interface)
 
 
 
