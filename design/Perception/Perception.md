@@ -1,10 +1,9 @@
 Perception
 =============
 # Overview
-Perception stack recognizes the surrounding of the vehicle in order to achieve safe and efficient autonomous driving.
+Perception stack recognizes the surrounding of the vehicle in order to achieve safe and efficient autonomous driving. The output of Sensing describes environment "as is", and is usually too primitive to be used directly for high-level planning. Perception stack will extract key and organize it into more meaningful data for Planning stack.
 
 ![Perception_overview](/design/img/PerceptionOverview.svg)
-
 
 # Role
 Perception stack has 2 main roles.
@@ -13,6 +12,36 @@ Perception stack has 2 main roles.
 - **Traffic Light Recognition**
 
 
+## Use Cases
+Perception must provide enough information to support following use cases:
+
+| Usecase                                                 | Required output from  `Perception`                                                                                                              | How the output is used                                                                                                                                                                                                                                        |
+| ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. Changing lane                                        | **Object Recognition-Prediction**:<br>-  Predicted paths of objects on target lane                                                                   | To decide `when` and `where` changing lane depending on objects' predicted paths. <br>`when`: which timing to trigger lane change  depending on obstacles position and velocity.  <br> `where`: where to go depending on objects' position and shape. |
+| 2. Turning at intersection                              | **Object Recognition- Prediction**:<br>- Predicted paths of objects at an intersection                                                               | To decide `when` turning at an intersection depending on objects' predicted path.  <br>`when`: which timing to turning depending on objects' future paths.                                                                                            |
+| 3. Avoiding parked vehicles                             | **Object Recognition- Detection**:<br>- Objects' class, shape and, position <br> **Object Recognition- Tracking**:<br>- Objects' velocity            | To decide `where` to avoid objects depending on objects' properties. <br> `where`: where to avoid objects in given area depending on objects' class, velocity, shape and position.                                                                    |
+| 4. Stopping at a crosswalk when pedestrians are walking | **Object Recognition- Prediction**:<br>- Predicted paths of objects at a crosswalk                                                                   | To decide where stopping based on pedestrians' position and velocity.                                                                                                                                                                                 |
+| 5. Passing intersection without traffic lights          | **Object Recognition- Detection**:<br>- Objects' shape.  <br> **Object Recognition- Prediction**:<br>- Predicted paths of objects at an intersection | To decide `when` passing intersection depending on objects' properties.  <br>`when`: which timing to pass intersection while negotiating with other objects based on objects' properties like, predicted paths and shape.                             |
+| Merging into another lane                               | **Object Recognition- Prediction**:<br>- Predicted paths of objects at  merging area                                                                 | To decide when merging into another lane depending objects' predicted paths.                                                                                                                                                                          |
+| 6. Taking over Pedestrian/Cyclists                      | **Object Recognition- Detection**:<br>- Objects' shape, position and orientation.  <br> **Object Recognition- Tracking**:<br>- Objects' velocity     | To decide `when` and `where` taking over depending on objects' predicted paths <br> `when`: which timing to taking over depending on obstacles position and velocity. <br> `where`: where to go depending on objects' position and shape.             |
+| 7. Stopping/yielding to an obstacle                     | **Object Recognition- Detection**:<br>- Objects' shape, position, and orientation <br>  **Object Recognition- Tracking**:<br>- Objects' velocity     | To decide where to stop/yield based on pedestrians' position and velocity.                                                                                                                                                                            |
+| 8. Passing intersection with traffic lights             | **Traffic Light Recognition- Classification**:<br>- Traffic signal status                                                                            | To decide whether to go or stop based on traffic signal status.                                                                                                                                                                                       |
+
+## Requirements
+From above table, high-level requirements of Perception stack are summarized as below:
+
+1. Perception stack should recognize following objects: (Use Case 3, 5, 6)
+   1. vehicle 
+   2. pedestrian
+   3. cyclists
+   4. other objects that is on road or parking lot
+2. For each object, Perception stack should provide following information: (Use Case 1-7)
+   1. Pose (done in ObjectDetection)
+   2. Shape (done in ObjectDetection)
+   3. Predicted future path (done in Object Tracking+Prediction)
+3. Perception stack should provide traffic light information: (Use Case 8)
+   1. The status of traffic light
+   2. Unique id of traffic light from map
 
 ## Input
 
@@ -30,28 +59,16 @@ Perception stack has 2 main roles.
 | Dynamic Object      | `/perception/object_recognition/objects`<br>(`autoware_perception_msgs::DynamicObjectArray`)                         | This includes obstacles' information. An obstacle is described by 3 major properties; State, Shape, Semantic. Detail design for these properties is in below  Object Recognition section. |
 | Traffic Light State | `/perception/traffic_light_recognition/traffic_light_states`<br>(`autoware_perception_msgs::TrafficLightStateArray`) | This includes the status of traffic light signals in array format.  The closest traffic signal status is in front of the array, the farrest one is in the end of the array.               |
 
-## Usecases
-| Usecase                                              | Requirement in `Perception`                                                                                                                          | Output   | How it is used                                                                                                                                                                                                                                        |
-| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Changing lane                                        | **Object Recognition-Prediction**:<br>-  Predicted paths of objects on target lane                                                                   | Planning | To decide `when` and `where` changing lane depending on objects' predicted paths. <br>`when`: which timing to trigger lane change  depending on obstacles position and velocity.  <br> `where`: where to go depending on objects' position and shape. |
-| Turning at intersection                              | **Object Recognition- Prediction**:<br>- Predicted paths of objects at an intersection                                                               | Planning | To decide `when` turning at an intersection depending on objects' predicted path.  <br>`when`: which timing to turning depending on objects' future paths.                                                                                            |
-| Avoiding parked vehicles                             | **Object Recognition- Detection**:<br>- Objects' class, shape and, position <br> **Object Recognition- Tracking**:<br>- Objects' velocity            | Planning | To decide `where` to avoid objects depending on objects' properties. <br> `where`: where to avoid objects in given area depending on objects' class, velocity, shape and position.                                                                    |
-| Stopping at a crosswalk when pedestrians are walking | **Object Recognition- Prediction**:<br>- Predicted paths of objects at a crosswalk                                                                   | Planning | To decide where stopping based on pedestrians' position and velocity.                                                                                                                                                                                 |
-| Passing intersection without traffic lights          | **Object Recognition- Detection**:<br>- Objects' shape.  <br> **Object Recognition- Prediction**:<br>- Predicted paths of objects at an intersection | Planning | To decide `when` passing intersection depending on objects' properties.  <br>`when`: which timing to pass intersection while negotiating with other objects based on objects' properties like, predicted paths and shape.                             |
-| Merging into another lane                            | **Object Recognition- Prediction**:<br>- Predicted paths of objects at  merging area                                                                 | Planning | To decide when merging into another lane depending objects' predicted paths.                                                                                                                                                                          |
-| Taking over Pedestrian/Cyclists                      | **Object Recognition- Detection**:<br>- Objects' shape, position and orientation.  <br> **Object Recognition- Tracking**:<br>- Objects' velocity     | Planning | To decide `when` and `where` taking over depending on objects' predicted paths <br> `when`: which timing to taking over depending on obstacles position and velocity. <br> `where`: where to go depending on objects' position and shape.             |
-| Stopping/yielding to an obstacle                     | **Object Recognition- Detection**:<br>- Objects' shape, position, and orientation <br>  **Object Recognition- Tracking**:<br>- Objects' velocity     | Planning | To decide where to stop/yield based on pedestrians' position and velocity.                                                                                                                                                                            |
-| Passing intersection with traffic lights             | **Traffic Light Recognition- Classification**:<br>- Traffic signal status                                                                            | Planning | To decide whether to go or stop based on traffic signal status.                                                                                                                                                                                       |
 
 # Design
 
 This Perception stack consists of 2 separated modules and each module can be subdivided into following components:
 
-- Object Recognition
+- Object Recognition (satisfies Requirement 1 and 2)
 	- Detection
 	- Tracking
 	- Prediction
-- Traffic Light Recognition
+- Traffic Light Recognition (satisfies requirement 3)
 	- Detection
 	- Classification
 
