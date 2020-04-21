@@ -63,7 +63,7 @@ The table below summarizes the output from Map stack:
 
 Map module consist of two modules: pointcloud map loader and vector map loader. Since map data are converted into binary data array, it is meant to be converted back to internal data structure using appropriate library, for example PCL for pointcloud and Lanelet2 for vector map. The access to each data element is also assumed to be done through map library.
 
-![Map_component](/img/Map_overview.svg)
+![Map_component](/design/img/Map_overview.svg)
 
 ## PointCloud Map Loader
 

@@ -12,7 +12,7 @@ Tracking in Object Recognition is required for usecases involved with obstacles:
 * Taking over Pedestrian/Cyclists
 * Stopping/yielding to an obstacle
 
-For the details about related requirements, please refer to the [document for Perception stack](/Perception/Perception.md).
+For the details about related requirements, please refer to the [document for Perception stack](/design/Perception/Perception.md).
 
 ## Role
 Tracking in Object Recognition keeps objects' unique id over time. This time series processing leads to estimating objects' property such as their velocity and/or acceleration. Furthermore, it could estimate more accurate objects' orientation by leveraging the Detection results over time.
@@ -32,14 +32,14 @@ Tracking in Object Recognition keeps objects' unique id over time. This time ser
 
 ## Design
 This is our sample implementation for the Tracking module.
-![msg](/img/ObjectTrackingDesign.png)
+![msg](/design/img/ObjectTrackingDesign.png)
 
 
 ## Requirement in Output
 
 Designated objects' properties in autoware_perception_msgs::DynamicObject need to be filled in the Tracking module before passing to the Prediction module.
 
-![msg](/img/ObjectTrackingRequirement.png)
+![msg](/design/img/ObjectTrackingRequirement.png)
 
 
 | Property  | Definition |Data Type                                 | Parent Data Type|
