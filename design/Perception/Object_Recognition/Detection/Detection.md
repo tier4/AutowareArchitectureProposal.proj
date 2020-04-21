@@ -33,17 +33,17 @@ Detection in Object Recognition detects objects by processing sensor data. Detec
 
 ## Design
 The Detection module is designed to adopt various detection algorithms.
-![msg](/img/ObjectDetectionDesign.png)
+![msg](/design/img/ObjectDetectionDesign.png)
 
 This is one of our sample implementations for the Detection module.
-![msg](/img/ObjectDetectionDesign2.png)
+![msg](/design/img/ObjectDetectionDesign2.png)
 
 
 ## Requirement in Output
 
 Designated objects' properties in `autoware_perception_msgs::DynamicObject` need to be filled in the Detection module before passing to the Tracking module.
 
-![msg](/img/ObjectDetectionRequirement.png)
+![msg](/design/img/ObjectDetectionRequirement.png)
 
 
 

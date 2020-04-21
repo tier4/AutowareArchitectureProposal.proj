@@ -22,6 +22,6 @@ Pose Twist Fusion Filter is a component to integrate the poses estimated by pose
 
 ## Design
 
-![Pose_Twist_Fusion_Filter](/img/Pose_Twist_Fusion_Filter.svg)
+![Pose_Twist_Fusion_Filter](/design/img/Pose_Twist_Fusion_Filter.svg)
 
 Estimated pose in Pose Estimator and estimated twist in Twist Estimator basically contain error to some extent. In order to integrate the 2D vehicle dynamics model with estimated pose and twist of ego vehicle and generate robust and less noisy pose and twist, we implement extended kalman filter(EKF) as Pose Twist Fusion Filter shown in the figure above. If you would like to know further details of EKF model, please see [this document](https://github.com/tier4/AutowareArchitectureProposal/blob/master/Localization/Pose_Twist_Fusion_Filter/EKF.md).

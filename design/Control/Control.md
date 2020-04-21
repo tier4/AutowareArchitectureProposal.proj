@@ -69,7 +69,7 @@ As above requirements, the control stack outputs gear shifting command and accel
 
 # Design
 
-![Control_component](/img/Control_overview.svg)
+![Control_component](/design/img/Control_overview.svg)
 
 ## Trajectory follower
 

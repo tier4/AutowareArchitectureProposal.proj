@@ -23,7 +23,7 @@ For the details about related requirements, please refer to the [document for Pl
 ## Design
 Lane Following scenario is decomposed into following modules: LaneChangePlanner, BehaviorVelocityPlanner, MotionPlanner and TurnSignalDecider. 
 
-![LaneFollowingScenario](/img/LaneFollowingScenario.png)
+![LaneFollowingScenario](/design/img/LaneFollowingScenario.png)
 
 ### Behavior Planner
 Behavior Planner plans the path, which includes reference trajectory(i.e. path points) for motion planner to optimize and drivable area. General idea is that behavior layer sets constraints according to traffic rules to ensure optimized trajectory follows traffic rules.

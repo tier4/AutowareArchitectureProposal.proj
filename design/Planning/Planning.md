@@ -97,7 +97,7 @@ We have looked into different autonomous driving stacks and came to conclusion t
 
 It may be controversial whether new scenario is needed or existing scenario should be enhanced when adding new feature, and we still need more investigation to clearly set the definition of “Scenario” module.
 
-![Planning_component](/img/Planning_overview.svg)
+![Planning_component](/design/img/Planning_overview.svg)
 
 ## Mission planner
 
@@ -119,9 +119,9 @@ This module is responsible for calculating full route to goal, and therefore onl
 
 route: `autoware_planning_msgs::Route` <br> Message type is described below. Route is made of sequence of route section that vehicle must follow in order to reach goal, where a route section is a “slice” of a road that bundles lane changeable lanes. Note that the most atomic unit of route is lane_id, which is the unique id of a lane in vector map. Therefore, route message does not contain geometric information about the lane since we did not want to have planning module’s message to have dependency on map data structure.
 
-![Planning_component](/img/Planning_route_msg.svg)
+![Planning_component](/design/img/Planning_route_msg.svg)
 
-![Planning_component](/img/Planning_route_img.svg)
+![Planning_component](/design/img/Planning_route_img.svg)
 
 ## Scenario selector
 

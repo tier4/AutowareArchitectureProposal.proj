@@ -72,7 +72,7 @@ Multiple sensor information described below is considered.
 
 The localization stack provides indispensable information to achieve autonomous driving. Therefore, it is not preferable to depend on only one estimator component for output of the localization stack. We insert pose twist fusion filter after pose and twist estimator to improve robustness of the estimated pose and twist. Also, developers can easily add new estimator based on another sensor, e.g. camera based visual SLAM and visual odometry, into the localization stack.  The localization stack should output the transformation from map to base_link as /tf to utilize its interpolation system. 
 
-![Localization_component](/img/Localization_overview.svg)
+![Localization_component](/design/img/Localization_overview.svg)
 
 ## Pose estimator
 

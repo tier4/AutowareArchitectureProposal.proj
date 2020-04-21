@@ -3,7 +3,7 @@ Perception
 # Overview
 Perception stack recognizes the surrounding of the vehicle in order to achieve safe and efficient autonomous driving.
 
-![Perception_overview](/img/Perception_overview.svg)
+![Perception_overview](/design/img/Perception_overview.svg)
 
 
 # Role
@@ -55,7 +55,7 @@ This Perception stack consists of 2 separated modules and each module can be sub
 	- Detection
 	- Classification
 
-![Perception_component](/img/Perception_component.png)
+![Perception_component](/design/img/Perception_component.png)
 
 **Key points of the structure**
 
@@ -72,7 +72,7 @@ The motivation behind recognizing obstacles comes from a requirement for balanci
 
 ### Requirement
 
-![Perception_object_if](/img/Perception_object_if.png)
+![Perception_object_if](/design/img/Perception_object_if.png)
 
 #### Detection
 
@@ -112,7 +112,7 @@ Prediction component is responsible for clarifying the following objects' proper
 
 Necessary information is defined in `autoware_perception_msg::DynamicObjectArray.msg` with layered msg structure.
 
-![Perception_object_msg](/img/Perception_object_msg.svg)
+![Perception_object_msg](/design/img/Perception_object_msg.svg)
 
 ### Input
 
@@ -154,7 +154,7 @@ It needs to recognize traffic light signals in order to ensure safe autonomous d
 
 Need to fill `lamp_states` in `autoware_traffic_light_msg::TrafficLightState.msg`
 
-![Perception_trafficlight_msg_msg](/img/Perception_trafficlight_msg.png)
+![Perception_trafficlight_msg_msg](/design/img/Perception_trafficlight_msg.png)
 
 | Property    | Definition                                                      | Data Type                               | Parent Data Type                              |
 | ----------- | --------------------------------------------------------------- | --------------------------------------- | --------------------------------------------- |

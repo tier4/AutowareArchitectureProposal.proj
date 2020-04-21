@@ -5,7 +5,7 @@ Sensing
 
 For autonomous driving, a vehicle needs to be aware of its own state and surrouding environment. Sensing stack collects the environment information through various sensors and manipulates data appropriately to be used by other stacks.
 
-![Sensing_overview](/img/Sensing_overview.svg)
+![Sensing_overview](/design/img/Sensing_overview.svg)
 
 ## Role
 
@@ -54,7 +54,7 @@ More sensors will be added into above table after appropriate investigation abou
 
 In order to support the above use cases and output requirements, Sensing stack is decomposed as below. Depending on the use case and hardware configuration of the vehicle, users may choose to use a subset of the components stated in the diagram. Convention is that for each sensor, there will be a driver and a preprocessor component.
 
-![Sensing_component](/img/Sensing_component.svg)
+![Sensing_component](/design/img/Sensing_component.svg)
 
 The components are separated into drivers and preprocessors. Drivers are responsible for converting sensor data into ROS message and modification of the data during conversion should be minimal. It is preprocessors' responsibility to manipulate sensor data for ease of use.
 

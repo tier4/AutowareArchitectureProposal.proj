@@ -30,9 +30,9 @@ Detection module in Traffic Light Recognition finds traffic lights' region of in
 ## Design
 The Detection module is designed to modularize some patterns of detecting traffic lights' ROI.
 
-![msg](/img/LightDetectionDesign.png)
+![msg](/design/img/LightDetectionDesign.png)
 
 This is our sample implementation for the Detection module.
-![msg](/img/LightDetectionDesign2.png)
+![msg](/design/img/LightDetectionDesign2.png)
 
 Our sample implementation has one advantage over only Map Based Detection method, which sometimes suffers from calibration error. In our approach, Map Based Detection passes rough ROIs to Fine Detection so that it would not care minor calibration error. Fine Detection refines the passed rough ROI to accurately cropped traffic signals' ROI.

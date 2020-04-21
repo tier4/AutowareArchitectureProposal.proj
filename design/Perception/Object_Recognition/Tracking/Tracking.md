@@ -32,14 +32,14 @@ Tracking in Object Recognition keeps objects' unique id over time. This time ser
 
 ## Design
 This is our sample implementation for the Tracking module.
-![msg](/img/ObjectTrackingDesign.png)
+![msg](/design/img/ObjectTrackingDesign.png)
 
 
 ## Requirement in Output
 
 Designated objects' properties in autoware_perception_msgs::DynamicObject need to be filled in the Tracking module before passing to the Prediction module.
 
-![msg](/img/ObjectTrackingRequirement.png)
+![msg](/design/img/ObjectTrackingRequirement.png)
 
 
 | Property  | Definition |Data Type                                 | Parent Data Type|

@@ -18,7 +18,7 @@ For the details about related requirements, please refer to the [document for Pl
 - Trajectory: `autoware_planning_msgs::Trajectory` <br> This contains trajectory that Control must follow. The shape and velocity of the trajectory must satisfy all the requirements.
 
 ## Design
-![ParkingScenario.png](/img/ParkingScenario.png)
+![ParkingScenario.png](/design/img/ParkingScenario.png)
 
 ### Costmap Generator
 This gives spacial constraints to freespace planner.

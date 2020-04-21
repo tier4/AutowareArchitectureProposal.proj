@@ -60,7 +60,7 @@ Since Autoware is open source and is meant to be used/developed by anyone around
 # High-level Architecture Design
 Here is an overview of this architecture.
 
-![Overview](/img/Overview_2.svg)
+![Overview](/design/img/Overview_2.svg)
 
 This architecture consists of 6 stacks:
 - [Sensing](/Sensing/Sensing.md)

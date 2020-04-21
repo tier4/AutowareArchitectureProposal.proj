@@ -31,13 +31,13 @@ Prediction in Object Recognition estimate objects' intention. Intentions are rep
 
 ## Design
 This is our sample implementation for the Tracking module.
-![msg](/img/ObjectPredictionDesign.png)
+![msg](/design/img/ObjectPredictionDesign.png)
 
 
 ## Requirement in Output
 Designated objects' property in autoware_perception_msgs::DynamicObject needs to be filled in the Prediction module before passing to the Planning component.
 
-![msg](/img/ObjectPredictionRequirement.png)
+![msg](/design/img/ObjectPredictionRequirement.png)
 
 
 | Property  | Definition |Data Type                                 | Parent Data Type|

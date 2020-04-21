@@ -2,7 +2,7 @@
 Autoware uses TF library for transforming coordinates, and TF tree can be accessed from any modules in Autoware.
 
 The TF tree of Autoware is illustrated in the image below.
-![TF](/img/TF.svg)
+![TF](/design/img/TF.svg)
 
 ## Frames
 Here is the description of each frame
