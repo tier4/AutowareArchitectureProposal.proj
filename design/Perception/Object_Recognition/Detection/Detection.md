@@ -11,7 +11,7 @@ Detection in Object Recognition is required for usecases involved with obstacles
 * Taking over Pedestrian/Cyclists
 * Stopping/yielding to an obstacle
 
-For the details about related requirements, please refer to the [document for Perception stack](/Perception/Perception.md).
+For the details about related requirements, please refer to the [document for Perception stack](/design/Perception/Perception.md).
 
 ## Role
 Detection in Object Recognition detects objects by processing sensor data. Detection is triggered on every sensor data callback independently from previous detection results. The Detection module is responsible for calculating objects' pose, class, and shape.

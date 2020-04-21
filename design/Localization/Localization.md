@@ -110,8 +110,8 @@ Twist estimator is a component to estimate ego vehicle twist for precise velocit
 ### Role
 
 Pose Twist Fusion Filter is a component to integrate the poses estimated by pose estimators and the twists estimated by twist estimators. This assumes sequential Bayesian Filter, such as EKF and particle filter, whch calculates vehicle's pose and twist probabilistically. This should also achieve following funcitons:
-* smoothing of estimated pose (see [Tf.md](/TF.md))
-* outlier rejection of inputs based on previously calucated pose and it's covariance (see [Tf.md](/TF.md))
+* smoothing of estimated pose (see [Tf.md](/design/TF.md))
+* outlier rejection of inputs based on previously calucated pose and it's covariance (see [Tf.md](/design/TF.md))
 * time delay compensation in case pose estimators take time to calculate pose
 
 ### Input

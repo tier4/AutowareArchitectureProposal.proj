@@ -93,7 +93,7 @@ The table below summarizes the final output from Planning stack:
 
 In order to achieve the role stated above, Planning stack is decomposed into the diagram below. Mission calculates the overall route to reach goal from starting position, the scenario selector chooses  which scenario module to activate depending on situation, and selected scenario module outputs trajectory message.
 
-We have looked into different autonomous driving stacks and came to conclusion that it is technically difficult to use unified planner to handle every possible situation. (See [here](/Planning/design_rationale) for more details). Therefore, we have decided to set different planners in parallel dedicated for each use case, and let scenario selector to decide depending on situations. Currently, we have reference implementation with two scenarios, on-road planner and parking planner, but any scenarios (e.g. highway, in-emergency, etc.) can be added as needed. 
+We have looked into different autonomous driving stacks and came to conclusion that it is technically difficult to use unified planner to handle every possible situation. (See [here](/design/Planning/design_rationale) for more details). Therefore, we have decided to set different planners in parallel dedicated for each use case, and let scenario selector to decide depending on situations. Currently, we have reference implementation with two scenarios, on-road planner and parking planner, but any scenarios (e.g. highway, in-emergency, etc.) can be added as needed. 
 
 It may be controversial whether new scenario is needed or existing scenario should be enhanced when adding new feature, and we still need more investigation to clearly set the definition of “Scenario” module.
 

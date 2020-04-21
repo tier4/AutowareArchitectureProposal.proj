@@ -10,7 +10,7 @@ Prediction in Object Recognition is required for usecases involved with obstacle
 * Taking over Pedestrian/Cyclists
 * Stopping/yielding to an obstacle
 
-For the details about related requirements, please refer to the [document for Perception stack](/Perception/Perception.md).
+For the details about related requirements, please refer to the [document for Perception stack](/design/Perception/Perception.md).
 
 ## Role
 Prediction in Object Recognition estimate objects' intention. Intentions are represented as objects' future trajectories with covariance. The Planning module makes a decision and plans a future ego-motion based on the results of predicted objects.

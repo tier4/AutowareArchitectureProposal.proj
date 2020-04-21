@@ -12,7 +12,7 @@ Tracking in Object Recognition is required for usecases involved with obstacles:
 * Taking over Pedestrian/Cyclists
 * Stopping/yielding to an obstacle
 
-For the details about related requirements, please refer to the [document for Perception stack](/Perception/Perception.md).
+For the details about related requirements, please refer to the [document for Perception stack](/design/Perception/Perception.md).
 
 ## Role
 Tracking in Object Recognition keeps objects' unique id over time. This time series processing leads to estimating objects' property such as their velocity and/or acceleration. Furthermore, it could estimate more accurate objects' orientation by leveraging the Detection results over time.

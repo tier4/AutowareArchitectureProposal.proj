@@ -7,7 +7,7 @@ Lane Following Scenario must satisfy the following use cases:
 * Follow traffic light
 * Turning left/right at intersections
 
-For the details about related requirements, please refer to the [document for Planning stack](/Planning/Planning.md).
+For the details about related requirements, please refer to the [document for Planning stack](/design/Planning/Planning.md).
 
 ## Input
 - Route: `autoware_planning_msgs::Route` <br> This includes the final goal pose and which lanes are available for trajectory planning.

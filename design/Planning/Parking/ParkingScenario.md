@@ -5,7 +5,7 @@ This scenario is meant to be used to plan manuevers to park vehicle in parking s
 Lane Following Scenario must satisfy the following use cases:
 * Park vehicle in parking space
 
-For the details about related requirements, please refer to the [document for Planning stack](/Planning/Planning.md).
+For the details about related requirements, please refer to the [document for Planning stack](/design/Planning/Planning.md).
 
 
 ### Input
