@@ -1,4 +1,4 @@
-Architecture overview
+Architecture Overview
 ======================
 
 # Introduction
@@ -18,13 +18,23 @@ The purpose of this proposal is to:
 - Clarify the role of each module
 - Simplify the interface between modules
 
-so that it's easier for developers to develop functions to achieve use cases above with this architecture than Autoware.AI.
+By defining simplified interface between modules:
+- Internal processing in Autoware becomes more transparent
+- Joint developement of devlopers becomes easier due to less interdependency between modules
+- User's can easilty replace a module with their own software component(e.g. localization) just by "wrapping" their software to adjust to Autoware inteface
+
+Note that the initial focus of this architecture design was solely on function of driving capability, and the following features are left as future work:
+* Real-time processing
+* HMI
+* Fail safe
+* Redundant system
+* State monitoring system
+
 
 # Use Cases
 When we designed the architecture, we have set the use case of Autoware to be last-one-mile travel. 
 
 An example would be the following:
-
 
 **Description:** Travelling from to grocery store in the same city  
 **Actors:** User, Vehicle with Autoware installed (Autoware)  
