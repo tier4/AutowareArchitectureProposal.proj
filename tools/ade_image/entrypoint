@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+#
+# Copyright 2017 - 2018 Ternaris
+# SPDX-License-Identifier: Apache 2.0
+
+set -e
+
+source "/opt/ros/$ROS_DISTRO/setup.bash"
+
+
+if [[ -n "$GITLAB_CI" ]]; then
+    exec "$@"
+fi
+
+
+if [[ -n "$DEBUG" ]]; then
+    set -x
+fi
+
+
+if [[ -n "$TIMEZONE" ]]; then
+    echo "$TIMEZONE" > /etc/timezone
+    ln -sf /usr/share/zoneinfo/"$TIMEZONE" /etc/localtime
+    dpkg-reconfigure -f noninteractive tzdata
+fi
+
+
+groupdel "$GROUP" &>/dev/null || true
+groupadd -og "$GROUP_ID" "$GROUP"
+
+useradd -M -u "$USER_ID" -g "$GROUP_ID" -d "/home/$USER" -s /bin/bash "$USER"
+
+# Create video group. On Debian-based systems, the video group is always 44
+groupdel video &> /dev/null || true
+groupadd -og 44 video
+gpasswd -a "${USER}" video
+
+# Create dialout group. On Debian-based systems, the dialout group is always 20
+# Needed for obtaining access to the Xsens serial port-based sensor
+groupdel dialout &> /dev/null || true
+groupadd -og 20 dialout || true  # Gracefully skip to allow starting on OSX
+gpasswd -a "${USER}" dialout
+
+
+for x in /etc/skel/.*; do
+    target="/home/$USER/$(basename "$x")"
+    if [[ ! -e "$target" ]]; then
+	cp -a "$x" "$target"
+	chown -R "$USER":"$GROUP" "$target"
+    fi
+done
+
+
+if [[ -z "$SKIP_ADEINIT" ]]; then
+    for x in /opt/*; do
+	if [[ -x "$x/.adeinit" ]]; then
+	    echo "Initializing $x"
+	    sudo -Hu "$USER" -- bash -lc "$x/.adeinit"
+	    echo "Initializing $x done"
+	fi
+    done
+fi
+
+
+echo 'ADE startup completed.'
+exec "$@"

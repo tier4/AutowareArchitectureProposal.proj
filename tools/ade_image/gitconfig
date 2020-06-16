@@ -1,0 +1,32 @@
+[alias]
+	ai = add -i
+	ap = add -p
+	b = branch
+	cf = config
+	ci = commit -v
+	cia = commit -v -a
+	cam = commit -a -m
+	co = checkout
+	cp = cherry-pick
+	d = diff
+	dc = diff --cached
+	dw = diff --color-words
+	dwc = diff --cached --color-words
+	fpush = push --force-with-lease
+	lf = log --follow
+	llf = log -p --follow
+	l = log --graph --decorate --abbrev-commit
+	l1 = log --graph --decorate --pretty=oneline --abbrev-commit
+	l1a = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	ll = log -p --graph --decorate --abbrev-commit
+	lla = log -p --graph --decorate --abbrev-commit --all
+	resh1 = reset HEAD^
+	s = !git --no-pager status
+	st = status
+	tl = tag -l
+[branch]
+	autoSetupRebase = always
+[diff]
+	renames = true
+[push]
+	default = upstream
