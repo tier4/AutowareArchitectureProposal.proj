@@ -1,4 +1,5 @@
 bash-completion
+build-essential
 git
 git-lfs
 lcov
@@ -10,7 +11,7 @@ sudo
 vim
 
 # AutowareArchitectureProposal dependencies
-python3-colcon-common-extensions
+geographiclib-tools
 libfmt-dev
 libgeographic-dev
 libopencv-dev
@@ -41,6 +42,7 @@ libqt5core5a
 libqt5gui5
 libqt5widgets5
 libyaml-cpp-dev
+python3-colcon-common-extensions
 qtbase5-dev
 ros-melodic-angles
 ros-melodic-automotive-navigation-msgs
@@ -49,6 +51,7 @@ ros-melodic-can-msgs
 ros-melodic-cv-bridge
 ros-melodic-diagnostic-aggregator
 ros-melodic-diagnostic-updater
+ros-melodic-eigen-conversions
 ros-melodic-grid-map-ros
 ros-melodic-image-transport
 ros-melodic-lanelet2-core
