@@ -1,5 +1,5 @@
-FROM ros:noetic
-ARG CODENAME=focal
+FROM ros:melodic
+ARG CODENAME=bionic
 
 
 # Disable non-free repositories
@@ -29,8 +29,6 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
-RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 1655A0AB68576280
-
 COPY apt-packages /tmp/
 RUN apt-get update && \
     apt-get install -y \
@@ -40,33 +38,11 @@ RUN apt-get update && \
 RUN echo 'ALL ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN echo 'Defaults env_keep += "DEBUG ROS_DISTRO"' >> /etc/sudoers
 
+
 COPY bashrc-git-prompt /
 RUN cat /bashrc-git-prompt >> /etc/skel/.bashrc && \
     rm /bashrc-git-prompt
-
-
-# ===================== CLEAN UP ZONE ===================== #
-# Commands in the cleanup zone will be cleaned up before every release
-# and put into the correct place.
-RUN apt-get update \
-  && apt-get install -y \
-    unzip \
-    ca-certificates \
-    libx11-6 \
-    libxau6 \
-    libxcb1 \
-    libxdmcp6 \
-    libxext6 \
-    libvulkan1 \
-    libgl1 \
-    libgtk2.0-0 \
-    vulkan-utils \
-  && apt-get clean
-
-ADD "https://gitlab.com/nvidia/container-images/vulkan/raw/master/nvidia_icd.json" /etc/vulkan/icd.d/nvidia_icd.json
-RUN chmod 644 /etc/vulkan/icd.d/nvidia_icd.json
-
-# ===================== END OF CLEAN UP ZONE ===================== #
+COPY gdbinit /etc/gdb/
 
 COPY env.sh /etc/profile.d/ade_env.sh
 COPY gitconfig /etc/gitconfig
