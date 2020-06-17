@@ -38,6 +38,12 @@ RUN apt-get update && \
 RUN echo 'ALL ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN echo 'Defaults env_keep += "DEBUG ROS_DISTRO"' >> /etc/sudoers
 
+RUN git clone --recurse-submodules -b release-0.6.0 https://github.com/oxfordcontrol/osqp.git \
+      && mkdir -p osqp/build \
+      && cd osqp/build \
+      && cmake .. \
+      && cmake --build . --target install \
+      && cd - && rm -rf osqp/
 
 COPY bashrc-git-prompt /
 RUN cat /bashrc-git-prompt >> /etc/skel/.bashrc && \
