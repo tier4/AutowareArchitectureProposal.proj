@@ -81,3 +81,47 @@ This architecture consists of 6 stacks:
 - [Map](Map/Map.md)
 
 The details are explained in each page. 
+
+## Restriction on Inter-module Topics
+In this new architecture proposal, we set clear rules about the use of inter-stack topics.
+We clarify the final output topics from each stacks, and other stacks are only allowed to access to the final output topics from other stacks, or other internal topics within that stack.
+
+The rule came from lessons learned from the developement of Autoware.AI. 
+In Autoware.AI, the number of nodes increased so much that no one is aware of what topics are used by other nodes. As a result developers could not estimate the impact of a change in a topic to the whole system, which slowed down both development and reviews.
+
+Therefore, in this proposal, we aimed to define minimal, yet sufficent topics between each stacks to avoid heavy inter-dependencies. For example, a node in Perception stack is only allowed to subscribed to the final output of Localization and Sensing stacks shown in the following list, and not their internal topics (e.g. `/localization/pose_estimator/pose`)
+
+The restriction of access to topics in other stacks allows developers to: 
+* easily track down issues to find which stack is malfunctioning
+* make clear of their contribution. (Improvement of a stack means improvement of the accuracy of the stack's final topic)
+* be aware of which topics are open to other stack and which topics are closed within stack
+
+Of course this restriction might limit the calculation efficiency and feasibility of the whole system. However, we believe the above merits surpass these demerits as Autoware is an OSS with many developers.
+
+The followings are the list of inter-stack topics:
+- [Sensing](sensing/Sensing.md)
+  - /sensing/lidar/pointcloud
+  - /sensing/lidar/no_ground/pointcloud
+  - /sensing/camera/image
+  - /sensing/camera/camera_info
+  - /sensing/gnss/pose_with_covariance
+  - /sensing/imu/imu_data
+- [Localization](localization/Localization.md)
+  - /tf
+  - /localization/twist
+- [Perception](perception/Perception.md)
+  - /perception/object_recognition/objects
+  - /perception/traffic_light_recognition/traffic_light_states
+- [Planning](planning/Planning.md)
+  - /planning/trajectory
+  - /vehicle/turn_signal_cmd
+- [Control](control/Control.md)
+  - /control/vehicle_cmd
+- [Map](map/Map.md)
+  - /map/pointcloud_map
+  - /map/vector_map
+- [Vehicle](vehicle/Vehicle.md)
+  - /vehicle/status/twist
+  - /vehicle/status/steering
+  - /vehicle/status/shift
+  - /vehicle/status/turn_signal
