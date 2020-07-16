@@ -31,7 +31,7 @@ public:
   AbortingLaneChangeState(
     const Status & status, const std::shared_ptr<DataManager> & data_manager_ptr,
     const std::shared_ptr<RouteHandler> & route_handler_ptr);
-
+  ~AbortingLaneChangeState() noexcept override = default;
   // override virtual functions
   void entry() override;
   void update() override;

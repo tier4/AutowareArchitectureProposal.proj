@@ -253,9 +253,9 @@ std_msgs::ColorRGBA toRainbow(double ratio)
       break;  // magenta
   }
   std_msgs::ColorRGBA color;
-  color.r = static_cast<double>(red) / 255;
-  color.g = static_cast<double>(grn) / 255;
-  color.b = static_cast<double>(blu) / 255;
+  color.r = static_cast<float>(red) / 255.f;
+  color.g = static_cast<float>(grn) / 255.f;
+  color.b = static_cast<float>(blu) / 255.f;
   color.a = 0.3;
 
   return color;

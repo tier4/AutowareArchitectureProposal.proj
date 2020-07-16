@@ -43,6 +43,7 @@ public:
   ForcingLaneChangeState(
     const Status & status, const std::shared_ptr<DataManager> & data_manager_ptr,
     const std::shared_ptr<RouteHandler> & route_handler_ptr);
+  ~ForcingLaneChangeState() noexcept override = default;
   // override virtual functions
   void entry() override;
   void update() override;

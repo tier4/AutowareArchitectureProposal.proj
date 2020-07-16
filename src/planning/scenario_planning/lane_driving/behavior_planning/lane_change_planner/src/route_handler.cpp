@@ -38,12 +38,7 @@ namespace
 template <typename T>
 bool exists(const std::vector<T> & vectors, const T & item)
 {
-  for (const auto & i : vectors) {
-    if (i == item) {
-      return true;
-    }
-  }
-  return false;
+  return std::find(vectors.begin(), vectors.end(), item) != vectors.end();
 }
 
 bool isRouteLooped(const autoware_planning_msgs::Route & route_msg)
@@ -63,11 +58,12 @@ bool isRouteLooped(const autoware_planning_msgs::Route & route_msg)
   return false;
 }
 
-PathWithLaneId combineReferencePath(const PathWithLaneId path1, const PathWithLaneId path2)
+PathWithLaneId combineReferencePath(const PathWithLaneId& path1, const PathWithLaneId& path2)
 {
   PathWithLaneId path;
-  path.points.insert(path.points.end(), path1.points.begin(), path1.points.end());
-  path.points.insert(path.points.end(), path2.points.begin(), path2.points.end());
+  path.points.reserve(path1.points.size() + path2.points.size());
+  std::copy(path1.points.begin(), path1.points.end(), std::back_inserter(path.points));
+  std::copy(path2.points.begin(), path2.points.end(), std::back_inserter(path.points));
   return path;
 }
 
@@ -207,12 +203,11 @@ lanelet::ConstLanelets RouteHandler::getLaneletsFromIds(const std::vector<uint64
 
 bool RouteHandler::isDeadEndLanelet(const lanelet::ConstLanelet & lanelet) const
 {
-  for (const auto & route_section : route_msg_.route_sections) {
-    if (exists(route_section.continued_lane_ids, lanelet.id())) {
-      return false;
-    }
-  }
-  return true;
+  const auto isDeadEnd = [id = lanelet.id()](const auto& ids) {
+      return exists(ids.continued_lane_ids, id);
+  };
+
+  return !std::any_of(route_msg_.route_sections.begin(), route_msg_.route_sections.end(), isDeadEnd);
 }
 
 lanelet::ConstLanelets RouteHandler::getLaneletSequenceAfter(
@@ -293,7 +288,7 @@ lanelet::ConstLanelets RouteHandler::getLaneletSequence(
   }
 
   // loop check
-  if (lanelet_sequence_forward.empty() > 1 && lanelet_sequence_backward.empty() > 1) {
+  if (!lanelet_sequence_forward.empty() && !lanelet_sequence_backward.empty()) {
     if (lanelet_sequence_backward.back().id() == lanelet_sequence_forward.front().id()) {
       return lanelet_sequence_forward;
     }

@@ -58,6 +58,7 @@ protected:
   std::shared_ptr<RouteHandler> route_handler_ptr_;
 
 public:
+  virtual ~StateBase() noexcept = default;
   virtual void entry() = 0;
   virtual void update() = 0;
   virtual State getNextState() const = 0;
