@@ -3,6 +3,6 @@ export ADE_GIHUB=hub.docker.com
 export ADE_REGISTRY=index.docker.io
 export ADE_DISABLE_NVIDIA_DOCKER=true
 export ADE_IMAGES="
-  docker.io/tier4/autowarearchitectureproposal:master
   docker.io/tier4/autowarearchitectureproposalade:master
+  docker.io/tier4/autowarearchitectureproposal:master
 "
