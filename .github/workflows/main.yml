@@ -26,6 +26,10 @@ jobs:
       with:
         required-ros-distributions: melodic
 
+    - name: Install catkin-pkg
+      run: |
+        sudo apt-get instal -y python-catkin-pkg
+
     - name: Build workspace
       run: |
         colcon build --event-handlers console_cohesion+
