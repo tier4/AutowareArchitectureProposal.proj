@@ -28,8 +28,9 @@ jobs:
 
     - name: Install catkin-pkg
       run: |
-        sudo apt-get install -y python3-catkin-pkg-modules
+        sudo pip3 install catkin_pkg
 
     - name: Build workspace
       run: |
+        source /opt/ros/melodic/setup.bash
         colcon build --event-handlers console_cohesion+
