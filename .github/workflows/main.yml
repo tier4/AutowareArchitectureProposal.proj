@@ -59,26 +59,26 @@ jobs:
         docker push $CI_REGISTRY_IMAGE${ARCH}ade:commit-$CI_COMMIT_SHA
         docker push $CI_REGISTRY_IMAGE${ARCH}ade:$CI_COMMIT_REF_SLUG
 
-build-linux-ade:
-  needs: build-ade-image
-  runs-on: ubuntu-18.04
-  container:
-    image: index.docker.io/${{ github.repository }}ade:commit-${{ github.sha }}
-  steps:
-    - name: Build AutowareArchitectureProposal
-      run: |
-        apt-get update && apt-get -y --no-install-recommends install git clang-tidy
-        git lfs pull --include="*" --exclude=""
+  build-linux-ade:
+    needs: build-ade-image
+    runs-on: ubuntu-18.04
+    container:
+      image: index.docker.io/${{ github.repository }}ade:commit-${{ github.sha }}
+    steps:
+      - name: Build AutowareArchitectureProposal
+        run: |
+          apt-get update && apt-get -y --no-install-recommends install git clang-tidy
+          git lfs pull --include="*" --exclude=""
 
-        colcon build --merge-install --install-base /opt/AutowareArchitectureProposal
+          colcon build --merge-install --install-base /opt/AutowareArchitectureProposal
 
-        colcon test --merge-install --install-base /opt/AutowareArchitectureProposal --return-code-on-test-failure
+          colcon test --merge-install --install-base /opt/AutowareArchitectureProposal --return-code-on-test-failure
 
-        colcon test-result --all |grep xml |cut -d":" -f1 |xargs .gitlab-ci/merge-test-results test-results.xml || true
-        colcon test-result --verbose
+          colcon test-result --all |grep xml |cut -d":" -f1 |xargs .gitlab-ci/merge-test-results test-results.xml || true
+          colcon test-result --verbose
 
-        mkdir /opt/AutowareArchitectureProposal/src
-        (cd src && git archive --format=tar HEAD | (cd /opt/AutowareArchitectureProposal/src && tar xf -))
-        cp -a LICENSE /opt/AutowareArchitectureProposal
-        chmod -R og-w /opt/AutowareArchitectureProposal
-        tar cfz opt.tar.gz /opt/AutowareArchitectureProposal
+          mkdir /opt/AutowareArchitectureProposal/src
+          (cd src && git archive --format=tar HEAD | (cd /opt/AutowareArchitectureProposal/src && tar xf -))
+          cp -a LICENSE /opt/AutowareArchitectureProposal
+          chmod -R og-w /opt/AutowareArchitectureProposal
+          tar cfz opt.tar.gz /opt/AutowareArchitectureProposal
