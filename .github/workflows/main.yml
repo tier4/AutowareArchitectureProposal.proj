@@ -106,7 +106,7 @@ jobs:
         export CI_REGISTRY_IMAGE="$CI_REGISTRY/${{ github.repository }}"
 
         echo -e "*\n!opt.tar.gz" > .dockerignore
-        |
+
         cat >Dockerfile <<EOF
         FROM alpine
         ADD opt.tar.gz /
