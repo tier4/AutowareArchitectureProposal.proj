@@ -10,30 +10,75 @@ on:
   pull_request:
     branches: [ master ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+  build-ade-image:
+    runs-on: ubuntu-18.04
+    container:
+      image: docker:dind
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+    - name: Checkout source
+      uses: actions/checkout@v2
 
-    - uses: ros-tooling/setup-ros@0.0.14
-      with:
-        required-ros-distributions: melodic
-
-    - name: Install catkin-pkg
+    - name: Print tree
       run: |
-        sudo pip3 install catkin_pkg
-
-    - name: Build workspace
+        pwd
+        echo 'PWD'
+        find
+        apk add --update-cache git
+    - name: Build ADE image
       run: |
-        source /opt/ros/melodic/setup.bash
-        sudo apt-get install -y python-rosdep
-        rosdep update
-        rosdep install -y --from src --ignore-src --rosdistro=melodic
-        colcon build --event-handlers console_cohesion+
+        set -x
+        export CI_COMMIT_SHA=${{ github.sha }}
+        export CI_COMMIT_REF_SLUG=$(echo ${{ github.head_ref }} | cut -d/ -f2- | tr "[:upper:]" "[:lower:]" | sed "s/[^[:alnum:]-]/-/g")
+        export CI_REGISTRY=index.docker.io
+        export CI_REGISTRY_IMAGE="$CI_REGISTRY/${{ github.repository }}"
+        export CI_JOB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+        export CI_USERNAME=${{ github.repository_owner }}
+        echo "TOKEN $CI_JOB_TOKEN -- $CI_USERNAME .. $CI_REGISTRY =="
+        echo "GITHUB_REF == $GITHUB_REF ---"
+        echo "GITHUB_HEAD_REF == ${{ github.head_ref }} ---"
+        echo "GITHUB_BASE_REF == ${{ github.base_ref }} ---"
+        apk add --update-cache git
+        cd tools/ade_image
+        # docker login -u $CI_USERNAME -p $CI_JOB_TOKEN $CI_REGISTRY
+        if [[ -n "$FORCE" ]]; then
+            chmod og-w . -R;
+            docker build --label ade_image_commit_sha="$CI_COMMIT_SHA" -t image .;
+        else
+            (
+                docker pull $CI_REGISTRY_IMAGE${ARCH}ade:commit-$CI_COMMIT_SHA &&
+                docker tag $CI_REGISTRY_IMAGE${ARCH}ade:commit-$CI_COMMIT_SHA image
+            ) || (
+                chmod og-w . -R;
+                docker build --label ade_image_commit_sha="$CI_COMMIT_SHA" -t image .;
+            );
+        fi
+        docker tag image $CI_REGISTRY_IMAGE${ARCH}ade:commit-$CI_COMMIT_SHA
+        docker tag image $CI_REGISTRY_IMAGE${ARCH}ade:$CI_COMMIT_REF_SLUG
+        docker push $CI_REGISTRY_IMAGE${ARCH}ade:commit-$CI_COMMIT_SHA
+        docker push $CI_REGISTRY_IMAGE${ARCH}ade:$CI_COMMIT_REF_SLUG
+
+build-linux-ade:
+  needs: build-ade-image
+  runs-on: ubuntu-18.04
+  container:
+    image: index.docker.io/${{ github.repository }}ade:commit-${{ github.sha }}
+  steps:
+    - name: Build AutowareArchitectureProposal
+      run: |
+        apt-get update && apt-get -y --no-install-recommends install git clang-tidy
+        git lfs pull --include="*" --exclude=""
+
+        colcon build --merge-install --install-base /opt/AutowareArchitectureProposal
+
+        colcon test --merge-install --install-base /opt/AutowareArchitectureProposal --return-code-on-test-failure
+
+        colcon test-result --all |grep xml |cut -d":" -f1 |xargs .gitlab-ci/merge-test-results test-results.xml || true
+        colcon test-result --verbose
+
+        mkdir /opt/AutowareArchitectureProposal/src
+        (cd src && git archive --format=tar HEAD | (cd /opt/AutowareArchitectureProposal/src && tar xf -))
+        cp -a LICENSE /opt/AutowareArchitectureProposal
+        chmod -R og-w /opt/AutowareArchitectureProposal
+        tar cfz opt.tar.gz /opt/AutowareArchitectureProposal
