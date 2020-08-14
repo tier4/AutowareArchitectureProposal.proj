@@ -25,4 +25,7 @@ jobs:
     - uses: ros-tooling/setup-ros@0.0.14
       with:
         required-ros-distributions: dashing
-        source-ros-binary-installation: dashing
+
+    - name: Build workspace
+      run: |
+        colcon build --event-handlers console_cohesion+
