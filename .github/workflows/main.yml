@@ -28,7 +28,7 @@ jobs:
 
     - name: Install catkin-pkg
       run: |
-        sudo apt-get instal -y python-catkin-pkg
+        sudo apt-get install -y python-catkin-pkg
 
     - name: Build workspace
       run: |
