@@ -24,7 +24,7 @@ jobs:
 
     - uses: ros-tooling/setup-ros@0.0.14
       with:
-        required-ros-distributions: dashing
+        required-ros-distributions: melodic
 
     - name: Build workspace
       run: |
