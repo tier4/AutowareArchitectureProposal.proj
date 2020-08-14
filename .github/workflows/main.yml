@@ -34,5 +34,5 @@ jobs:
       run: |
         source /opt/ros/melodic/setup.bash
         rosdep update
-        rosdep install --from src --ignore-src --rosdistro=melodic
+        rosdep install -y --from src --ignore-src --rosdistro=melodic
         colcon build --event-handlers console_cohesion+
