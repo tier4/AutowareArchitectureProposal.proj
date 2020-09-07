@@ -2,7 +2,7 @@
 
 # Overview
 
-Vehicle stack is an interface between Autoware and vehicle. This layer converts signals from Autoware to vehicle-specific, and vice versa. 
+Vehicle stack is an interface between Autoware and vehicle. This layer converts signals from Autoware to vehicle-specific, and vice versa.
 This module needs to be designed according to the vehicle to be used. How to implement a new interface is described [below.](#how-to-design-a-new-vehicle-interface)
 
 
@@ -42,12 +42,12 @@ To achieve the above use case, the vehicle stack requires the following conditio
 
 **Speed control with desired velocity or acceleration (for type A)**
  - The vehicle can be controlled by the target velocity or acceleration.
- - The input vehicle command includes target velocity or acceleration. 
+ - The input vehicle command includes target velocity or acceleration.
  - The output to the vehicle includes desired velocity or acceleration in a vehicle-specific format.
 
 **Speed control with the desired throttle and brake pedals (for type B)**
  - The vehicle can be controlled by the target throttle and brake pedals.
- - The input vehicle command includes target throttle and brake pedals for the desired speed. 
+ - The input vehicle command includes target throttle and brake pedals for the desired speed.
  - The output to the vehicle includes desired throttle and brake pedals in a vehicle-specific format.
 
 **Steering control with the desired steering angle and/or steering angle velocity**
@@ -56,74 +56,121 @@ To achieve the above use case, the vehicle stack requires the following conditio
  - The output to the vehicle includes the desired steering angle and/or steering angle velocity in a vehicle-specific format.
 
 
-**Shift control**
- - The vehicle can be controlled by the target shift mode.
- - The input vehicle command includes the desired shift.
- - The output to the vehicle includes the desired shift in a vehicle-specific format.
+**System control**
+ - The vehicle can be controlled by the system command including
+   - blinker
+   - headlight
+   - wiper
+   - gear
+   - mode
+   - hand_brake
+   - horn
+ - The input system command includes the desired value.
+ - The output to the vehicle includes the target system comand in a vehicle-specific format.
 
-
-**Turn signal control**
- - The vehicle can be controlled by the target turn signal mode.
- - The input vehicle command includes the desired turn signal.
- - The output to the vehicle includes the desired turn signal in a vehicle-specific format.
 
 ## Input
 
 The input to Vehicle stack:
 
-| Input           | Topic(Data Type)                                                   | Explanation |
-| --------------- | ------------------------------------------------------------------ | ----------- |
-| Vehicle Command | `/control/vehicle_cmd`<br>(`autoware_vehicle_msgs/VehicleCommand`) | Table Below |
+| Input                      | Topic(Data Type)                                                   | Explanation |
+| ----------------------     | ------------------------------------------------------------------ | ----------- |
+| Vehicle Motion Command     | `autoware_auto_msgs/VehicleMotionCommand`                          | Table Below |
+| Vehicle System Command     | `autoware_auto_msgs/VehicleSystemCommand`                          | Table Below |
+| Raw Vehicle Motion Command | `autoware_auto_msgs/RawVehicleSystemCommand`                       | Table Below |
 
-The detailed contents in Vehicle Command are as follows.
+The detailed contents in Vehicle Motion / System Command are as follows.
 
-| Input                  | Data Type        | Explanation                            |
-| ----------------------- | ---------------- | -----------                            |
-| Velocity                | std_msgs/Float64 | Target veocity [m/s]                   |
-| Acceleration            | std_msgs/Float64 | Target acceleration [m/s2]             |
-| Steering angle          | std_msgs/Float64 | Target steering angle [rad]            |
-| Steering angle velocity | std_msgs/Float64 | Target steering angle velocity [rad/s] |
-| Gear shifting command   | std_msgs/Int32   | Target Gear shift                      |
-| Emergency command       | std_msgs/Int32   | Emergency status of Autoware           |
+**VehicleMotionCommand**
+
+```
+autoware_auto_msgs/VehicleMotionCommand
+builtin_interfaces/Time stamp
+Float32 velocity       # desired velocity for the baselink
+Float32 acceleration   # desired acceleration for the baselink
+Float32 steering       # desired steering angle
+Float32 steering_rate  # desired steering anglular velocity
+```
 
 
+**VehicleSystemCommand**
+
+```
+builtin_interfaces/Time stamp
+uint8 blinker
+uint8 headlight
+uint8 wiper
+uint8 gear
+uint8 mode
+bool hand_brake
+bool horn
+```
+
+
+**RawVehicleMotionCommand**
+
+```
+builtin_interfaces/Time stamp
+Float32 throttle
+Float32 brake
+Float32 steering
+Float32 steering_rate
+```
 
 ### Output
 
-There are two types of outputs from Vehicle stack: vehicle status to Autoware and a control command to the vehicle.
+There are two types of outputs from Vehicle stack: vehicle report to Autoware and a control command to the vehicle.
 
 The table below summarizes the output from Vehicle stack:
 
-| Output (to Autoware)          | Topic(Data Type)                                                      | Explanation                                 |
-| ---------------               | ------------------------------------------------------------------    | ------------------------                    |
-| velocity status               | `/vehicle/status/twist`<br>(`geometry_msgs/TwistStamped`)             | vehicle velocity status to Autoware [m/s]   |
-| steering status (optional)    | `/vehicle/status/steering`<br>(`autoware_vehicle_msgs/Steering`)      | vehicle steering status to Autoware [rad]   |
-| Shift status (optional)       | `/vehicle/status/Shift`<br>(`autoware_vehicle_msgs/ShiftStamped`)     | vehicle shift to Autoware [-]               |
-| Turn signal status (optional) | `/vehicle/status/turn_signal`<br>(`autoware_vehicle_msgs/TurnSignal`) | vehicle turn signal status to Autoware [m/s]|
+| Output (to Autoware)   | Topic(Data Type)                               | Explanation                                 |
+| ---------------        | ---------------------------------------------- | ------------------------                    |
+| Vehicle Motion Report  | `autoware_auto_msgs/VehicleMotionReport`       | values such as vehicle speed measured by on-board sensors    |
+| Vehicle System Report  | `autoware_auto_msgs/VehicleSystemReport`       | status of the vehicle system such as blinker or headlight   |
 
 
 The output to the vehicle depends on each vehicle interface.
 
-| Output (to vehicle)          | Topic(Data Type)                                                      | Explanation                                 |
-| ---------------              | ------------------------------------------------------------------    | ------------------------                    |
-| vehicle control messages     | Depends on each vehicle                                               | Control signals to drive the vehicle        |
+| Output (to vehicle)          | Topic(Data Type)                       | Explanation                                 |
+| ---------------              | -------------------------------------- | ------------------------                    |
+| vehicle control messages     | Depends on each vehicle                | Control signals to drive the vehicle        |
+
+**VehicleMotionReport**
+
+```
+builtin_interfaces/Time stamp
+Float32 velocity
+Float32 steering
+```
 
 
+**VehicleSystemReport**
 
+```
+builtin_interfaces/Time stamp
+uint8 fuel             # 0 to 100
+uint8 blinker
+uint8 headlight
+uint8 wiper
+uint8 gear
+uint8 mode          # Autonomous / Manual / Disengaged / NotReady
+bool hand_brake
+bool horn
+```
 
 # Design
 
 For vehicles of the type controlled by the target velocity or acceleration (type A)
 
-![Vehicle_design_typeA](/design/img/VehicleInterfaceDesign1.png)
+![Vehicle_design_typeA](/design/img/VehicleInterfaceDesign1_reviewed.png)
 
 
 For vehicles of the type controlled by the target throttle and brake pedals (type B)
 
-![Vehicle_design_typeB](/design/img/VehicleInterfaceDesign2.png)
+![Vehicle_design_typeB](/design/img/VehicleInterfaceDesign2_reviewed.png)
 
 
-## Vehicle Interface 
+## Vehicle Interface
 
 ### Role
 
@@ -193,12 +240,12 @@ When using the `RawVehicleCmdConverter` described above, it is necessary to crea
 
 
 This is the reference data created by TierIV with the following steps.
- 
+
   - Press the pedal to a constant value on a flat road to accelerate/decelerate the vehicle.
   - Save IMU acceleration and vehicle velocity data during acceleration/deceleration.
   - Create a CSV file with the relationship between pedal values and acceleration at each vehicle speed.
 
-After your acceleration map is created, load it when `RawVehicleCmdConverter` is launched (the file path is defined at the launch file). 
+After your acceleration map is created, load it when `RawVehicleCmdConverter` is launched (the file path is defined at the launch file).
 
 **Control of additional elements, such as turn signals**
 
