@@ -62,7 +62,7 @@ std_msgs/Float32 longitudinal_velocity
 std_msgs/Float32 longitudinal_acceleration
 std_msgs/Float32 yaw_rate
 std_msgs/Float32 lateral_velocity  # need more discussion
-std_msgs/Float32 steering_angle    # need more discussion
+std_msgs/Float32 steering          # need more discussion
 ```
 
 **autoware_control_msgs/MotionState**
@@ -73,7 +73,7 @@ std_msgs/Float32 longitudinal_velocity
 std_msgs/Float32 longitudinal_acceleration
 std_msgs/Float32 yaw_rate
 std_msgs/Float32 lateral_velocity
-std_msgs/Float32 steering_angle
+std_msgs/Float32 steering
 ```
 
 ### Output
@@ -90,8 +90,8 @@ The table below summarizes the output from Control stack:
 builtin_interfaces/Time stamp
 std_msgs/Float32 velocity
 std_msgs/Float32 acceleration
-std_msgs/Float32 steering_angle
-std_msgs/Float32 steering_angle_rate
+std_msgs/Float32 steering
+std_msgs/Float32 steering_rate
 ```
 
 
