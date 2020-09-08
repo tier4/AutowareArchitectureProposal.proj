@@ -16,7 +16,7 @@ There are two main roles of Vehicle stack:
 
 ## Assumption
 
-It is assumed that the vehicle has one of the following control interfaces.
+It is assumed that the vehicle has one or both of the following control interfaces.
 
 **Type A. target velocity or acceleration interface.**
 
@@ -32,8 +32,7 @@ Vehicle stack supports the following use cases.
  - Speed control with desired velocity or acceleration (for type A only)
  - Speed control with desired throttle and brake pedals (for type B only)
  - Steering control with desired steering angle and/or steering angle velocity (for both)
- - Shift control (for both)
- - Turn signal control (for both)
+ - System control for headlight, wiper, gear, mode, hand_brake, and horn (for both)
 
 
 ## Requirement
@@ -84,7 +83,6 @@ The detailed contents in Vehicle Motion / System Command are as follows.
 **VehicleMotionCommand**
 
 ```
-autoware_auto_msgs/VehicleMotionCommand
 builtin_interfaces/Time stamp
 Float32 velocity       # desired velocity for the baselink
 Float32 acceleration   # desired acceleration for the baselink
@@ -148,7 +146,7 @@ Float32 steering
 
 ```
 builtin_interfaces/Time stamp
-uint8 fuel             # 0 to 100
+uint8 fuel          # 0 to 100
 uint8 blinker
 uint8 headlight
 uint8 wiper
@@ -169,27 +167,58 @@ For vehicles of the type controlled by the target throttle and brake pedals (typ
 
 ![Vehicle_design_typeB](/design/img/VehicleInterfaceDesign2_reviewed.png)
 
+## Vehicle Command Gate
+
+
+Vehicle Cmd Gate module is responsible for Systematic post-processing.
+
+### Role
+
+Roles of Vehicle Cmd Gate module are as follows.
+
+
+- Select the command values (Trajectory follow command, Remote manual command, safety command, etc.)
+- Reflect engage command to control signal for vehicles
+  - Until true command is sent as engage command, Vehicle Cmd Gate module does not pass the input command information as output.
+- Apply the maximum speed maximum lateral/longitudinal jerk limit
+
+### Input
+
+- Vehicle motion command from Control and Remote module(`autoware_auto_msgs/VehicleMotionCommand`)
+- Vehicle system command from Planning and Remote module(`autoware_auto_msgs/VehicleSystemCommand`)
+- Engage Commands(`std_msgs/Bool`)
+
+
+### Output
+
+- vehicle motion command for vehicles (`autoware_auto_msgs/VehicleMotionCommand`)
+- vehicle system command for vehicles (`autoware_auto_msgs/VehicleSystemCommand`)
+
+
 
 ## Vehicle Interface
 
 ### Role
 
-To convert Autoware control messages to vehicle-specific format, and generate vehicle status messages from vehicle-specific format.
+To convert Autoware control messages to vehicle-specific format, and generate vehicle status messages from vehicle-specific format. Depending on the vehicle, a type A or B interface must be implemented.
 
 ### Input
 
-- Vehicle Command (`autoware_vehicle_msgs/VehicleCommand`) (type A only)
-  - includes target velocity, acceleration, steering angle, steering angle velocity, gear shift, and emergency.
-- Raw Vehicle Command (`autoware_vehicle_msgs/RawVehicleCommand`) (type B only)
-  - includes target throttle pedal, brake pedal, steering angle, steering angle velocity, gear shift, and emergency.
-- Turn signal (`autoware_vehicle_msgs/TurnSignal`) (optional)
+- Vehicle Motion Command (`autoware_auto_msgs/VehicleMotionCommand`) (for type A)
+  - desired vehicle motion including target velocity, acceleration, steering angle, steering angle velocity, gear shift, and emergency.
+- Raw Vehicle Motion Command (`autoware_auto_msgs/RawVehicleMotionCommand`) (for type B)
+  - desired vehicle motion including target throttle pedal, brake pedal, steering angle, steering angle velocity, gear shift, and emergency.
+- Vehicle System Command (`autoware_auto_msgs/VehicleSystemCommand`)
+  - desired vehicle system state includes headlight, wiper, gear, mode, hand_brake, and horn.
 
 ### Output
 
-- Velocity status (`geometry_msgs/TwistStamped`)
-- Steering status (`autoware_vehicle_msgs/Steering`) (optional)
-- Shift status (`autoware_vehicle_msgs/ShiftStamped`) (optional)
-- Turn signal status (`autoware_vehicle_msgs/TurnSignal`) (optional)
+
+- vehicle motion command (`autoware_auto_msgs/VehicleMotionReport`)
+  - includes steering angle, and velocity.
+- vehicle system command (`autoware_auto_msgs/VehicleSystemReport`)
+  - includes fuel, blinker, headlight, wiper, gear, mode, hand_brake, horn. 
+  - (**TBD**: The mode must be implemented. Others are optional.)
 
 NOTE: Lane driving is possible without the optional part. Design vehicle interface according to the purpose.
 
@@ -250,3 +279,28 @@ After your acceleration map is created, load it when `RawVehicleCmdConverter` is
 **Control of additional elements, such as turn signals**
 
 If you need to control parts that are not related to the vehicle drive (turn signals, doors, window opening and closing, headlights, etc.), the vehicle interface will handle them separately. The current Autoware supports and implements only turn signals.
+
+
+# いろいろ
+
+- 車両インターフェースは安全を考慮して基本的にbaseクラスを継承して設計する
+  - しかし、この部分が提供されない可能性も踏まえ、エンゲージ処理、速度制約などはgateでも対応する。
+  - つまりvehicle_interfaceとcommand_gateでは同じ処理が走る。
+- system commandのトピック型は基本形として情報をまとめたものを用意する
+  - 他のトピックを追加する場合は（例えばドア開閉コマンドなど）、別トピックとして用意し、別途vehicle_interfaceに口を用意する。systemCommandの改変は頻繁には行わない
+  - これによって、プロジェクト間でのトピックの流用を可能にする
+- vehicle_interfaceは車両との接続のみを目的とし、PIDのようなアルゴリズムはinterface外部で対応する
+  - これはOEMなどからのブラックボックスな車両インターフェースの統合のためである。
+  - （**TBD**ティアフォーから例を出す）
+
+# AutowareAutoからの変更点
+
+- vehicle command gateの追加
+  - 主に複数コマンド、およびブラックボックスの車両インターフェースへの対応
+- HighLevelVehicleCommandの削除
+- 後輪ステア角の指示値の削除
+- the odometry, outout of the vehicle module, is replaced to the `VehicleMotionReport`.
+
+# AutowareArchitectureProposalからの変更点
+
+- Combine system related commands into one topic (`VehicleSystemCommand/Report`)
