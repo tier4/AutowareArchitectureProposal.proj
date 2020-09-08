@@ -28,7 +28,6 @@ Classification module recognizes traffic signal status. Unique signal types are 
 This is our sample implementation for the Classification module.
 ![msg](/design/img/LightClassificationDesign.png)
 
-
 Unique signals are handled in `autoware_traffic_light_msgs::LampState`. When requiring to detect local unique signals which are not defined here, need to add them in `autoware_traffic_light_msgs::LampState`.
 
 ![msg](/design/img/PerceptionTrafficLightMsg.png)

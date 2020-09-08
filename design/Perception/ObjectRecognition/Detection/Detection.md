@@ -45,8 +45,6 @@ Designated objects' properties in `autoware_perception_msgs::DynamicObject` need
 
 ![msg](/design/img/ObjectDetectionRequirement.png)
 
-
-
 | Property  | Definition |Data Type                                 | Parent Data Type|
 |-------------|--|-------------------------------------------|----|
 | type       | Class information|`uint8`                 |`autoware_perception_msgs::Semantic`|

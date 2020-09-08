@@ -19,7 +19,7 @@ Prediction in Object Recognition estimate objects' intention. Intentions are rep
 
 | Input       | Data Type | Topic |
 |-|-|-|
-| Dynamic Objects       | `autoware_perception_msgs::DynamicObjectArray`|/perception/object_recognition/tracking/objects|
+| Dynamic Objects       | `autoware_perception_msgs::TrackedDynamicObjectArray`|/perception/object_recognition/tracking/objects|
 |Map|`autoware_lanelet2_msgs::MapBin`|/map/vector_map|
 |TF  | `tf2_msgs::TFMessage`|/tf|
 
@@ -27,7 +27,7 @@ Prediction in Object Recognition estimate objects' intention. Intentions are rep
 
 | Output       | Data Type| Output Componenet | TF Frame | Topic|
 |----|-|-|-|-|
-|Dynamic Objects|`autoware_perception_msgs::DynamicObjectArray`|Planning| `map`|/perception/object_recognition/objects|
+|Dynamic Objects|`autoware_perception_msgs::PredictedDynamicObjectArray`|Planning| `map`|/perception/object_recognition/objects|
 
 ## Design
 This is our sample implementation for the Tracking module.

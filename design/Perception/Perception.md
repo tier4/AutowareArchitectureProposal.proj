@@ -1,16 +1,27 @@
 Perception
 =============
 # Overview
-Perception stack recognizes the surrounding of the vehicle to achieve safe and efficient autonomous driving. The output of Sensing describes environment "as is", and is usually too primitive to be used directly for high-level planning. Perception stack will extract key and organize it into more meaningful data for Planning stack.
+Perception stack recognizes the surrounding of the vehicle to achieve safe and efficient autonomous driving. The output of Sensing describes environment "as is", and is usually too primitive to be used directly for high-level planning. Perception stack will extract key features and refrom them into more meaningful data for Planning stack.
 
 ![Perception_overview](/design/img/PerceptionOverview.svg)
 
 # Role
-Perception stack has 2 main roles.
+Perception stack has 4 main roles.
 
 - **Object Recognition**
+  - This consist of three main steps: Detection, Tracking, and Prediction
+  - Final output of Object recognition will be expanded from BoundingBox message in AutowareAuto including predicted path of the object.
+  - There will be inter-module messages (DetectedObjects.msg and TrackingObjects.msg).
 - **Traffic Light Recognition**
-
+  - Perception stack will output the state of traffic light, i.e. output the combination of light bulbs that are lit.
+  - Behavior associated to the state will be decided in the Planner module
+  - Traffic Light recognition will be subdivided into the detection module and classification module
+- **Free Space Recognition**
+  - Output occupied space as 2D occupied points
+  - The difference from object recognition is that object recognition is only meant to recognize objects that are semantically explainable to planner (e.g. Pedestrian, vehicle, cyclists, etc), whereas Freespace/OccupiedSpace recognition is meant to provide geometrically drivable space.
+- **Environment Recognition**
+  - It is expected to output global variable of the environment, including weather, road surface condition, luminosity, and visibility.
+  - Message definition will be TBD
 
 ## Use Cases
 Perception must provide enough information to support following use cases:
@@ -26,6 +37,8 @@ Perception must provide enough information to support following use cases:
 | 6. Taking over Pedestrian/Cyclists                      | **Object Recognition- Detection**:<br>- Objects' shape, position and orientation.  <br> **Object Recognition- Tracking**:<br>- Objects' velocity     | To decide `when` and `where` taking over depending on objects' predicted paths <br> `when`: which timing to taking over depending on obstacles position and velocity. <br> `where`: where to go depending on objects' position and shape.             |
 | 7. Stopping/yielding to an obstacle                     | **Object Recognition- Detection**:<br>- Objects' shape, position, and orientation <br>  **Object Recognition- Tracking**:<br>- Objects' velocity     | To decide where to stop/yield based on pedestrians' position and velocity.                                                                                                                                                                            |
 | 8. Passing intersection with traffic lights             | **Traffic Light Recognition- Classification**:<br>- Traffic signal status                                                                            | To decide whether to go or stop based on traffic signal status.                                                                                                                                                                                       |
+| 9. Emergency stop due to out of ODD Error detection| **Environment Recognition**:<br>- Environment status | To decide if Autonomous Driving System is operational or not in changing environment condition (e.g. rain) |
+
 
 ## Requirements
 From above table, high-level requirements of Perception stack are summarized as below:
@@ -44,6 +57,8 @@ From above table, high-level requirements of Perception stack are summarized as 
    2. Unique id of traffic light from map
 
 ## Input
+Input can be any Sensor Information and Map Information.
+Some of the examples would be.
 
 | Input                  | Topic (Data Type)                                          | Explanation                                                                                                                                                                  |
 | ---------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -56,13 +71,15 @@ From above table, high-level requirements of Perception stack are summarized as 
 
 | Output              | Topic Name (Data Type)                                                                                               | Explanation                                                                                                                                                                               |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Dynamic Object      | `/perception/object_recognition/objects`<br>(`autoware_perception_msgs::DynamicObjectArray`)                         | This includes obstacles' information. An obstacle is described by 3 major properties; State, Shape, Semantic. Detail design for these properties is in below  Object Recognition section. |
+| Dynamic Object      | `/perception/object_recognition/objects`<br>(`autoware_perception_msgs::PredictedDynamicObjectArray`)                         | This includes obstacles' information. An obstacle is described by 3 major properties; State, Shape, Semantic. Detail design for these properties is in below  Object Recognition section. |
 | Traffic Light State | `/perception/traffic_light_recognition/traffic_light_states`<br>(`autoware_perception_msgs::TrafficLightStateArray`) | This includes the status of traffic light signals in array format.|
+|Free Space Recognition| `perception/free_space_recognition/occupied_space` <br> `autoware_perception_msgs::StixelArray` | This includes stixels that represents occupied space, i.e. undrivable space, within environment. Unlike dynamic object information, this only holds geometric information to ensure that vehicle does not collide to objects, even when object recognition failes.|
+|Environment Recognition| `/perception/environment_recognition/environment` <br> `message type undefined`| This includes environment information which will be used to detect out of ODD or to switch modules according to environment. including weather, road surface condition, luminosity, and visibility. |
 
 
 # Design
 
-This Perception stack consists of 2 separated modules and each module can be subdivided into following components:
+This Perception stack consists of 4 separated modules and each module can be subdivided into following components:
 
 - Object Recognition (satisfies Requirement 1 and 2)
    - Detection
@@ -71,6 +88,8 @@ This Perception stack consists of 2 separated modules and each module can be sub
 - Traffic Light Recognition (satisfies requirement 3)
    - Detection
    - Classification
+- Environment Recognizer
+- Free Space Recognizer
 
 ![Perception_component](/design/img/PerceptionComponent.png)
 
