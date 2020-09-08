@@ -10,7 +10,7 @@ These are high-level roles of Planning stack:
 - Calculates route that navigates to desired goal
 - Plans trajectory to follow the route
   - Make sure that vehicle does not collide with obstacles, including pedestrians and other vehicles)
-  - Make sure that the vehicle follows traffic rules during the navigation. This includes following traffic light, stopping at stoplines, stopping at crosswalks, etc. 
+  - Make sure that the vehicle follows traffic rules during the navigation. This includes following traffic light, stopping at stoplines, stopping at crosswalks, etc.
 - Plan sequences of trajectories that is feasible for the vehicle. (e.g. no sharp turns that is kinematically impossible)
 
 ## Use Cases
@@ -69,6 +69,7 @@ Planning stack must satisfy following use cases:
 
 ## Input
 
+The input to the Planning stack includes output from Map, Localization, and Perception stacks.
 The table below summarizes the overal input into Planning stack:
 
 | Input                           | Topic Name(Data Type)                                                                                                   | Explanation                                                                                                                                                                                                                                                                                                         |
@@ -79,6 +80,8 @@ The table below summarizes the overal input into Planning stack:
 | Detected Obstacle Information   | `/perception/object_recognition/objects`<br>(`autoware_planning_msgs::DynamicObjectsArray`)                             | This includes information that cannot be known beforehand such as pedestrians and other vehicles. Planning stack will plan maneuvers to avoid collision with such objects.                                                                                                                                          |
 | Goal position                   | `/planning/goal_pose`<br>(`geometry_msgs::PoseStamped`)                                                                 | This is the final pose that Planning stack will try to achieve.                                                                                                                                                                                                                                                     |
 | TrafficLight recognition result | `/perception/traffic_light_recognition/traffic_light_states`<br>(`autoware_traffic_light_msgs::TrafficLightStateArray`) | This is the real time information about the state of each traffic light. Planning stack will extract the one that is relevant to planned path and use it to decide whether to stop at intersections.                                                                                                                |
+| Environemnt recognition result|TBC| This includes environment parameter information used for planning. E.g. Turnning on wiper during rain, turn on headlight in dark place. |
+
 
 ## Output
 
@@ -125,6 +128,18 @@ route: `autoware_planning_msgs::Route` <br> Message type is described below. Rou
 ![Planning_component](/design/img/PlanningRouteMsg.svg)
 
 ![Planning_component](/design/img/PlanningRouteImg.svg)
+
+## Vehicle System Decider
+
+### Role
+The role of this module is to control peripheral system on the vehicle, which includes blinker, haedlight, wiper, and horn. These are handled separately from motion control commands as these are relatively low frequency commands. 
+
+### Input
+- envorinment recognition result: This is mainly used to decide environment dependent controls such as wiper and headlights.
+- System Control commands from Scenario Modules: Some of the controls, such as blinkers, gear change, and horns, must be synchronized with vehicle behavior, and these are decided in each Scenario modules. `Vihicle SYstem Decider` will only act as a relay to Vehicle modules for these controls.
+
+### Output
+- Vehicle System Commnad: Control commands for vehicle system.
 
 ## Scenario selector
 ### Role
