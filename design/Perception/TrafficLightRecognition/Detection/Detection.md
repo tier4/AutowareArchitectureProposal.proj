@@ -32,7 +32,7 @@ The Detection module is designed to modularize some patterns of detecting traffi
 
 ![msg](/design/img/LightDetectionDesign.png)
 
-This is our sample implementation for the Detection module.
-![msg](/design/img/LightDetectionDesign2.png)
+Users/developers may choose either of the pipelin in the image: only use `Map Based Detection` or with following `Fine Detection` module. 
+Map detection estimates ROI in the image by projecting the traffic light position encoded in HD Map. Therefore, the error of ROI depends on the hardware configuration and localization erros which are used to calculate relative position to traffic light in HD Map. Fine Detection will provide more accurate ROI only from the image features (usually by DNN) for better performance in classification phase.
 
-Our sample implementation has one advantage over Map-only Detection method, which sometimes suffers from calibration error. In our approach, Map Based Detection passes rough ROIs to Fine Detection so that it would not care minor calibration error. Fine Detection refines the passed rough ROI to accurately cropped traffic signals' ROI.
+**Rationale:** We cannot only use Fine Detection module. Since multiple traffic lights might be seen within single image, AD stack must now which traffic light result is relevant to current driving lane, and that can be only retrieved from HD Map at current moment.   

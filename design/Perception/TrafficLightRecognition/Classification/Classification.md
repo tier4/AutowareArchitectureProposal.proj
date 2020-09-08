@@ -30,4 +30,22 @@ This is our sample implementation for the Classification module.
 
 Unique signals are handled in `autoware_traffic_light_msgs::LampState`. When requiring to detect local unique signals which are not defined here, need to add them in `autoware_traffic_light_msgs::LampState`.
 
+Message design is illustrated in the following image.
 ![msg](/design/img/PerceptionTrafficLightMsg.png)
+
+Classificaiton module will provide one `TrafficLightState` message for each traffic light. Each `TrafficLightState` consists of on or more `LampState` msg which describes the combination of lamps that are lighting. 
+
+For example, output of the classification result against the image below would be: 
+![image](/design/img/traffic_light_example.png)
+
+```
+TrafficLightState:
+  - id: 1 # HD map id of traffic light  
+  - lamp_states:
+    - 
+      type: 1 # RED
+      confidence: 1.0
+    - 
+      type: 5 # RIGHT GREEN ARROW
+      confidence: 1.0
+```

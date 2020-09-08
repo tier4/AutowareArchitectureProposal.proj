@@ -1,7 +1,7 @@
 Perception
 =============
 # Overview
-Perception stack recognizes the surrounding of the vehicle to achieve safe and efficient autonomous driving. The output of Sensing describes environment "as is", and is usually too primitive to be used directly for high-level planning. Perception stack will extract key features and refrom them into more meaningful data for Planning stack.
+Perception stack recognizes the surrounding environment of the vehicle to achieve safe and efficient autonomous driving. The output of Sensing describes environment "as is", and is usually too primitive to be used directly for high-level planning. Perception stack will extract key features and refirm them into semantic data for Planning stack.
 
 ![Perception_overview](/design/img/PerceptionOverview.svg)
 
@@ -11,7 +11,6 @@ Perception stack has 4 main roles.
 - **Object Recognition**
   - This consist of three main steps: Detection, Tracking, and Prediction
   - Final output of Object recognition will be expanded from BoundingBox message in AutowareAuto including predicted path of the object.
-  - There will be inter-module messages (DetectedObjects.msg and TrackingObjects.msg).
 - **Traffic Light Recognition**
   - Perception stack will output the state of traffic light, i.e. output the combination of light bulbs that are lit.
   - Behavior associated to the state will be decided in the Planner module
@@ -33,11 +32,11 @@ Perception must provide enough information to support following use cases:
 | 3. Avoiding parked vehicles                             | **Object Recognition- Detection**:<br>- Objects' class, shape and, position <br> **Object Recognition- Tracking**:<br>- Objects' velocity            | To decide `where` to avoid objects depending on objects' properties. <br> `where`: where to avoid objects in given area depending on objects' class, velocity, shape and position.                                                                    |
 | 4. Stopping at a crosswalk when pedestrians are walking | **Object Recognition- Prediction**:<br>- Predicted paths of objects at a crosswalk                                                                   | To decide where stopping based on pedestrians' position and velocity.                                                                                                                                                                                 |
 | 5. Passing intersection without traffic lights          | **Object Recognition- Detection**:<br>- Objects' shape.  <br> **Object Recognition- Prediction**:<br>- Predicted paths of objects at an intersection | To decide `when` passing intersection depending on objects' properties.  <br>`when`: which timing to pass intersection while negotiating with other objects based on objects' properties like, predicted paths and shape.                             |
-| Merging into another lane                               | **Object Recognition- Prediction**:<br>- Predicted paths of objects at  merging area                                                                 | To decide when merging into another lane depending objects' predicted paths.                                                                                                                                                                          |
-| 6. Taking over Pedestrian/Cyclists                      | **Object Recognition- Detection**:<br>- Objects' shape, position and orientation.  <br> **Object Recognition- Tracking**:<br>- Objects' velocity     | To decide `when` and `where` taking over depending on objects' predicted paths <br> `when`: which timing to taking over depending on obstacles position and velocity. <br> `where`: where to go depending on objects' position and shape.             |
-| 7. Stopping/yielding to an obstacle                     | **Object Recognition- Detection**:<br>- Objects' shape, position, and orientation <br>  **Object Recognition- Tracking**:<br>- Objects' velocity     | To decide where to stop/yield based on pedestrians' position and velocity.                                                                                                                                                                            |
-| 8. Passing intersection with traffic lights             | **Traffic Light Recognition- Classification**:<br>- Traffic signal status                                                                            | To decide whether to go or stop based on traffic signal status.                                                                                                                                                                                       |
-| 9. Emergency stop due to out of ODD Error detection| **Environment Recognition**:<br>- Environment status | To decide if Autonomous Driving System is operational or not in changing environment condition (e.g. rain) |
+| 6. Merging into another lane                               | **Object Recognition- Prediction**:<br>- Predicted paths of objects at  merging area                                                                 | To decide when merging into another lane depending objects' predicted paths.                                                                                                                                                                          |
+| 7. Taking over Pedestrian/Cyclists                      | **Object Recognition- Detection**:<br>- Objects' shape, position and orientation.  <br> **Object Recognition- Tracking**:<br>- Objects' velocity     | To decide `when` and `where` taking over depending on objects' predicted paths <br> `when`: which timing to taking over depending on obstacles position and velocity. <br> `where`: where to go depending on objects' position and shape.             |
+| 8. Stopping/yielding to an obstacle                     | **Object Recognition- Detection**:<br>- Objects' shape, position, and orientation <br>  **Object Recognition- Tracking**:<br>- Objects' velocity  **Free Space Recognition**:<br>- undrivable space   | To decide where to stop/yield based on objects' position and velocity.                                                                                                                                                                            |
+| 9. Passing intersection with traffic lights             | **Traffic Light Recognition- Classification**:<br>- Traffic signal status                                                                            | To decide whether to go or stop based on traffic signal status.                                                                                                                                                                                       |
+| 10. Emergency stop due to out of ODD Error detection| **Environment Recognition**:<br>- Environment status | To decide if Autonomous Driving System is operational or not in changing environment condition (e.g. rain) |
 
 
 ## Requirements
@@ -48,13 +47,15 @@ From above table, high-level requirements of Perception stack are summarized as 
    2. pedestrian
    3. cyclists
    4. other objects that is on road or parking lot
-2. For each object, Perception stack should provide following information: (Use Case 1-7)
+2. For each object, Perception stack should provide following information: (Use Case 1-8)
    1. Pose (done in ObjectDetection)
    2. Shape (done in ObjectDetection)
    3. Predicted future path (done in Object Tracking+Prediction)
-3. Perception stack should provide traffic light information: (Use Case 8)
+3. Perception stack should provide traffic light information: (Use Case 9)
    1. The status of traffic light
    2. Unique id of traffic light from map
+4. Perception stack should provide drivable surface for planning (Use Case 8)
+5. Perception stack should provide global environment parameter (Use Case 10)
 
 ## Input
 Input can be any Sensor Information and Map Information.
@@ -66,6 +67,8 @@ Some of the examples would be:
 | Camera                 | `/sensing/{camera_name}/image`<br>(`sensor_msgs::Image`)   | Image data captured by Camera comes from Sensing stack. CameraInfo contains intrinsic parameters for the image.                                                              |
 | Map                    | `/map/vector_map`<br>(`autoware_lanelet2_msgs::MapBin`)    | This is Map data in lanelet2 format. Map stack has utility packages for processing map data.                                                                                 |
 | Drive Route (optional) | `/planning/route`<br>(`autoware_planning_msgs::Route`)     | This is route information for reaching  a destination. In Perception stack, it is used for detecting the traffic lights associated with route information.                   |
+
+Any other sensor output, for example radars, may be added as input to Perception in the future. 
 
 ## Output
 
@@ -104,7 +107,7 @@ This Perception stack consists of 4 separated modules and each module can be sub
 ### Role
 Recognize obstacles that could potentially move. Provide detail information for obstacles required in the Planning stack.
 
-The motivation behind recognizing obstacles comes from a requirement for balancing safety and efficiency in autonomous driving. If emphasizing safety too much, it needs to consider every possible movement of obstacles. Autonomous vehicles could end up freezing. If emphasizing efficiency too much, recognize every object as static obstacles. A car could hit a pedestrian in an intersection because of the efficient drive to a destination. Balanced autonomous driving is achieved by recognizing obstacles.
+The motivation behind recognizing obstacles comes from a requirement for maximization of safety and efficiency in autonomous driving. Unless we have confidence about future behavior of other pariticipants in thee environment, the autonomous driving system must drive excessively conservative, which reduces availability of the system. Safe and functional autonomous driving can only be achieved by recognizing obstacles and understanding its future movements.
 
 ### Requirement
 
@@ -178,13 +181,9 @@ Recognized objects with predicted paths are used in situations like intersection
 
 ## Traffic light recognition
 
-Make sense of traffic light's signal.
+### Role
 
-### Definition
-
-Not only classifying its color but also understanding unique signals like arrow signals.
-
-It needs to recognize traffic light signals in order to ensure safe autonomous driving.
+Autonomous Driving system must recognize traffic lights in order to follow traffic rules and drive safely. Traffic Light Recognition module estimates the state of traffic light signals from sensor outputs. It only outputs the lighting state of the traffic light, and it should not be doing any Stop/Go decision as that should be done in Planning module. The module should not only classifying its color but also understanding unique signals like arrow signals, and therefore message type should be exandable for different traffic lights in different countries.
 
 ### Requirement
 
