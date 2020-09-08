@@ -221,3 +221,44 @@ With the route associated with the traffic light, improve the accuracy of traffi
 `autoware_perception_msgs::TrafficLightStateArray`
 
 Planning stack receives data from this module. It changes the vehicle maneuver based on the result of traffic light recognition.
+
+## Freespace Recognition
+
+### Role
+Role of freespace recognition is to ensure safety of AD system.
+Current Object Recognition module assumes the use of neural networks to achieve Detection, Tracking, and Prediction. 
+If there are any "untrained" objects, e.g. a person dressed as an animal, that could be unrecognized and may not come out as an object from the Object Recognition module.
+In order to avoid collision with such unrecognized objects, this module will provide static obstacles geometric information to define surface that is not drivable with more primitive algorithms.
+
+### Input
+
+#### LiDAR
+
+`sensor_msgs::PointCloud2`
+
+LiDAR input is an essential input for recognizing drivable space to decided whether a surface is geometrically drivable or not.
+
+#### Camera (optional)
+
+`sensor_msgs::Image`
+
+Camera input is used to obtain details about obstacles. Different algorithms has been proposed in order to estimate drivable space within an image.
+
+#### Map
+
+`autoware_lanelet2_msgs::MapBin`
+
+HD map information contains static object information, which may be used to explicitly define safe/dangerous region to drive such as buildings.
+
+### Output
+
+`autoware_perception_msgs::Stixel`
+
+Output will be a message containing points that represents **undrivable** space in 2D.
+Any other regions with no points will be considered as drivable.
+
+**Rationale**: We do not use Occupancy Grid for better memory efficiency.
+
+## Environment Recognition
+
+TBC
