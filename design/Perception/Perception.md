@@ -58,7 +58,7 @@ From above table, high-level requirements of Perception stack are summarized as 
 
 ## Input
 Input can be any Sensor Information and Map Information.
-Some of the examples would be.
+Some of the examples would be:
 
 | Input                  | Topic (Data Type)                                          | Explanation                                                                                                                                                                  |
 | ---------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
