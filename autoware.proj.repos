@@ -47,6 +47,14 @@ repositories:
     type: git
     url: git@github.com:tier4/velodyne_vls.git
     version: tier4/master
+  vendor/ublox:
+    type: git
+    url: git@github.com:tier4/ublox.git
+    version: tier4/master
+  vendor/tamagawa_imu_driver:
+    type: git
+    url: git@github.com:tier4/tamagawa_imu_driver.git
+    version: tier4/master
   # calibration
   calibration/tunable_static_tf_broadcaster:
     type: git
