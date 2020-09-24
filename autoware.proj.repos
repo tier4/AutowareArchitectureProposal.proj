@@ -3,33 +3,33 @@ repositories:
   autoware/pilot.auto:
     type: git
     url: git@github.com:tier4/pilot.auto.git
-    version: master
+    version: v0.6.0
   autoware/launcher:
     type: git
     url: git@github.com:tier4/autoware_launcher.iv.universe.git
-    version: master
+    version: v0.6.0
   # description
   description/sensor/sensor_description:
     type: git
     url: git@github.com:tier4/sensor_description.iv.universe.git
-    version: master
+    version: v0.6.0
   description/vehicle/lexus_description:
     type: git
     url: git@github.com:tier4/lexus_description.iv.universe.git
-    version: master
+    version: v0.6.0
   # simulator
   simulator/planning_simulator:
     type: git
     url: git@github.com:tier4/planning_simulator.iv.universe.git
-    version: master
+    version: v0.6.0
   simulator/planning_simulator_launcher:
     type: git
     url: git@github.com:tier4/planning_sim_launcher.iv.universe.git
-    version: master
+    version: v0.6.0
   simulator/scenario_runner:
     type: git
     url: git@github.com:tier4/scenario_runner.iv.universe.git
-    version: master
+    version: v0.6.0
   # vendor
   vendor/lanelet2:
     type: git
@@ -46,17 +46,17 @@ repositories:
   vendor/velodyne_vls:
     type: git
     url: git@github.com:tier4/velodyne_vls.git
-    version: tier4/master
+    version: 744e550053da457ee29b0481922571d22bee9011
   vendor/ublox:
     type: git
     url: git@github.com:tier4/ublox.git
-    version: tier4/master
+    version: 683d7792d9fc2f42587cefbd6c309c152eee8a89
   vendor/tamagawa_imu_driver:
     type: git
     url: git@github.com:tier4/tamagawa_imu_driver.git
-    version: tier4/master
+    version: cb2a519ec5a0f4d69bf2ab6f3945c123bc80389b
   # calibration
   calibration/tunable_static_tf_broadcaster:
     type: git
     url: git@github.com:tier4/tunable_static_tf_broadcaster.git
-    version: master
+    version: ab29402781070ed8764a1e091624ffcb932ac2fb
