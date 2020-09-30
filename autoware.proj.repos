@@ -30,6 +30,10 @@ repositories:
     type: git
     url: git@github.com:tier4/scenario_runner.iv.universe.git
     version: v0.6.0
+  simulator/logsim:
+    type: git
+    url: git@github.com:tier4/logsim.git
+    version: master
   # vendor
   vendor/lanelet2:
     type: git
