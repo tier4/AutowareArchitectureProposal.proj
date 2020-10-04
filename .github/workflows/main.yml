@@ -14,8 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: ros-tooling/setup-ros@0.0.25
-
     - uses: ros-tooling/action-ros-ci@0.0.19
       with:
         package-name: simple_planning_simulator
