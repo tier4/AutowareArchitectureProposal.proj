@@ -3,7 +3,7 @@ repositories:
   autoware/pilot.auto:
     type: git
     url: git@github.com:tier4/pilot.auto.git
-    version: master
+    version: ros2
   autoware/launcher:
     type: git
     url: git@github.com:tier4/autoware_launcher.iv.universe.git
