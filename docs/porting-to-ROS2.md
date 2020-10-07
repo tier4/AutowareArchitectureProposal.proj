@@ -1,4 +1,4 @@
-Porting `shift_decider` to ROS2
+Porting ROS1 code to ROS2
 =======================
 
 # Frederik porting `shift_decider`
@@ -79,7 +79,7 @@ The steps I followed are:
 Branch off `ros2` and `git checkout control/vehicle_cmd_gate`.
 
 ## Rewriting CMakeLists.txt
-Pretty straightforward by following the example of the already ported `simple_planning_simulator` package and the (pub-sub tutorial)[https://index.ros.org/doc/ros2/Tutorials/Writing-A-Simple-Cpp-Publisher-And-Subscriber/#cpppubsub].
+Pretty straightforward by following the example of the already ported `simple_planning_simulator` package and the [pub-sub tutorial](https://index.ros.org/doc/ros2/Tutorials/Writing-A-Simple-Cpp-Publisher-And-Subscriber/#cpppubsub).
 
 ## ROS -> RCLCPP
 Search-and-replace "ros" with "rclcpp" and adjust everything that needs adjusting. From here on I constantly ran `colcon build --packages-up-to vehicle_cmd_gate` and looked at the first error.
@@ -99,4 +99,37 @@ That's where differences start to show – I decided to make the `VehicleCmdGate
 For each latched publisher, I just used `transient_local` QoS on the publisher, and we will need to do the same on all subscribers to that topic.
 
 ## Timing issues
-The differences didn't matter here so much. The only thing I'm not so sure about is how to port a `ros::Timer`. In my understanding, `rclcpp::WallTimer` doesn't allow for using the `/clock` topic so it's not equivalent. 
+The differences didn't matter here so much. The only thing I'm not so sure about is how to port a `ros::Timer`. In my understanding, `rclcpp::WallTimer` doesn't allow for using the `/clock` topic so it's not equivalent, i.e. the timer doesn't stop when simulation time stops.
+
+## Parameters
+It's not strictly necessary, but you probably want to make sure the filename is `xyz.param.yaml`. Then come two steps:
+
+### Adjust code
+    double vel_lim;
+    pnh_.param<double>("vel_lim", vel_lim, 25.0);
+
+becomes
+
+    const double vel_lim = declare_parameter("vel_lim", 25.0);
+
+which is equivalent to
+
+    const double vel_lim = declare_parameter<double>("vel_lim", 25.0);
+
+## Adjust param file
+Two levels of hierarchy need to be added around the parameters themselves:
+
+    <node name or /**>:
+      ros__parameters:
+        <params>
+
+Also, ROS1 didn't have a problem when you specify an integer, e.g. `28` for a `double` parameter, but ROS2 does:
+
+    [vehicle_cmd_gate-1] terminate called after throwing an instance of 'rclcpp::exceptions::InvalidParameterTypeException'
+    [vehicle_cmd_gate-1]   what():  parameter 'vel_lim' has invalid type: expected [double] got [integer]
+
+Best to just change `28` to `28.0` in the param file. See also [this issue](https://github.com/ros2/rclcpp/issues/979).
+
+
+## Launch file
+There is a [migration guide](https://index.ros.org/doc/ros2/Tutorials/Launch-files-migration-guide/). One thing it doesn't mention is that the `.launch` file also needs to be renamed to `.launch.xml`.
