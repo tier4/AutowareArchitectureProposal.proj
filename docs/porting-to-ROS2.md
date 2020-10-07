@@ -73,7 +73,7 @@ According to an expert:
 
 The basic setup is the same as Fred, I also used the AutowareAuto ADE.
 
-The best source on migrating is the [migration guide]([migration guide](https://index.ros.org/doc/ros2/Contributing/Migration-Guide/)), but the steps I followed are:
+The best source on migrating is the [migration guide](https://index.ros.org/doc/ros2/Contributing/Migration-Guide/), but the steps I followed are:
 
 ## Copying the ROS1 code
 Branch off `ros2` and `git checkout control/vehicle_cmd_gate`.
