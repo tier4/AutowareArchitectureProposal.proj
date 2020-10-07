@@ -8,6 +8,10 @@ repositories:
     type: git
     url: https://github.com/tier4/autoware_launcher.iv.universe.git
     version: ros2
+  autoware/ublox:
+    type: git
+    url: git@github.com:KumarRobotics/ublox.git
+    version: dashing-devel
   # description
   description/sensor/sensor_description:
     type: git
