@@ -73,10 +73,13 @@ According to an expert:
 
 The basic setup is the same as Fred, I also used the AutowareAuto ADE.
 
-The steps I followed are:
+The best source on migrating is the [migration guide]([migration guide](https://index.ros.org/doc/ros2/Contributing/Migration-Guide/)), but the steps I followed are:
 
 ## Copying the ROS1 code
 Branch off `ros2` and `git checkout control/vehicle_cmd_gate`.
+
+## Rewriting package.xml
+The migration guide covers this well. See [here](https://www.ros.org/reps/rep-0149.html) for a reference of the most recent version of this format.
 
 ## Rewriting CMakeLists.txt
 Pretty straightforward by following the example of the already ported `simple_planning_simulator` package and the [pub-sub tutorial](https://index.ros.org/doc/ros2/Tutorials/Writing-A-Simple-Cpp-Publisher-And-Subscriber/#cpppubsub).
