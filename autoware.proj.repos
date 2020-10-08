@@ -11,7 +11,7 @@ repositories:
   autoware/ublox:
     type: git
     url: git@github.com:tier4/ublox.git
-    version: dashing-devel
+    version: foxy-devel
   # description
   description/sensor/sensor_description:
     type: git
