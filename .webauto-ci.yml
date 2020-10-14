@@ -5,8 +5,8 @@
 services:
   autoware:
     type: roslaunch
-    package_name: autoware_launch
-    file_name: autoware.launch
+    package_name: integration_launch
+    file_name: release.launch
   planning_simulator:
     type: roslaunch
     package_name: integration_launch
