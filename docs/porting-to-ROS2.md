@@ -195,7 +195,7 @@ $ ros2 param set /velocity_controller max_jerk 5.0
 
 ### Parameter Client
 
-The parameter client is another way to dinamically set the parameter defined in the node. The client subscribes to the `/parameter_event` topic and call the callback function. This allows the client node to get all the information about parameter change in every node. The callback argument contains the target node name, which can be used to determine which node the parameter change is for.
+The parameter client is another way to dynamically set the parameter defined in the node. The client subscribes to the `/parameter_event` topic and call the callback function. This allows the client node to get all the information about parameter change in every node. The callback argument contains the target node name, which can be used to determine which node the parameter change is for.
 
 In .hpp,
 
