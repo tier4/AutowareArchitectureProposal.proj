@@ -24,7 +24,7 @@ $ git checkout ros2
 $ cd ~/ade-home/AutowareArchitectureProposal
 $ ade start --enter
 $ cd AutowareArchitectureProposal
-    ```
+```
 
 All commands that follow are to be entered in ADE. Next step is to fetch the sub-repos:
 
@@ -153,6 +153,89 @@ There is a [migration guide](https://index.ros.org/doc/ros2/Tutorials/Launch-fil
 A `tf2_ros::Buffer` member that is filled by a `tf2_ros::TransformListener` can become a `tf2::BufferCore` instead. For an example, see [this PR](https://github.com/tier4/Pilot.Auto/pull/11)
 
 
+
+### Dynamic reconfigure
+In ros2, the dynamic reconfigure feature is implemented by a parameter callback using the service. To use this feature, in the header file, you need to set a parameter handler and callback function as below.
+
+```
+OnSetParametersCallbackHandle::SharedPtr set_param_res_;  // callback handler should hold
+rcl_interfaces::msg::SetParametersResult paramCallback(const std::vector<rclcpp::Parameter> & parameters);
+```
+
+In the .cpp, write this in the class which inherits rclcpp::Node. Below is the example in the velocity_controller node.
+
+```
+// set parameter callback
+set_param_res_ =
+  this->add_on_set_parameters_callback(std::bind(&VelocityController::paramCallback, this, _1));
+```
+
+In the callback, you can access the parameters like this.
+
+```
+rcl_interfaces::msg::SetParametersResult VelocityController::paramCallback(const std::vector<rclcpp::Parameter> & parameters)
+{
+  for (const auto & p : parameters) {
+    if (p.get_type() == rclcpp::ParameterType::PARAMETER_DOUBLE) {
+      if (p.get_name() == "max_jerk") max_jerk_ = max_jerk;
+    }
+  }
+  rcl_interfaces::msg::SetParametersResult result;
+  result.successful = true;
+  result.reason = "success";
+  return result;
+}
+```
+
+When the node is running, you can set the parameter dynamically with the following command.
+
+```
+$ ros2 param set /velocity_controller max_jerk 5.0
+```
+
+### Parameter Client
+
+The parameter client is another way to dinamically set the parameter defined in the node. The client subscribes to the `/parameter_event` topic and call the callback function. This allows the client node to get all the information about parameter change in every node. The callback argument contains the target node name, which can be used to determine which node the parameter change is for.
+
+In .hpp,
+
+```
+rclcpp::AsyncParametersClient::SharedPtr param_client_;
+rclcpp::Subscription<rcl_interfaces::msg::ParameterEvent>::SharedPtr sub_param_event_;
+
+void paramCallback(const rcl_interfaces::msg::ParameterEvent::SharedPtr event);
+```
+
+In .cpp,
+
+```
+// client setting
+param_client_ = std::make_shared<rclcpp::AsyncParametersClient>(this, "param_client");
+sub_param_event_ =
+  param_client_->on_parameter_event(std::bind(&VelocityController::paramCallback, this, std::placeholders::_1));
+
+// callback setting
+void paramCallback(const rcl_interfaces::msg::ParameterEvent::SharedPtr event)
+{
+  for (auto & new_parameter : event->new_parameters) {
+      std::cout << "  " << new_parameter.name << std::endl;
+  }
+  for (auto & changed_parameter : event->changed_parameters) {
+      std::cout << "  " << changed_parameter.name << std::endl;
+  }
+  for (auto & deleted_parameter : event->deleted_parameters) {
+      std::cout << "  " << deleted_parameter.name << std::endl;
+  }
+};
+```
+
+However, this method calls the callback for all parameter changes of all nodes. So the `add_on_set_parameters_callback` is recommended for the porting of the dynamic reconfigure.
+
+reference:
+
+https://discourse.ros.org/t/composition-and-parameters-best-practice-suggestions/1001
+
+https://github.com/ros2/rclcpp/issues/243 - Connect to preview
 
 
 
