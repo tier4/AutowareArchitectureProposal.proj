@@ -2,10 +2,11 @@ Porting ROS1 code to ROS2
 =======================
 
 ## Setting up the environment
-Do following to setup and start ADE environment
+Do the following to setup and start ADE environment
 
 1. Setup ade home
 ```
+$ cd ~
 $ mkdir ade-home
 $ cd ade-home
 $ touch .adehome
@@ -20,7 +21,7 @@ $ git checkout ros2
 
 3. enter ADE
 ```
-$ cd ~/adehome/AutowareArchitectureProposal
+$ cd ~/ade-home/AutowareArchitectureProposal
 $ ade start --enter
 $ cd AutowareArchitectureProposal
     ```
