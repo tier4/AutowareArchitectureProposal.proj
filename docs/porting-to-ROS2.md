@@ -150,7 +150,7 @@ A `tf2_ros::Buffer` member that is filled by a `tf2_ros::TransformListener` can 
 ### Service clients
 There is no synchronous API for service calls, and the futures API can not be used from inside a node, only the callback API.
 
-The futures API is what is used in tutorials such as [Writing a simple service and client](https://index.ros.org/doc/ros2/Tutorials/Writing-A-Simple-Cpp-Service-And-Client/#write-the-client-node), but note that the call to `rclcpp::spin_until_future_complete()` does not happen from of any subscriber callback or similar. If you do call it from inside a node, you will get
+The futures API is what is used in tutorials such as [Writing a simple service and client](https://index.ros.org/doc/ros2/Tutorials/Writing-A-Simple-Cpp-Service-And-Client/#write-the-client-node), but note that the call to `rclcpp::spin_until_future_complete()` does not happen from inside any subscriber callback or similar. If you do call it from inside a node, you will get
 
     terminate called after throwing an instance of 'std::runtime_error'
       what():  Node has already been added to an executor.
@@ -166,10 +166,6 @@ Another idea for a workaround is to do something similar to what is done in the 
 
 ### Logging
 The node name is now automatically prepended to the log message, so that part can be removed.
-
-
-### `dynamic_reconfigure`
-This is not needed anymore. All parameters can be set on the node with `ros2 param set`, and there is a [synchronous](http://docs.ros2.org/foxy/api/rclcpp/classrclcpp_1_1SyncParametersClient.html) and [asynchronous](http://docs.ros2.org/foxy/api/rclcpp/classrclcpp_1_1SyncParametersClient.html) parameter client that every node can use to query and set another node's parameters.
 
 
 ### Shutting down a subscriber
