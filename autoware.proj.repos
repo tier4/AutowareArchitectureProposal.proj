@@ -30,6 +30,10 @@ repositories:
     type: git
     url: https://github.com/tier4/scenario_runner.iv.universe.git
     version: ros2
+  vendor/osqp:
+    type: git
+    url: git@github.com:esteve/osqp_vendor.git
+    version: ros2
   # vendor
 #  vendor/lanelet2:
 #    type: git
