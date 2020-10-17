@@ -10,7 +10,7 @@ repositories:
     version: ros2
   autoware/ublox:
     type: git
-    url: git@github.com:tier4/ublox.git
+    url: https://github.com/tier4/ublox.git
     version: foxy-devel
   # description
   description/sensor/sensor_description:
