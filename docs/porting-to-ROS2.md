@@ -150,7 +150,32 @@ There is a [migration guide](https://index.ros.org/doc/ros2/Tutorials/Launch-fil
 
 
 ### Replacing `tf2_ros::Buffer`
-A `tf2_ros::Buffer` member that is filled by a `tf2_ros::TransformListener` can become a `tf2::BufferCore` instead. For an example, see [this PR](https://github.com/tier4/Pilot.Auto/pull/11)
+A `tf2_ros::Buffer` member that is filled by a `tf2_ros::TransformListener` can become a `tf2::BufferCore` in most cases. This reduces porting effort, since the a `tf2::BufferCore` can be constructed like a ROS1 `tf2_ros::Buffer`. For an example, see [this PR](https://github.com/tier4/Pilot.Auto/pull/11).
+
+However, in some cases the extra functionality of `tf2_ros::Buffer` is needed. For instance, waiting for a transform to arrive.
+
+
+#### Waiting for a transform to arrive
+You might expect to be able to use `tf2_ros::Buffer::lookupTransform()` with a timeout out of the box, but this will throw an error:
+
+    Do not call canTransform or lookupTransform with a timeout unless you are using another thread for populating data. 
+    Without a dedicated thread it will always timeout. 
+    If you have a seperate thread servicing tf messages, call setUsingDedicatedThread(true) on your Buffer instance.
+
+You could do therefore try setting up a dedicated thread, but you could also use the `waitForTransform()` function like this:
+
+    // In the node definition
+    tf2_ros::Buffer tf_buffer_;
+    tf2_ros::TransformListener tf_listener_;
+    ...
+    // In the constructor
+    auto cti = std::make_shared<tf2_ros::CreateTimerROS>(this->get_node_base_interface(), this->get_node_timers_interface());
+    tf_buffer_.setCreateTimerInterface(cti);
+    ...
+    // In the function processing data
+    tf_buffer_.waitForTransform(a, b, msg_time, std::chrono::milliseconds(1000), [this](const std::shared_future<geometry_msgs::msg::TransformStamped>& tf){...}
+
+The callback will always be called, and if the transform is not ready yet, calling `.get()` on the future will throw a `tf2::TimeoutException`.
 
 
 ### Service clients
