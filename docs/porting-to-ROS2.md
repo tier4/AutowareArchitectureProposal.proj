@@ -29,7 +29,8 @@ $ cd AutowareArchitectureProposal
 All commands that follow are to be entered in ADE. Next step is to fetch the sub-repos:
 
     cd ~/AutowareArchitectureProposal
-    vcs import < autoware.proj.repos
+    mkdir src
+    vcs import src < autoware.proj.repos
 
 For instance, the `shift_decider` package is in the repository `github.com:tier4/pilot.auto.git`, which is now in the `autoware/pilot.auto` subdirectory.
 
