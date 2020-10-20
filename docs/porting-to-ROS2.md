@@ -22,7 +22,7 @@ $ git checkout ros2
 3. enter ADE
 ```
 $ cd ~/ade-home/AutowareArchitectureProposal
-$ ade start --enter
+$ ade start --update --enter
 $ cd AutowareArchitectureProposal
 ```
 
