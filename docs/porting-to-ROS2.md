@@ -178,9 +178,9 @@ You could do therefore try setting up a dedicated thread, but you could also use
         // Here the future is available
     });
 
-The callback will always be called, and if the transform is not ready yet, calling `.get()` on the future will throw a `tf2::TimeoutException`.
+The callback will always be called, but only after some time: when the transform becomes available or when the timeout is reached. In the latter case, if the transform is not ready yet, calling `.get()` on the future will throw a `tf2::TimeoutException`.
 
-`waitForTransform()` also returns a future, but calling `.get()` or `.wait()` on that future does not respect the timeout. That is, it will wait however long it takes until a transform arrives and never throw an exception.
+The `waitForTransform()` function will return immediately and also return a future. However, calling `.get()` or `.wait()` on that future does not respect the timeout. That is, it will wait however long it takes until a transform arrives and never throw an exception.
 
 
 ### Service clients
