@@ -20,9 +20,13 @@ Architecture overview is [here](/design/Overview.md).
 
 ### Hardware
 
- - x86 CPU (8 or more cores)
- - 16 GB or more of memory
- - Nvidia GPU (4GB or more of memory)
+- x86 CPU (8 or more cores)
+- 16 GB or more of memory
+- Nvidia GPU (4GB or more of memory) \*optional
+  - When you use following packages, GPU is mandatory:
+    - lidar_apollo_instance_segmentation
+    - traffic_light_ssd_fine_detector
+    - cnn_classifier
 
 If cuda or tensorRT is already installed, it is recommended to remove it.
 
