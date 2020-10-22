@@ -10,7 +10,7 @@ This is the source code of the feasibility study for Autoware architecture propo
 
 > **WARNING**: This source is solely for demonstrating an architecture proposal. It should not be used to drive cars. 
 
-> **NOTE**: The features in [autoware.iv.universe](https://github.com/tier4/autoware.iv.universe) will be merged into Autoware.Auto.
+> **NOTE**: The features in [pilot.auto](https://github.com/tier4/pilot.auto) will be merged into Autoware.Auto.
 
 Architecture overview is [here](/design/Overview.md).
 
