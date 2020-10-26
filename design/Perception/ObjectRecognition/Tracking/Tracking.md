@@ -2,7 +2,7 @@ Detection
 =====
 
 ## Use Cases and Requirements
-Tracking in Object Recognition is required for usecases involved with obstacles:
+Tracking in Object Recognition is required for use cases involved with obstacles:
 * Changing lane
 * Turning at intersection
 * Avoiding parked vehicles
@@ -37,7 +37,7 @@ This is our sample implementation for the Tracking module.
 
 ## Requirement in Output
 
-Designated objects' properties in autoware_perception_msgs::DynamicObject need to be filled in the Tracking module before passing to the Prediction module.
+Designated objects' properties in `autoware_perception_msgs::DynamicObject` need to be filled in the Tracking module before passing to the Prediction module.
 
 ![msg](/design/img/ObjectTrackingRequirement.png)
 
