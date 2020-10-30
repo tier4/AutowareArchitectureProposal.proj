@@ -76,14 +76,14 @@ This Perception stack consists of 2 separated modules and each module can be sub
 
 **Key points of the structure**
 
-- Interfaces are separated accoriding to the current algorithm level.
+- Interfaces are separated according to the current algorithm level.
 - Enable complex autonomous driving use cases by including information like objects' future movement.
 - Depends on technology development in the future, this structure might be changed (e.g. E2E).
 
 ## Object Recognition
 
 ### Role
-Recognize obstacles that could potentially move. Provide detail information for obstacles required in the Planning stack.
+Recognize obstacles that could potentially move. Provide detailed information for obstacles required in the Planning stack.
 
 The motivation behind recognizing obstacles comes from a requirement for balancing safety and efficiency in autonomous driving. If emphasizing safety too much, it needs to consider every possible movement of obstacles. Autonomous vehicles could end up freezing. If emphasizing efficiency too much, recognize every object as static obstacles. A car could hit a pedestrian in an intersection because of the efficient drive to a destination. Balanced autonomous driving is achieved by recognizing obstacles.
 
@@ -125,7 +125,7 @@ Prediction component is responsible for clarifying the following objects' proper
 
 | Property       | Definition                             | Data Type                                    | Parent Data Type                  |
 | -------------- | -------------------------------------- | -------------------------------------------- | --------------------------------- |
-| predicted_path | Predicted furuter paths for an object. | `autoware_perception_msgs::PredictedPath[]   ` | `autoware_perception_msgs::State` |
+| predicted_path | Predicted future paths for an object. | `autoware_perception_msgs::PredictedPath[]   ` | `autoware_perception_msgs::State` |
 
 Necessary information is defined in `autoware_perception_msg::DynamicObjectArray.msg` with layered msg structure.
 

@@ -79,7 +79,7 @@ The detailed contents in Vehicle Command are as follows.
 
 | Input                  | Data Type        | Explanation                            |
 | ----------------------- | ---------------- | -----------                            |
-| Velocity                | std_msgs/Float64 | Target veocity [m/s]                   |
+| Velocity                | std_msgs/Float64 | Target velocity [m/s]                   |
 | Acceleration            | std_msgs/Float64 | Target acceleration [m/s2]             |
 | Steering angle          | std_msgs/Float64 | Target steering angle [rad]            |
 | Steering angle velocity | std_msgs/Float64 | Target steering angle velocity [rad/s] |
@@ -169,7 +169,7 @@ To convert the target acceleration to the target throttle and brake pedals with 
 
 Create a module that satisfies the following two requirements
  - Receives `autoware_vehicle_msg/VehicleCommand` and sends control commands to the vehicle.
- - Converts the information from the vehicle, publishes vehicle speed to Autoware with `geometry_msgs/TwistStamed`.
+ - Converts the information from the vehicle, publishes vehicle speed to Autoware with `geometry_msgs/TwistStamped`.
 
 For example, if the vehicle has an interface to be controlled with a target velocity, the velocity in `autoware_vehicle_msg/VehicleCommand` is sent to the vehicle as the target velocity. If the vehicle control interface is steering wheel angle, it is necessary to convert steering angle to steering wheel angle in this vehicle_interface.
 
@@ -182,7 +182,7 @@ Since `autoware_vehicle_msg/VehicleCommand` contains only the target velocity an
 
 With the use of `RawVehicleCmdConverter`, you need to create a module that satisfies the following two requirements
  - Receives `autoware_vehicle_msg/RawVehicleCommand` and sends control commands to the vehicle.
- - Converts the information from the vehicle, publishes vehicle speed to Autoware with `geometry_msgs/TwistStamed`.
+ - Converts the information from the vehicle, publishes vehicle speed to Autoware with `geometry_msgs/TwistStamped`.
 
 
 **How to make an acceleration map (for type B)**

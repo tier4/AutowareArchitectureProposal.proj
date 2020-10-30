@@ -3,7 +3,7 @@ Localization
 
 # Overview
 
-The localization stack has a role to recognize where ego vehicle is ["map" frame](/design/Tf.md). Additionally, this stack estimates twist of ego vehicle for precise velocity planning and control.
+The localization stack has a role to recognize where the ego vehicle is ["map" frame](/design/Tf.md). Additionally, this stack estimates twist of ego vehicle for precise velocity planning and control.
 
 ## Role
 

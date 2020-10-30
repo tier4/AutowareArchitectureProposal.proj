@@ -46,4 +46,4 @@ The main inputs included in `autoware_vehicle_msgs/VehicleCommand` are as follow
 | Gear shifting command   | std_msgs/Int32   |
 | Emergency command       | std_msgs/Int32   |
 
-Note that most of above commands are ouput as 0 until true command is sent as engage command.
+Note that most of above commands are output as 0 until true command is sent as engage command.

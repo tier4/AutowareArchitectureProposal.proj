@@ -7,7 +7,7 @@ Input : topic "route" with type autoware_planning_msgs::Route
 
 ## Outputs
 topic name:  "path_with_lane_id"
-type: autoware_palnning_msgs::PathWithLaneId
+type: autoware_planning_msgs::PathWithLaneId
 frequency: 10Hz
 
 ## Assumptions
@@ -23,7 +23,7 @@ frequency: 10Hz
 * drivable area should be the shape of current lane and lane change target lanes when BPP is operating lane change 
 
 ### About Path Points
-* LaneChanePlanner should publish reference path that leads to goal pose
+* LaneChangePlanner should publish reference path that leads to goal pose
 * Path should start from n [m] behind vehicle position
 * Path should have length of at least 100[m] unless path surpasses goal
 * All points in Path should be placed within drivable area

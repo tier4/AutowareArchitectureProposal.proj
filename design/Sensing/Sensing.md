@@ -3,7 +3,7 @@ Sensing
 
 ## Overview 
 
-For autonomous driving, a vehicle needs to be aware of its state and surrouding environment. Sensing stack collects the environment information through various sensors and manipulates data appropriately to be used by other stacks.
+For autonomous driving, a vehicle needs to be aware of its state and surrounding environment. Sensing stack collects the environment information through various sensors and manipulates data appropriately to be used by other stacks.
 
 ![Sensing_overview](/design/img/SensingOverview.svg)
 
@@ -55,11 +55,11 @@ The table below summarizes the output message for recommended sensors. More sens
 
 | Sensor | Topic (Data Type)                                                                                                                   | Explanation                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | ------ | ----------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| LiDAR  | `/sensing/lidar/pointcloud` <br> (`sensor_msgs::PointCloud2`)                                                                       | This contains 3D shape information of surrounding environement as a collection of rasterized points. It is usually used for map matching in Localization stack and object detection in Perception stack.                                                                                                                                                                                                                                                                         |
-| Camera | `/sensing/{camera_name}/image` <br>(`sensor_msgs::Image`) <br> `/sensing/{camera_name}/camera_info` <br>(`sensor_msgs::CameraInfo`) | Camera should provide both Image and CameraInfo topics. Image message contains 2D light intensity information (usually RGB). It is commonly used in Perception (Traffic Light Recognition, Object Recognition) and in Localization(Visual Odometry). By convention, image topic must be published in optical frame of the camera. <br> CameraInfo message contains camera intinsic paramters which is usually used to fuse pointcloud and image information in Perception stack. |
+| LiDAR  | `/sensing/lidar/pointcloud` <br> (`sensor_msgs::PointCloud2`)                                                                       | This contains 3D shape information of surrounding environment as a collection of rasterized points. It is usually used for map matching in Localization stack and object detection in Perception stack.                                                                                                                                                                                                                                                                         |
+| Camera | `/sensing/{camera_name}/image` <br>(`sensor_msgs::Image`) <br> `/sensing/{camera_name}/camera_info` <br>(`sensor_msgs::CameraInfo`) | Camera should provide both Image and CameraInfo topics. Image message contains 2D light intensity information (usually RGB). It is commonly used in Perception (Traffic Light Recognition, Object Recognition) and in Localization(Visual Odometry). By convention, image topic must be published in optical frame of the camera. <br> CameraInfo message contains camera intrinsic parameters which is usually used to fuse pointcloud and image information in Perception stack. |
 | GNSS   | `/sensing/gnss/gnss_pose`<br>(`geometry_msgs::PoseWithCovariance`)                                                                  | This contains absolute 3D pose on earth. The output should be converted into map frame to be used in Localization stack.                                                                                                                                                                                                                                                                                                                                                         |
-| IMU    | `/sensing/imu/imu_data`<br>(`sensor_msgs::Imu`)                                                                                     | This contains angular velocity and accelaration. The main use case is Twist estimation for Localization. The output data may also include estimated orientation as an option.                                                                                                                                                                                                                                                                                                    |
-**rationale**: GNSS data is published as `geometry_msgs::PoseWithCovariance` instead of `sensor_msgs/NavSatFix`. `gometry_msgs` are also one of de facto message type, and PoseWithCovariance message essentially contains the same information and is more convenient for Localization stack(the most likely user of the data) since localization is done in Cartesian coordinate.
+| IMU    | `/sensing/imu/imu_data`<br>(`sensor_msgs::Imu`)                                                                                     | This contains angular velocity and acceleration. The main use case is Twist estimation for Localization. The output data may also include estimated orientation as an option.                                                                                                                                                                                                                                                                                                    |
+**rationale**: GNSS data is published as `geometry_msgs::PoseWithCovariance` instead of `sensor_msgs/NavSatFix`. `geometry_msgs` are also one of de facto message type, and PoseWithCovariance message essentially contains the same information and is more convenient for Localization stack(the most likely user of the data) since localization is done in Cartesian coordinate.
 
 # Design
 In order to support the requirements, Sensing stack is decomposed as below. Depending on the use case and hardware configuration of the vehicle, users may choose to use a subset of the components stated in the diagram. General convention is that for each sensor, there will be a driver and optionally a preprocessor component. Drivers are responsible for converting sensor data into ROS message and modification of the data during conversion should be minimal. It is preprocessors' responsibility to manipulate sensor data for ease of use.
@@ -78,10 +78,10 @@ Driver components act as interface between the hardware and ROS software, and th
 * **Camera driver**
   * Input: 
     * Raw data from camera
-    * Calibration file of the camera that contains intrinsic camera paramter information
+    * Calibration file of the camera that contains intrinsic camera parameter information
   * Output: 
     * Image data in `sensor_msgs::Image`. 
-    * Camera parameter information in`sensor_msgs::CameraInfo`. Although `sensor_msgs::CameraInfo` is not direct output from a camera, these information are published should be published with image since it contains essential information for image processing.
+    * Camera parameter information in`sensor_msgs::CameraInfo`. Although `sensor_msgs::CameraInfo` is not direct output from a camera, these information are published with image since it contains essential information for image processing.
 * **GNSS driver**
   * Input: Raw data from GNSS. Usually contains latitude and longitude information.
   * Output: Output should be in `sensor_msgs::NavSatFix` which contains calculated latitude and longitude information with addition of satellite fix information.
@@ -94,12 +94,12 @@ Driver components act as interface between the hardware and ROS software, and th
 
 ## Preprocessors
 
-Preprocessors are responsible for manipulating ROS message data to be more "useful" for following Autonomous Driving stacks. Actual implentation depends on how sensor data is used in other stacks. This may include:
+Preprocessors are responsible for manipulating ROS message data to be more "useful" for following Autonomous Driving stacks. Actual implementation depends on how sensor data is used in other stacks. This may include:
 - conversion of data format
 - removing unnecessary information
 - complementing necessary information
 - removing noise
-- imporving accuracies
+- improving accuracies
 
 Since the output of preprocessors will the final output of Sensing stack, it must follow the output ROS message type stated above.
 
@@ -112,7 +112,7 @@ Since the output of preprocessors will the final output of Sensing stack, it mus
     * Ground filter: Removing grounds from pointcloud for easier object detection
     * Multiplexer: Selecting pointclouds from LiDAR that is specific for certain use case
   * Input: ROS message from the LiDAR driver. There may be multiple inputs if the vehicle has multiple LiDARs.
-  * Output: PointCloud preprocessor may output multiple topics in sensor_msgs::PointCloud2 depending on the use case. Some examples may be:
+  * Output: PointCloud preprocessor may output multiple topics in `sensor_msgs::PointCloud2` depending on the use case. Some examples may be:
     * Concatenated pointcloud: Pointcloud from all available LiDARs may have less blind spots
     * Pointcloud without ground points: ground is usually out of interest when detecting obstacles, which helps perception.
 
@@ -129,12 +129,12 @@ Since the output of preprocessors will the final output of Sensing stack, it mus
     * `sensor_msgs::CameraInfo`: Camera preprocessor should relay camera information driver node without modifying any values since all parameters should be constant.
  
 * **GNSS Preprocessor**
-  *  Possible preprocessing functions: 
+  * Possible preprocessing functions: 
     * conversion of (latitude, longitude, altitude) to (x,y,z) in map coordinate
     * (Optional) Deriving orientation using mutiple GNSS inputs
     * (Optional) Filter out unreliable data
   * Input: `sensor_msgs::NavSatFix` message from driver.
-  * Output: Pose in `geometry_msgs::PoseWithCovariance`. Unreliable data can also be filtered out based on satellite fix information. Each fields in the message should be calculated as following:
+  * Output: Pose in `geometry_msgs::PoseWithCovariance`. Unreliable data can also be filtered out based on satellite fix information. Each field in the message should be calculated as following:
     * Pose: This must be projected into map frame from latitude and longitude information
     * Orientation: This should be derived from calculating changes in position over time or byusing mutiple GNSS sensors on vehicle.
     * Covariance: Covariance should reflect reliability of GNSS output. It may be relaying covariance from the input or reflect satellite fix status.

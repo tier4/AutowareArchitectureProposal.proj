@@ -1,7 +1,7 @@
 Detection
 =====
 ## Use Cases and Requirements
-Detection in Object Recognition is required for usecases involved with obstacles:
+Detection in Object Recognition is required for use cases involved with obstacles:
 * Changing lane
 * Turning at intersection
 * Avoiding parked vehicles
@@ -20,7 +20,7 @@ Detection in Object Recognition detects objects by processing sensor data. Detec
 
 | Input       | Data Type| Topic |
 |-------------|----------------------------------|-|
-| LiDAR       | `sensor_msgs::PointCoud2`        |/sensing/lidar/pointcloud|
+| LiDAR       | `sensor_msgs::PointCloud2`        |/sensing/lidar/pointcloud|
 | Camera      | `sensor_msgs::Image`             |/sensing/camera/*/image_raw|
 | Camera info       | `sensor_msgs::CameraInfo`  |/sensing/camera/*/camera_info|
 |TF  | `tf2_msgs::TFMessage`           |/tf|
