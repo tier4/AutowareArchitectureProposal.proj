@@ -371,7 +371,7 @@ A `tf2_ros::Buffer` member that is filled by a `tf2_ros::TransformListener` can 
 
 However, in some cases the extra functionality of `tf2_ros::Buffer` is needed. For instance, waiting for a transform to arrive, usually in the form of `lookupTransform()` with a timeout argument.
 
-#### Avoiding a loookup with timeout
+#### Avoiding a lookup with timeout
 Often, code doesn't really need a transform lookup with timeout. For instance, [this package](https://github.com/tier4/Pilot.Auto/pull/80/files#diff-1fd60e4ec61c376d6b6b088a7878676408a5ac6a665977590610be92d5079e55L270-L277) has a "main" subscription callback, `onTrigger()`, that waits for the most recent transform (`tf2::TimePointZero`), then checks if auxiliary data from other subscriptions is there and returns early from the callback if it isn't. In that case, I think the callback can simply treat transforms the same way as this auxiliary data, i.e. just do a simple `lookupTransform()` with no timeout and return early from the callback if it fails. The node won't do any work anyway until it's ready (i.e. has all the auxiliary data). Note that this pattern works only when the node is waiting for the most recent transform – if your callback wants to use the transform at a specific time, e.g. the timestamp of the message that triggered the callback, this pattern doesn't make sense. In that case, avoiding `waitForTransform()` requires refactoring the architecture of your system, but that topic is currently out of scope.
 
 It's worth keeping in mind that waiting for transforms in general can be troublesome – it is only a probabilistic solution that fails in a bad way for latency spikes, makes it hard to reason about the behavior of the whole system and probably incurs more latency than necessary.
