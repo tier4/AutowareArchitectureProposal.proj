@@ -120,6 +120,10 @@ For each latched publisher, you can use `transient_local` durability QoS on the 
     rclcpp::QoS durable_qos{1};
     durable_qos.transient_local();
 
+or
+
+    rclcpp::QoS durable_qos = rclcpp::QoS(1).transient_local();
+
 However, all subscribers to that topic will also need `transient_local` durability. If this is omitted, the connection between the two will be negotiated to be volatile, i.e. old messages will not be delivered when the subscriber comes online.
 
 
