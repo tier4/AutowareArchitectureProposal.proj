@@ -81,10 +81,10 @@ One drawback of `ament_cmake` is that it requires typing out the dependencies at
 
 Another possibility is to use `ament_auto` to get terse `CMakeLists.txt`. See [this commit](https://github.com/tier4/Pilot.Auto/pull/7/commits/ef382a9b430fd69cb0a0f7ca57016d66ed7ef29d) for an example. Unfortunately, there is no documentation for this tool, so you can only learn it from examples and reading the source code. It is also limited in what it does – it cannot currently generate message definitions, for instance, and always links all dependencies to all targets.
 
-There are more subtle issues too, like `ament_auto_find_build_dependencies()`. It just takes all the build dependencies verbatim from `package.xml` and calls `find_package()` without the `REQUIRED` option. This causes an issue when your library has a different name in `package.xml`/`rosdep` and in `CMake`. It also removes safety, as this won't complain when you mistype a package name or haven't installed the package yet. An alternative is to do the following:
+There are more subtle issues too, like `ament_auto_find_build_dependencies()`. It just takes all the build dependencies verbatim from `package.xml` and calls `find_package()` without the `REQUIRED` option. This causes an issue when your library has a different name in `package.xml`/`rosdep` and in `CMake`. It also removes safety, as this won't complain when you mistype a package name or haven't installed the package yet. For these reasons, it's recommended to do the following:
 
 ```cmake
-# By default, ament_auto_find_build_dependencies does not REQUIRE packages
+# Mark all packages as REQUIRED
 ament_auto_find_build_dependencies(REQUIRED
   ${${PROJECT_NAME}_BUILD_DEPENDS}
   ${${PROJECT_NAME}_BUILDTOOL_DEPENDS}
