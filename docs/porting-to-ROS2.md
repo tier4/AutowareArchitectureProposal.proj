@@ -500,7 +500,7 @@ with the exception of
 +RCLCPP_WARN_SKIPFIRST_THROTTLE(get_logger(), *get_clock(), duration, ...)
 ```
 
-where the `duration` is an integer interpreted as milliseconds. A readable way to document that is
+where the `duration` is an integer interpreted as milliseconds as opposed to seconds in ROS1. A readable way to document that is
 
     RCLCPP_WARN_SKIPFIRST_THROTTLE(get_logger(), *get_clock(), 5000 /* ms */, ...)
 
