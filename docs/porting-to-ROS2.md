@@ -111,6 +111,24 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 ```
 
+#### Linters
+Add only `ament_cmake_cppcheck` and `ament_cmake_cpplint` to the list of linters in `package.xml`
+
+```xml
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_cmake_cppcheck</test_depend>
+  <test_depend>ament_cmake_cpplint</test_depend>
+```
+
+And the corresponding code in `CMakeLists.txt`
+
+```cmake
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  ament_lint_auto_find_test_dependencies()
+endif()
+```
+
 ### Replacing `std_msgs`
 In ROS2, you should define semantically meaningful wrappers around primitive (number) types. They are deprecated in Foxy.
 
