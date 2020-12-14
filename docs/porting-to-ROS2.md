@@ -128,6 +128,24 @@ if(BUILD_TESTING)
 endif()
 ```
 
+Additionally, we use `clang-tidy`, in order for it to work, we need to build packages with the following:
+
+```shell
+colcon build --packages-up-to <pkg_name> --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+```
+
+And then:
+
+```shell
+clang-tidy -p build/compile_commands.json <path_to_pkg_source>
+```
+
+To check the output of the linters we can just run the tests with:
+
+```shell
+colcon test --packages-select <pkg_name> && colcon test-result --verbose
+```
+
 ### Replacing `std_msgs`
 In ROS2, you should define semantically meaningful wrappers around primitive (number) types. They are deprecated in Foxy.
 
