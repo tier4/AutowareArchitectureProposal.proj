@@ -112,12 +112,11 @@ endif()
 ```
 
 #### Linters
-Add only `ament_cmake_cppcheck` and `ament_cmake_cpplint` to the list of linters in `package.xml`
+Add only `ament_cmake_cppcheck` to the list of linters in `package.xml`
 
 ```xml
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_cmake_cppcheck</test_depend>
-  <test_depend>ament_cmake_cpplint</test_depend>
 ```
 
 And the corresponding code in `CMakeLists.txt`
