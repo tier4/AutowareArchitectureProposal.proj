@@ -31,14 +31,6 @@ repositories:
     url: git@github.com:tier4/scenario_runner.iv.universe.git
     version: master 
   # vendor
-  vendor/lanelet2:
-    type: git
-    url: git@github.com:fzi-forschungszentrum-informatik/Lanelet2.git
-    version: 1.0.1
-  vendor/mrt_cmake_modules:
-    type: git
-    url: git@github.com:KIT-MRT/mrt_cmake_modules.git
-    version: 1.0.2
   vendor/livox_ros_driver:
     type: git
     url: git@github.com:tier4/livox_ros_driver.git
