@@ -5,14 +5,14 @@ In order to test the autoware in the vehicle, you need to setup for the specific
 
 ## 1. Sensor TF setting
 
-The sensor tf describes the positional relationship of the sensors and has to be created with the specific sensor hardware configuration. Please setup following [TF.md](https://github.com/tier4/AutowareArchitectureProposal/blob/master/design/TF.md). 
+The sensor tf describes the positional relationship of the sensors and has to be created with the specific sensor hardware configuration. Please setup following [TF.md](https://github.com/tier4/AutowareArchitectureProposal.proj/blob/master/design/TF.md). 
 
 ## 2. Vehicle interface setting
-The vehicle interface is the module that communicates with the vehicle and has to be created with the specific vehicle configuration. Please setup the vehicle interface following [Vehicle.md](https://github.com/tier4/AutowareArchitectureProposal/blob/master/design/Vehicle/Vehicle.md).
+The vehicle interface is the module that communicates with the vehicle and has to be created with the specific vehicle configuration. Please setup the vehicle interface following [Vehicle.md](https://github.com/tier4/AutowareArchitectureProposal.proj/blob/master/design/Vehicle/Vehicle.md).
 
 ## 3. Vehicle info setting
 
-The `vehicle_info` is a global parameter for the vehicle configurations. that is read by the Autoware modules. These parameters are read by the Autoware modules and has to be published as rosparam format. The sample is [here](https://github.com/tier4/AutowareArchitectureProposal/blob/master/src/vehicle/vehicle_description/vehicle_body_description/lexus_description/config/vehicle_info.yaml).
+The `vehicle_info` is a global parameter for the vehicle configurations. that is read by the Autoware modules. These parameters are read by the Autoware modules and has to be published as rosparam format. The sample is [here](https://github.com/tier4/AutowareArchitectureProposal.proj/blob/master/src/vehicle/vehicle_description/vehicle_body_description/lexus_description/config/vehicle_info.yaml).
 
 Required parameters are as follows.
 ```
@@ -31,7 +31,7 @@ The following launch files has to be modified for the specific configuration.
 
 **sensor.launch**
 
-The `sensor.launch` defines what or which sensor driver nodes are launched. It is necessary to modify it according to the sensor configuration. The default setting is [here](https://github.com/tier4/AutowareArchitectureProposal/blob/master/src/launcher/sensing_launch/launch/sensing.launch).
+The `sensor.launch` defines what or which sensor driver nodes are launched. It is necessary to modify it according to the sensor configuration. The default setting is [here](https://github.com/tier4/AutowareArchitectureProposal.proj/blob/master/src/launcher/sensing_launch/launch/sensing.launch).
 
 <!-- **vehicle.launch**
 

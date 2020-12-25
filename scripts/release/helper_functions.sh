@@ -63,7 +63,7 @@ function show_workspace_diff() {
 }
 
 function get_autoware_repositories() {
-  echo "src/autoware/pilot.auto" "src/autoware/launcher"
+  echo "src/autoware/AutowareArchitectureProposal.iv" "src/autoware/launcher"
 }
 
 function get_vcs_repositories() {
