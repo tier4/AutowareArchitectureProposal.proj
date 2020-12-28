@@ -69,8 +69,8 @@ repositories:
     version: ros2
   vendor/livox-driver:
     type: git
-    url: https://github.com/fred-apex-ai/livox_ros2_driver.git
-    version: master
+    url: https://github.com/esteve/livox_ros2_driver.git
+    version: vendor
   vendor/rosbridge_suite:
     type: git
     url: https://github.com/RobotWebTools/rosbridge_suite.git
