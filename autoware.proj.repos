@@ -34,21 +34,21 @@ repositories:
   vendor/livox_ros_driver:
     type: git
     url: git@github.com:tier4/livox_ros_driver.git
-    version: tier4/master
+    version: 8e6235289784d9f2b6972834d57c1e8b9fe876d1
   vendor/velodyne_vls:
     type: git
     url: git@github.com:tier4/velodyne_vls.git
-    version: tier4/master 
+    version: a813ad6c17ab67d3e565b46452afe9666088fd69
   vendor/ublox:
     type: git
     url: git@github.com:tier4/ublox.git
-    version: tier4/master 
+    version: 55d0a1167ead576ee963a6d8ebe3a7831d685787
   vendor/tamagawa_imu_driver:
     type: git
     url: git@github.com:tier4/tamagawa_imu_driver.git
-    version: tier4/master 
+    version: cb2a519ec5a0f4d69bf2ab6f3945c123bc80389b
   # calibration
   calibration/tunable_static_tf_broadcaster:
     type: git
     url: git@github.com:tier4/tunable_static_tf_broadcaster.git
-    version: master 
+    version: ab29402781070ed8764a1e091624ffcb932ac2fb
