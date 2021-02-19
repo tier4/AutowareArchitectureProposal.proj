@@ -59,10 +59,6 @@ repositories:
     type: git
     url: https://github.com/tier4/kvaser_interface.git
     version: tier4/ros2
-  vendor/diagnostics: # TODO remove after https://github.com/ros/diagnostics/pull/168 is available in foxy
-    type: git
-    url: https://github.com/mitsudome-r/diagnostics.git
-    version: ros2-devel
   vendor/usb_cam: # TODO remove after https://github.com/ros-drivers/usb_cam/pull/132 is available in foxy
     type: git
     url: https://github.com/tier4/usb_cam.git
