@@ -3,16 +3,16 @@ repositories:
   autoware/AutowareArchitectureProposal.iv:
     type: git
     url: https://github.com/tier4/AutowareArchitectureProposal.iv.git
-    version: ros2
+    version: ros2-v0.8.0-beta
   autoware/launcher:
     type: git
     url: https://github.com/tier4/autoware_launcher.iv.universe.git
-    version: ros2
+    version: ros2-v0.8.0-beta
   # description
   description/sensor/sensor_description:
     type: git
     url: https://github.com/tier4/sensor_description.iv.universe.git
-    version: ros2
+    version: ros2-v0.8.0-beta
   description/sensor/velodyne_simulator:
     type: git
     url: https://github.com/tier4/velodyne_simulator.git
@@ -20,20 +20,20 @@ repositories:
   description/vehicle/lexus_description:
     type: git
     url: https://github.com/tier4/lexus_description.iv.universe.git
-    version: ros2
+    version: ros2-v0.8.0-beta
   # simulator
   simulator/planning_simulator:
     type: git
     url: https://github.com/tier4/planning_simulator.iv.universe.git
-    version: ros2
+    version: ros2-v0.8.0-beta
   simulator/planning_simulator_launcher:
     type: git
     url: https://github.com/tier4/planning_sim_launcher.iv.universe.git
-    version: ros2
+    version: ros2-v0.8.0-beta
   simulator/scenario_runner:
     type: git
     url: https://github.com/tier4/scenario_runner.iv.universe.git
-    version: ros2
+    version: ros2-v0.8.0-beta
   # vendor
   vendor/grid_map:
     type: git
@@ -107,7 +107,7 @@ repositories:
 #    type: git
 #    url: https://github.com/tier4/velodyne_vls.git
 #    version: tier4/ros2
-  # calibration
+# calibration
 #  calibration/tunable_static_tf_broadcaster:
 #    type: git
 #    url: https://github.com/tier4/tunable_static_tf_broadcaster.git
