@@ -35,30 +35,7 @@ If cuda or tensorRT is already installed, it is recommended to remove it.
 
 ## How to setup
 
-1. Set up the repository
-
-If ROS hasn't been installed yet in PC, at first run commands of 1.2 ~ 1.4, described in [ROS wiki](http://wiki.ros.org/melodic/Installation/Ubuntu).
-
-```sh
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-sudo apt update
-```
-
-Set up the repository
-
-```sh
-sudo apt install -y python3-vcstool
-git clone git@github.com:tier4/AutowareArchitectureProposal.git
-cd AutowareArchitectureProposal
-mkdir -p src
-vcs import src < autoware.proj.repos
-```
-
-In this step, [osqp](https://github.com/oxfordcontrol/osqp/blob/master/LICENSE) is installed.  
-Please check that the use is in agreement with its license before proceeding.
-
-2. Run the setup script
+1. Run the setup script
 
 ```sh
 ./setup_ubuntu20.04.sh
@@ -67,10 +44,10 @@ Please check that the use is in agreement with its license before proceeding.
 In this step, the following software is installed.  
 Please confirm their licenses before using them.
 
-- [ROS Melodic](https://github.com/ros/ros/blob/noetic-devel/LICENSE)
-- [CUDA 10.2](https://docs.nvidia.com/cuda/eula/index.html)
-- [cuDNN 7](https://docs.nvidia.com/deeplearning/sdk/cudnn-sla/index.html)
-- [TensorRT 7](https://docs.nvidia.com/deeplearning/sdk/tensorrt-sla/index.html)
+- [ROS2 Foxy](https://index.ros.org/doc/ros2/Releases/Release-Foxy-Fitzroy/)
+- [CUDA 11.1](https://docs.nvidia.com/cuda/eula/index.html)
+- [cuDNN 8.0.5.39-1](https://docs.nvidia.com/deeplearning/sdk/cudnn-sla/index.html)
+- [TensorRT 7.2.1-1](https://docs.nvidia.com/deeplearning/sdk/tensorrt-sla/index.html)
 
 3. Build the source
 
