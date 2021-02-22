@@ -91,6 +91,10 @@ repositories:
     type: git
     url: https://github.com/mitsudome-r/clock_publisher.git
     version: master
+  vendor/velodyne_vls:
+    type: git
+    url: https://github.com/tier4/velodyne_vls.git
+    version: ros2
 #  vendor/lanelet2:
 #    type: git
 #    url: https://github.com/fzi-forschungszentrum-informatik/Lanelet2.git
@@ -103,10 +107,6 @@ repositories:
 #    type: git
 #    url: https://github.com/Livox-SDK/livox_ros_driver.git
 #    version: v2.5.0
-#  vendor/velodyne_vls:
-#    type: git
-#    url: https://github.com/tier4/velodyne_vls.git
-#    version: tier4/ros2
 # calibration
 #  calibration/tunable_static_tf_broadcaster:
 #    type: git
