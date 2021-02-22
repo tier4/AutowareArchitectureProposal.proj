@@ -8,6 +8,10 @@ repositories:
     type: git
     url: https://github.com/tier4/autoware_launcher.iv.universe.git
     version: ros2
+  autoware/obstacle_stop_planner_refine:
+    type: git
+    url: https://github.com/tier4/obstacle_stop_planner_refine.git
+    version: main
   # description
   description/sensor/sensor_description:
     type: git
