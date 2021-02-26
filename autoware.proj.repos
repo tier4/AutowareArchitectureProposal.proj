@@ -91,6 +91,10 @@ repositories:
     type: git
     url: https://github.com/tier4/velodyne_vls.git
     version: ros2
+  vendor/rqt_runtime_monitor:
+    type: git
+    url: https://github.com/tier4/rqt_runtime_monitor.git
+    version: dashing-devel
 # calibration
 #  calibration/tunable_static_tf_broadcaster:
 #    type: git
