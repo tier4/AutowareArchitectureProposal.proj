@@ -3,11 +3,11 @@ repositories:
   autoware/AutowareArchitectureProposal.iv:
     type: git
     url: https://github.com/tier4/AutowareArchitectureProposal.iv.git
-    version: ros2-v0.8.0-beta
+    version: ros2-v0.9.0-beta
   autoware/launcher:
     type: git
     url: https://github.com/tier4/autoware_launcher.iv.universe.git
-    version: ros2-v0.8.0-beta
+    version: ros2-v0.9.0-beta
   # description
   description/sensor/sensor_description:
     type: git
