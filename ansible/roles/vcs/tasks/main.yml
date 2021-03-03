@@ -1,11 +1,4 @@
 ---
-- name: VCS (install vcstool)
-  apt:
-    name: "python3-vcstool"
-    state: latest
-    update_cache: yes
-  become: yes
-
 - name: VCS (make directory)
   file:
     path: "{{ AUTOWARE_DIR }}/src"
