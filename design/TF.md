@@ -38,7 +38,7 @@ In a typical setup the odom frame is computed based on an odometry source, such 
 
 The odom frame is useful as an accurate, short-term local reference, but drift makes it a poor frame for long-term reference.
 ```
-There are also discussions regarding the existance of odom frame in the following discussions:
+There are also discussions regarding the existence of odom frame in the following discussions:
 * https://discourse.ros.org/t/localization-architecture/8602/28
 + https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto/issues/292
 
@@ -51,7 +51,7 @@ Within the above discussions, the main reason for using odom frame is that:
 However, our view is that it doesn't mean that control is not affected by localization as long as trajectory following is done in the odom frame. For example, if a trajectory is calculated from the shape of the lane specified in an HD map, the localization result will be indirectly used when projecting trajectory into odom frame, and thus will be "blown off" when localization fails. Also, if any other map information is before trajectory calculation, such as shape optimization using map drivable area and velocity optimization using predicted trajectory of other vehicles which is derived from lane shape information, then localization failure will still affect the trajectory. Therefore, to make control independent of localization failure, we have to require all preceding calculation to not use map->odom transform. However, since trajectory following comes after planning in Autoware, it is almost impossible that map->odom isn't involved in trajectory calculation. Although it might be possible if Autoware plans like a human, who uses only route graph information from the map and obtain geometry information from perception, it is very unlikely that autonomous driving stack is capable of not using geometry information with safety ensured. 
 
 Therefore, regardless of any frame that control is done, it will still have effects of localization results. To make control not to jerk or do sudden steering at localization failure, we set the following requirements to Localization module:
-* localizatoin result must be continuous
+* localization result must be continuous
 * localization must detect localization failure and should not use the result to update vehicle pose.
 
 Additionally, Localization architecture assumes sequential Bayesian Filter, such as EKF and particle filter, to be used to integrate twist and pose. Since it can also integrate odometry information, it can update TF at high frequency. 
@@ -65,7 +65,7 @@ As a conclusion, we removed odom frame from this architecture proposal due to th
 3. If Localization module can satisfy the above conditions, there is no merit of using odom->base_link, and all modules should use map->base_link whenever they need a world-fixed frame.
 
 ### Possible Concerns
-* Above argument focusses on replacing map->odom->base_link with map->base_link, but doesn't prove that map->base_link is better. If we set odom->base_link, wouldn't we have more options of frames?
+* Above argument focuses on replacing map->odom->base_link with map->base_link, but doesn't prove that map->base_link is better. If we set odom->base_link, wouldn't we have more options of frames?
   * Once we split map->base_link into map->odom and odom->base_link, we loose velocity information and uncertainty(covariance) information between them. We can expect more robustness if we integrate all information(odometry and output of multiple localization) at once.
   * If it is split into map->odom and odom->base_link, we have to wait for both transforms to obtain map->base_link transform. It is easier to estimate delay time if it is combined into one TF.
   * We think that creating odom frame using current architecture is possible. However, we should first discuss if we have any component that wants to use odom->base_link. We anticipate that it might be needed when we design safety architecture, which is out-of-scope in this proposal, but it must be added after all safety analysis is done. As stated above, using odom frame in Control module is not enough for safety.

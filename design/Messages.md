@@ -3,7 +3,7 @@ Messages
 
 # Overview
 
-In this section, it is descrived that 8 categories of messages in the architecture:
+In this section, it is described that 8 categories of messages in the architecture:
 
 - autoware control messages
 - autoware lanelet2 messages
@@ -14,7 +14,7 @@ In this section, it is descrived that 8 categories of messages in the architectu
 - autoware vector map messages
 - autoware vehicle messages
 
-the difinition of each message is shown in following subsection.
+the definition of each message is shown in following subsection.
 
 ## autoware control messages
 
@@ -119,7 +119,7 @@ the difinition of each message is shown in following subsection.
 
 ### PathPoint.msg
 
-`uint8 REFFERENCE=0`  
+`uint8 REFERENCE=0`  
 `uint8 FIXED=1`  
 `geometry_msgs/Pose pose`  
 `geometry_msgs/Twist twist`  

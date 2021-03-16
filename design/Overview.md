@@ -20,8 +20,8 @@ The purpose of this proposal is to:
 
 By defining simplified interface between modules:
 - Internal processing in Autoware becomes more transparent
-- Joint developement of devlopers becomes easier due to less interdependency between modules
-- User's can easilty replace a module with their own software component(e.g. localization) just by "wrapping" their software to adjust to Autoware inteface
+- Joint development of developers becomes easier due to less interdependency between modules
+- User's can easily replace a module with their own software component(e.g. localization) just by "wrapping" their software to adjust to Autoware interface
 
 Note that the initial focus of this architecture design was solely on function of driving capability, and the following features are left as future work:
 * Real-time processing
