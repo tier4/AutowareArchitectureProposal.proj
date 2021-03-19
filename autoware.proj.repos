@@ -1,14 +1,12 @@
 repositories:
-  # autoware
   autoware/AutowareArchitectureProposal.iv:
     type: git
     url: https://github.com/tier4/AutowareArchitectureProposal.iv.git
-    version: ros2
+    version: ros2-lsim-test
   autoware/launcher:
     type: git
     url: https://github.com/tier4/autoware_launcher.iv.universe.git
-    version: ros2
-  # description
+    version: ros2-lsim-test
   description/sensor/sensor_description:
     type: git
     url: https://github.com/tier4/sensor_description.iv.universe.git
@@ -21,7 +19,6 @@ repositories:
     type: git
     url: https://github.com/tier4/lexus_description.iv.universe.git
     version: ros2
-  # simulator
   simulator/planning_simulator:
     type: git
     url: https://github.com/tier4/planning_simulator.iv.universe.git
@@ -34,11 +31,30 @@ repositories:
     type: git
     url: https://github.com/tier4/scenario_runner.iv.universe.git
     version: ros2
-  # vendor
+  vendor/clock_publisher:
+    type: git
+    url: https://github.com/mitsudome-r/clock_publisher.git
+    version: master
+  vendor/diagnostics:
+    type: git
+    url: https://github.com/mitsudome-r/diagnostics.git
+    version: ros2-devel
   vendor/grid_map:
     type: git
     url: https://github.com/ANYbotics/grid_map.git
     version: ros2
+  vendor/kvaser_interface:
+    type: git
+    url: https://github.com/tier4/kvaser_interface.git
+    version: tier4/ros2
+  vendor/livox-driver:
+    type: git
+    url: https://github.com/Livox-SDK/livox_ros2_driver.git
+    version: master
+  vendor/pacmod3:
+    type: git
+    url: https://github.com/astuff/pacmod3.git
+    version: dashing-devel
   vendor/perception_pcl:
     type: git
     url: https://github.com/ros-perception/perception_pcl.git
@@ -47,56 +63,35 @@ repositories:
     type: git
     url: https://github.com/ApexAI/rclcpp_generic.git
     version: autoware
-  vendor/topic_tools:
-    type: git
-    url: https://github.com/tier4/topic_tools.git
-    version: tier4/main
-  vendor/pacmod3: # TODO remove after foxy-version is released
-    type: git
-    url: https://github.com/astuff/pacmod3.git
-    version: dashing-devel
-  vendor/kvaser_interface: # TODO remove after foxy-version is released
-    type: git
-    url: https://github.com/tier4/kvaser_interface.git
-    version: tier4/ros2
-  vendor/usb_cam: # TODO remove after https://github.com/ros-drivers/usb_cam/pull/132 is available in foxy
-    type: git
-    url: https://github.com/tier4/usb_cam.git
-    version: tier4/ros2
-  vendor/tamagawa_imu_driver:
-    type: git
-    url: https://github.com/tier4/tamagawa_imu_driver.git
-    version: ros2
-  vendor/ublox:
-    type: git
-    url: https://github.com/tier4/ublox.git
-    version: tier4/ros2
-  vendor/livox-driver:
-    type: git
-    url: https://github.com/Livox-SDK/livox_ros2_driver.git
-    version: master
-  vendor/rosbridge_suite:
-    type: git
-    url: https://github.com/tier4/rosbridge_suite.git
-    version: tier4/ros2
   vendor/rosauth:
     type: git
     url: https://github.com/GT-RAIL/rosauth.git
     version: ros2
-  vendor/clock_publisher:
+  vendor/rosbridge_suite:
     type: git
-    url: https://github.com/mitsudome-r/clock_publisher.git
-    version: master
-  vendor/velodyne_vls:
-    type: git
-    url: https://github.com/tier4/velodyne_vls.git
+    url: https://github.com/RobotWebTools/rosbridge_suite.git
     version: ros2
   vendor/rqt_runtime_monitor:
     type: git
     url: https://github.com/tier4/rqt_runtime_monitor.git
     version: dashing-devel
-# calibration
-#  calibration/tunable_static_tf_broadcaster:
-#    type: git
-#    url: https://github.com/tier4/tunable_static_tf_broadcaster.git
-#    version: ros2
+  vendor/tamagawa_imu_driver:
+    type: git
+    url: https://github.com/tier4/tamagawa_imu_driver.git
+    version: ros2
+  vendor/topic_tools:
+    type: git
+    url: https://github.com/tier4/topic_tools.git
+    version: tier4/main
+  vendor/ublox:
+    type: git
+    url: https://github.com/tier4/ublox.git
+    version: tier4/ros2
+  vendor/usb_cam:
+    type: git
+    url: https://github.com/tier4/usb_cam.git
+    version: tier4/ros2
+  vendor/velodyne_vls:
+    type: git
+    url: https://github.com/tier4/velodyne_vls.git
+    version: ros2-lsim-test
