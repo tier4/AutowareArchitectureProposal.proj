@@ -3,33 +3,33 @@ repositories:
   autoware/AutowareArchitectureProposal.iv:
     type: git
     url: git@github.com:tier4/AutowareArchitectureProposal.iv.git
-    version: master 
+    version: v0.9.1 
   autoware/launcher:
     type: git
     url: git@github.com:tier4/autoware_launcher.iv.universe.git
-    version: master 
+    version: v0.9.1 
   # description
   description/sensor/sensor_description:
     type: git
     url: git@github.com:tier4/sensor_description.iv.universe.git
-    version: master 
+    version: v0.9.1 
   description/vehicle/lexus_description:
     type: git
     url: git@github.com:tier4/lexus_description.iv.universe.git
-    version: master 
+    version: v0.9.1 
   # simulator
   simulator/planning_simulator:
     type: git
     url: git@github.com:tier4/planning_simulator.iv.universe.git
-    version: master 
+    version: v0.9.1 
   simulator/planning_simulator_launcher:
     type: git
     url: git@github.com:tier4/planning_sim_launcher.iv.universe.git
-    version: master 
+    version: v0.9.1 
   simulator/scenario_runner:
     type: git
     url: git@github.com:tier4/scenario_runner.iv.universe.git
-    version: master 
+    version: v0.9.1 
   # vendor
   vendor/livox_ros_driver:
     type: git
