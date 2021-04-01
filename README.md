@@ -1,55 +1,48 @@
 # Autoware (Architecture Proposal)
 
-meta-repository for Autoware architecture proposal version
-
 ![autoware](https://user-images.githubusercontent.com/8327598/69472442-cca50b00-0ded-11ea-9da0-9e2302aa1061.png)
 
-# What's this
+A meta-repository for the Autoware architecture proposal feasibility study created by Tier IV. For more details about the architecture itself, please read this [overview](/design/Overview.md).
 
-This is the source code of the feasibility study for Autoware architecture proposal.
+> **WARNING**: All source code relating to this meta-repository is solely intended to demonstrate a potential new architecture for Autoware, and should not be used to autonomously drive a real car!
+> 
+> **NOTE**: Some, but not all of the features within the [AutowareArchitectureProposal.iv repository](https://github.com/tier4/AutowareArchitectureProposal.iv) are planned to be merged into [Autoware.Auto](https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto). The reason being that Autoware.Auto has its own scope and ODD which it needs to achieve, so not all the features in this architecture proposal will be required.
 
-> **WARNING**: This source is solely for demonstrating an architecture proposal. It should not be used to drive cars. 
+# Installation Guide
 
-> **NOTE**: The features in [AutowareArchitectureProposal.iv](https://github.com/tier4/AutowareArchitectureProposal.iv) will be merged into Autoware.Auto.
-
-Architecture overview is [here](/design/Overview.md).
-
-# How to setup
-
-## Requirements
+## Minimum Requirements
 
 ### Hardware
 
-- x86 CPU (8 or more cores)
-- 16 GB or more of memory
-- Nvidia GPU (4GB or more of memory) \*optional
-  - When you use following packages, GPU is mandatory:
+- x86 CPU (8 cores)
+- 16GB RAM
+- Nvidia GPU (4GB RAM) \*optional
+  - Although not required to run basic functionality, a GPU is mandatory in order to run the following components:
     - lidar_apollo_instance_segmentation
     - traffic_light_ssd_fine_detector
     - cnn_classifier
 
-If cuda or tensorRT is already installed, it is recommended to remove it.
+> Note that performance will be improved with more cores, RAM and a higher-spec graphics card.
 
 ### Software
 
  - Ubuntu 18.04
  - Nvidia driver
  
-If cuda or tensorRT is already installed, it is recommended to remove it.
+## Review licenses 
+The following software will be installed during the installation process, so please confirm their licenses first before proceeding.
 
+- [CUDA 10.2](https://docs.nvidia.com/cuda/eula/index.html)
+- [cuDNN 7](https://docs.nvidia.com/deeplearning/sdk/cudnn-sla/index.html)
+- [osqp](https://github.com/oxfordcontrol/osqp/blob/master/LICENSE)
+- [ROS Melodic](https://github.com/ros/ros/blob/noetic-devel/LICENSE)
+- [TensorRT 7](https://docs.nvidia.com/deeplearning/sdk/tensorrt-sla/index.html)
+ 
 ## How to setup
 
-1. Set up the repository
+> If the CUDA or TensorRT frameworks have already been installed, we strongly recommend uninstalling them first!
 
-If ROS hasn't been installed yet in PC, at first run commands of 1.2 ~ 1.4, described in [ROS wiki](http://wiki.ros.org/melodic/Installation/Ubuntu).
-
-```sh
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-sudo apt update
-```
-
-Set up the repository
+1. Set up the Autoware repository
 
 ```sh
 sudo apt install -y python3-vcstool
@@ -59,22 +52,13 @@ mkdir -p src
 vcs import src < autoware.proj.repos
 ```
 
-2. Run the setup script
+2. Run the setup script (this step will install CUDA, cuDNN 7, osqp, ROS and TensorRT 7, and will take around X minutes)
 
 ```sh
 ./setup_ubuntu18.04.sh
 ```
 
-In this step, the following software are installed.  
-Please confirm their licenses before using them.
-
-- [osqp](https://github.com/oxfordcontrol/osqp/blob/master/LICENSE)
-- [ROS Melodic](https://github.com/ros/ros/blob/noetic-devel/LICENSE)
-- [CUDA 10.2](https://docs.nvidia.com/cuda/eula/index.html)
-- [cuDNN 7](https://docs.nvidia.com/deeplearning/sdk/cudnn-sla/index.html)
-- [TensorRT 7](https://docs.nvidia.com/deeplearning/sdk/tensorrt-sla/index.html)
-
-3. Build the source
+3. Build the source code
 
 ```sh
 source ~/.bashrc
@@ -85,8 +69,8 @@ colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release --catkin-skip-building-test
 
 ### Set hardware configuration
 
-Prepare launch files and vehicle_description according to the sensor configuration of your hardware.  
-The following are the samples.
+Prepare launch and vehicle description files according to the sensor configuration of your hardware.  
+The following files are provided as samples:
 
 - [sensing.launch](https://github.com/tier4/autoware_launcher.universe/blob/master/sensing_launch/launch/sensing.launch)
 - [lexus_description](https://github.com/tier4/lexus_description.iv.universe)
@@ -101,66 +85,62 @@ The following are the samples.
 
 #### Rosbag
 
-1. Download sample map from [here](https://drive.google.com/open?id=1ovrJcFS5CZ2H51D8xVWNtEvj_oiXW-zk).
-
-2. Download sample rosbag from [here](https://drive.google.com/open?id=1BFcNjIBUVKwupPByATYczv2X4qZtdAeD).
-3. Launch Autoware
+1. Download the sample pointcloud and vector maps from [here](https://drive.google.com/open?id=1ovrJcFS5CZ2H51D8xVWNtEvj_oiXW-zk) and copy them to the same folder.
+2. Download the sample rosbag from [here](https://drive.google.com/open?id=1BFcNjIBUVKwupPByATYczv2X4qZtdAeD).
+3. Open a terminal and launch Autoware
 
 ```sh
 cd AutowareArchitectureProposal
 source install/setup.bash
-roslaunch autoware_launch logging_simulator.launch map_path:=[path] vehicle_model:=lexus sensor_model:=aip_xx1 rosbag:=true
+roslaunch autoware_launch logging_simulator.launch map_path:=/path/to/map_folder vehicle_model:=lexus sensor_model:=aip_xx1 rosbag:=true
 ```
 
-\* Absolute path is required for map_path.
-
-4. Play rosbag
+4. Open a second terminal and play the sample rosbag file
 
 ```sh
-rosbag play --clock [rosbag file] -r 0.2
+rosbag play --clock -r 0.2 /path/to/sample.bag
 ```
 
 ##### Note
 
-- sample map : © 2020 TierIV inc.
-- rosbag : © 2020 TierIV inc.
-  - Image data are removed due to privacy concerns.
-    - Cannot run traffic light recognition
-    - Decreased accuracy of object detection
+- Sample map and rosbag: © 2020 Tier IV, Inc.
+  - Due to privacy concerns, the rosbag does not contain image data.
+  - Consequently, traffic light recognition functionality cannot be tested with this sample rosbag. Furthermore object detection accuracy is decreased.
 
 #### Planning Simulator
 
-1. Download sample map from [here](https://drive.google.com/open?id=197kgRfSomZzaSbRrjWTx614le2qN-oxx).
-
-2. Launch Autoware
+1. Download the sample pointcloud and vector maps from [here](https://drive.google.com/open?id=197kgRfSomZzaSbRrjWTx614le2qN-oxx), unpack the zip archive and copy the two map files to the same folder.
+2. Open a terminal and launch Autoware
 
 ```sh
 cd AutowareArchitectureProposal
 source install/setup.bash
-roslaunch autoware_launch planning_simulator.launch map_path:=[path] vehicle_model:=lexus sensor_model:=aip_xx1
+roslaunch autoware_launch planning_simulator.launch map_path:=/path/to/map_folder vehicle_model:=lexus sensor_model:=aip_xx1
 ```
 
-\* Absolute path is required for map_path.
-
-3. Set initial pose
-4. Set goal pose
-5. Push engage button.
-   [autoware_web_controller](http://localhost:8085/autoware_web_controller/index.html)
+3. Set an initial pose for the ego vehicle
+   - a) Click the "2D Pose estimate" button in the toolbar, or hit the "P" key
+   - b) In the 3D View pane, click and hold the left-mouse button, and then drag to set the direction for the initial pose.
+4. Set a goal pose for the ego vehicle
+   - a) Click the "2D Nav Goal" button in the toolbar, or hit the "G" key
+   - b) In the 3D View pane, click and hold the left-mouse button, and then drag to set the direction for the goal pose.
+5. Engage the ego vehicle.
+   - a) Open the [autoware_web_controller](http://localhost:8085/autoware_web_controller/index.html) in a browser.
+   - b) Click the `Engage` button.
 
 ##### Note
 
-- sample map : © 2020 TierIV inc.
+- Sample map: © 2020 Tier IV, Inc.
 
-#### Running With AutowareAuto
-We are planning propose the architecture and reference implementation to AutowareAuto.
-For the time being, use ros_bridge if you wish to use this repository with AutowareAuto modules.
-You would have to do the message type conversions in order to communicate between AutowareAuto and AutowareArchitectureProposal modules until the architecture is aligned.
+#### Running the source code With Autoware.Auto
+- We are planning to propose this new architecture and reference implementation for inclusion in [Autoware.Auto](https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto).
+- In the meantime, [ros_bridge](https://github.com/ros2/ros1_bridge) should be used if you wish to try out this code with existing Autoware.Auto modules.
+  - Until the architectures are aligned, message type conversions are required to enable communication between the Autoware.Auto and AutowareArchitectureProposal modules and need to be added manually.
 
-For setting up AutowareAuto, please follow the instruction in: https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto
+To set up Autoware.Auto, please follow the instructions [here](https://autowarefoundation.gitlab.io/autoware.auto/AutowareAuto/installation.html).
+To set up ros_bridge, please follow the instructions [here](https://github.com/ros2/ros1_bridge#prerequisites).
 
-For setting up ros_bridge, please follow the instruction in: https://github.com/ros2/ros1_bridge
-
-#### Tutorial in detail
+#### Detailed tutorial instructions
 
 See [here](./docs/SimulationTutorial.md). for more information.
 
