@@ -6,7 +6,7 @@ Autoware provides two types of simulation:
 ![sim](https://user-images.githubusercontent.com/8327598/79709776-0bd47b00-82fe-11ea-872e-d94ef25bc3bf.png)
 
 ## How to use a pre-recorded rosbag file for simulation
-> Assumes that [AutowareArchitectureProposal setup](https://github.com/tier4/AutowareArchitectureProposal.proj#autoware-setup) has already been completed.
+> Assumes that [installation and setup of AutowareArchitectureProposal](../README.md#installation-steps) has already been completed.
 
 1. Download the sample pointcloud and vector maps from [here](https://drive.google.com/open?id=197kgRfSomZzaSbRrjWTx614le2qN-oxx), unpack the zip archive and copy the two map files to the same folder.
 2. Download the sample rosbag from [here](https://drive.google.com/open?id=1BFcNjIBUVKwupPByATYczv2X4qZtdAeD).
@@ -31,13 +31,16 @@ Autoware provides two types of simulation:
 3. Open a terminal and launch Autoware in "rosbag mode".
 
 ```
+cd AutowareArchitectureProposal
 source install/setup.bash
 roslaunch autoware_launch logging_simulator.launch map_path:=/path/to/map_folder
 ```
 
-1. Open a second terminal and play the sample rosbag file
+4. Open a second terminal and play the sample rosbag file
 
 ```
+cd AutowareArchitectureProposal
+source install/setup.bash
 rosbag play --clock -r 0.2 /path/to/sample.bag
 ```
 
@@ -49,27 +52,27 @@ rosbag play --clock -r 0.2 /path/to/sample.bag
 
 ## How to use the Planning Simulator
 
-> Assumes that [AutowareArchitectureProposal setup](https://github.com/tier4/AutowareArchitectureProposal.proj#autoware-setup) has already been completed.
+> Assumes that [installation and setup of AutowareArchitectureProposal](../README.md#installation-steps) has already been completed.
 
 1. Download the sample pointcloud and vector maps from [here](https://drive.google.com/open?id=197kgRfSomZzaSbRrjWTx614le2qN-oxx), unpack the zip archive and copy the two map files to the same folder.
 2. Launch Autoware with Planning Simulator
 
 ```
+cd AutowareArchitectureProposal
 source install/setup.bash
-roslaunch autoware_launch planning_simulator.launch map_path:=[path]
+roslaunch autoware_launch planning_simulator.launch map_path:=/path/to/map_folder
 ```
-> Note that an absolute path must be specified for `map_path` above.
 
 ![initial](https://user-images.githubusercontent.com/10920881/79816587-8b298380-83be-11ea-967c-8c45772e30f4.png)
 
 3. Set an initial pose for the ego vehicle
-   - a) Click the `2D Pose estimate` button in the toolbar, or hit the "P" key
+   - a) Click the `2D Pose estimate` button in the toolbar, or hit the `P` key
    - b) In the 3D View pane, click and hold the left-mouse button, and then drag to set the direction for the initial pose.
 
 ![start](https://user-images.githubusercontent.com/10920881/79816595-8e247400-83be-11ea-857a-32cf096ac3dc.png)
 
 4. Set a goal pose for the ego vehicle
-   - a) Click the "2D Nav Goal" button in the toolbar, or hit the "G" key
+   - a) Click the "2D Nav Goal" button in the toolbar, or hit the `G` key
    - b) In the 3D View pane, click and hold the left-mouse button, and then drag to set the direction for the goal pose.
 
 ![goal](https://user-images.githubusercontent.com/10920881/79816596-8fee3780-83be-11ea-9ee4-caabbef3a385.png)
@@ -83,7 +86,7 @@ roslaunch autoware_launch planning_simulator.launch map_path:=[path]
 ### Simulate dummy obstacles
 
 - Set the position of dummy obstacle by clicking the `2D Dummy Pedestrian` or `2D Dummy Car` buttons in Rviz.
-  - These two buttons correspond to the shortcut keys `l` and `k` respectively.
+  - These two buttons correspond to the shortcut keys `L` and `K` respectively.
   - The properties of an object (including velocity, position/orientation error etc) can be adjusted via the `Tool Properties` panel in Rviz.
   - Objects placed in the 3D View can be deleted by clicking the `Delete All Objects` button in Rviz and then clicking inside the 3D View pane.
     ![dummy](https://user-images.githubusercontent.com/10920881/79742437-c9cb2980-833d-11ea-8ad7-7c3ed1a96540.png)
