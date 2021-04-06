@@ -93,7 +93,7 @@ roslaunch autoware_launch planning_simulator.launch map_path:=/path/to/map_folde
 
 ### Simulate parking maneuver
 
-Set goal in parking area.
+- Set an initial pose for the ego vehicle first, and then set the goal pose in a parking area.
 
 ![parking](https://user-images.githubusercontent.com/10920881/79817389-56b6c700-83c0-11ea-873b-6ec73c8a5c38.png)
 
