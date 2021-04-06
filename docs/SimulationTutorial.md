@@ -31,7 +31,7 @@ Autoware provides two types of simulation:
 3. Open a terminal and launch Autoware in "rosbag mode".
 
 ```
-cd AutowareArchitectureProposal
+cd ~/workspace/AutowareArchitectureProposal
 source install/setup.bash
 roslaunch autoware_launch logging_simulator.launch map_path:=/path/to/map_folder
 ```
@@ -39,7 +39,7 @@ roslaunch autoware_launch logging_simulator.launch map_path:=/path/to/map_folder
 4. Open a second terminal and play the sample rosbag file
 
 ```
-cd AutowareArchitectureProposal
+cd ~/workspace/AutowareArchitectureProposal
 source install/setup.bash
 rosbag play --clock -r 0.2 /path/to/sample.bag
 ```
@@ -58,7 +58,7 @@ rosbag play --clock -r 0.2 /path/to/sample.bag
 2. Launch Autoware with Planning Simulator
 
 ```
-cd AutowareArchitectureProposal
+cd ~/workspace/AutowareArchitectureProposal
 source install/setup.bash
 roslaunch autoware_launch planning_simulator.launch map_path:=/path/to/map_folder
 ```

@@ -46,17 +46,21 @@ The following software will be installed during the installation process, so ple
 
 ```sh
 sudo apt install -y python3-vcstool
+mkdir -p ~/workspace
+cd ~/workspace
 git clone git@github.com:tier4/AutowareArchitectureProposal.git
 cd AutowareArchitectureProposal
 mkdir -p src
 vcs import src < autoware.proj.repos
 ```
 
-2. Run the setup script (this step will install CUDA, cuDNN 7, osqp, ROS and TensorRT 7, and will take around 45 minutes!)
+2. Run the setup script to install CUDA, cuDNN 7, osqp, ROS and TensorRT 7, entering 'y' when prompted (this step will take around 45 minutes)
 
 ```sh
 ./setup_ubuntu18.04.sh
 ```
+
+> ROS installation alone takes around 20 minutes and may fail during this step. In that event, please follow [steps 1.2 to 1.4 of the ROS Melodic installation guide](http://wiki.ros.org/melodic/Installation/Ubuntu) and then re-run the script in step 2 above.
 
 3. Build the source code (this will take around 15 minutes)
 
@@ -86,7 +90,7 @@ The following files are provided as samples:
 3. Open a terminal and launch Autoware
 
 ```sh
-cd AutowareArchitectureProposal
+cd ~/workspace/AutowareArchitectureProposal
 source install/setup.bash
 roslaunch autoware_launch logging_simulator.launch map_path:=/path/to/map_folder vehicle_model:=lexus sensor_model:=aip_xx1 rosbag:=true
 ```
@@ -94,7 +98,7 @@ roslaunch autoware_launch logging_simulator.launch map_path:=/path/to/map_folder
 4. Open a second terminal and play the sample rosbag file
 
 ```sh
-cd AutowareArchitectureProposal
+cd ~/workspace/AutowareArchitectureProposal
 source install/setup.bash
 rosbag play --clock -r 0.2 /path/to/sample.bag
 ```
@@ -111,7 +115,7 @@ rosbag play --clock -r 0.2 /path/to/sample.bag
 2. Open a terminal and launch Autoware
 
 ```sh
-cd AutowareArchitectureProposal
+cd ~/workspace/AutowareArchitectureProposal
 source install/setup.bash
 roslaunch autoware_launch planning_simulator.launch map_path:=/path/to/map_folder vehicle_model:=lexus sensor_model:=aip_xx1
 ```
