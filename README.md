@@ -2,9 +2,9 @@
 
 ![autoware](https://user-images.githubusercontent.com/8327598/69472442-cca50b00-0ded-11ea-9da0-9e2302aa1061.png)
 
-A meta-repository for the Autoware architecture proposal feasibility study created by Tier IV. For more details about the architecture itself, please read this [overview](/design/Overview.md).
+A meta-repository for the new Autoware architecture feasibility study created by Tier IV. For more details about the architecture itself, please read this [overview](/design/Overview.md).
 
-> **WARNING**: All source code relating to this meta-repository is solely intended to demonstrate a potential new architecture for Autoware, and should not be used to autonomously drive a real car!
+> **WARNING**: All source code relating to this meta-repository is intended solely to demonstrate a potential new architecture for Autoware, and should not be used to autonomously drive a real car!
 > 
 > **NOTE**: Some, but not all of the features within the [AutowareArchitectureProposal.iv repository](https://github.com/tier4/AutowareArchitectureProposal.iv) are planned to be merged into [Autoware.Auto](https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto) (the reason being that Autoware.Auto has its own scope and ODD which it needs to achieve, and so not all the features in this architecture proposal will be required).
 
