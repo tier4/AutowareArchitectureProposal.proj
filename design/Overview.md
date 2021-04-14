@@ -3,7 +3,7 @@ Architecture Overview
 
 # Introduction
 
-Currently it is difficult to improve Autoware.AI's capabilities due to a lack of concrete architecture design and a lot of technical debt, such as the tight coupling between modules as well as unclear responsibilities for each module. At Tier IV, we thought that a new architecture was needed to help accelerate the development of Autoware. 
+Currently it is difficult to improve Autoware.AI's capabilities due to a lack of concrete architecture design and a lot of technical debt, such as the tight coupling between modules as well as unclear responsibilities for each module. At Tier IV, we thought that a new architecture was needed to help accelerate the development of Autoware.
 
 The purpose of this proposal is to define a layered architecture that clarifies each module's role and simplifies the interface between them. By doing so:
 - Autoware's internal processing becomes more transparent
