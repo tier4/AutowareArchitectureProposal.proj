@@ -25,8 +25,8 @@ Remarks:
 For TF, ROS follows the naming conventions and semantic meanings in [REP-105](https://www.ros.org/reps/rep-0105.html
 ). The explanation given above also follows REP-105, but with the significant change of removing the odom frame.
 
-### What is the Odom frame?
-The Odom frame is defined as follows in REP-105: 
+### What is the odom frame?
+The odom frame is defined as follows in REP-105: 
 ```
 The coordinate frame called odom is a world-fixed frame. The pose of a mobile platform in the odom frame can drift over time, without any bounds. This drift makes the odom frame useless as a long-term global reference. However, the pose of a robot in the odom frame is guaranteed to be continuous, meaning that the pose of a mobile platform in the odom frame always evolves in a smooth way, without discrete jumps.
 
