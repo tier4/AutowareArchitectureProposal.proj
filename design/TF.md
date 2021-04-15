@@ -48,7 +48,7 @@ Therefore, regardless of the frame in which it is done, control will still be af
 * Localization results must be continuous
 * Localization failures must be detected and the vehicle's pose should not be updated with any failed localization results
 
-Additionally, the Localization architecture assumes that a sequential Bayesian Filter, such as EKF and particle filter, will be used to integrate twist and pose. Since it can also integrate odometry information, it can update TF at high frequency. As a result, all of the merits of odom->base_link stated in REP-105 can be satisfied by map->base_link, and thus there is no need to set the odom frame. 
+Additionally, the Localization architecture assumes that twist and pose will be integrated with a sequential Bayesian Filter such as [EKF](https://en.wikipedia.org/wiki/Extended_Kalman_filter) or a [particle filter](https://en.wikipedia.org/wiki/Particle_filter)). Since it can also integrate odometry information, it can update TF at high frequency. As a result, all of the merits of odom->base_link stated in REP-105 can be satisfied by map->base_link, and thus there is no need to set the odom frame. 
 
 To conclude, we removed the odom frame from this architecture proposal for the following reasons:
 1. It is almost impossible to avoid using map information in the Planning module, and thus the trajectory will have a dependency on map->odom (or map->base_link)
