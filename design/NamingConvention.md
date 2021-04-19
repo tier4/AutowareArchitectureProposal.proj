@@ -14,7 +14,7 @@ Additionally, it is strongly recommended that the default topic names specified 
 * All topics must be set under private namespaces. Any global topics must have a documented explanation.
 * All topics must be specified under one of the following namespaces within the node's private namespace. Doing so allows users to easily understand which topics are inputs and which are outputs when they look at remapping in launch files for example.
   * `input`: subscribed topics
-  * `output`: published topics 
+  * `output`: published topics
   * `debug`: published topics that are meant for debugging (e.g. for visualization)
 
 Consider, for example, a node that subscribes to pointcloud data, applies a voxel grid filter and then publishes the filtered data. In this case, the topics should be named as follows:
