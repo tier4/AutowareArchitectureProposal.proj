@@ -5,7 +5,7 @@
 A meta-repository for the new Autoware architecture feasibility study created by Tier IV. For more details about the architecture itself, please read this [overview](/design/Overview.md).
 
 > **WARNING**: All source code relating to this meta-repository is intended solely to demonstrate a potential new architecture for Autoware, and should not be used to autonomously drive a real car!
-> 
+>
 > **NOTE**: Some, but not all of the features within the [AutowareArchitectureProposal.iv repository](https://github.com/tier4/AutowareArchitectureProposal.iv) are planned to be merged into [Autoware.Auto](https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto) (the reason being that Autoware.Auto has its own scope and ODD which it needs to achieve, and so not all the features in this architecture proposal will be required).
 
 # Installation Guide
@@ -28,8 +28,8 @@ A meta-repository for the new Autoware architecture feasibility study created by
 
  - Ubuntu 18.04
  - Nvidia driver
- 
-## Review licenses 
+
+## Review licenses
 The following software will be installed during the installation process, so please confirm their licenses first before proceeding.
 
 - [CUDA 10.2](https://docs.nvidia.com/cuda/eula/index.html)
@@ -37,7 +37,7 @@ The following software will be installed during the installation process, so ple
 - [osqp](https://github.com/oxfordcontrol/osqp/blob/master/LICENSE)
 - [ROS Melodic](https://github.com/ros/ros/blob/noetic-devel/LICENSE)
 - [TensorRT 7](https://docs.nvidia.com/deeplearning/sdk/tensorrt-sla/index.html)
- 
+
 ## Installation steps
 
 > If the CUDA or TensorRT frameworks have already been installed, we strongly recommend uninstalling them first.
@@ -154,7 +154,7 @@ For anyone who would like to use the features of this architecture proposal with
 - [Obstacle avoidance by lane change](https://youtu.be/SCIceXW9sqM)
 - [Object recognition](https://youtu.be/uhhMIxe1zxQ)
 - [Auto parking](https://youtu.be/e9R0F0ZJbWE)
-- [360° FOV perception(Camera Lidar Fuison)](https://youtu.be/whzx-2RkVBA)
+- [360° FOV perception(Camera Lidar Fusion)](https://youtu.be/whzx-2RkVBA)
 - [Robustness of localization](https://youtu.be/ydPxWB2jVnM)
 
 ## Credits
