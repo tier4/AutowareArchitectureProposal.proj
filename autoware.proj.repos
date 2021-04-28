@@ -3,45 +3,45 @@ repositories:
   autoware/AutowareArchitectureProposal.iv:
     type: git
     url: https://github.com/tier4/AutowareArchitectureProposal.iv.git
-    version: ros2
+    version: v0.11.1
   autoware/launcher:
     type: git
     url: https://github.com/tier4/autoware_launcher.iv.universe.git
-    version: ros2
+    version: v0.11.1
   autoware/individual_params:
     type: git
     url: https://github.com/tier4/autoware_individual_params.git
-    version: main
+    version: b006f9f474045c89f40b7575ac54caac168fd00b
   # description
   description/sensor/sensor_description:
     type: git
     url: https://github.com/tier4/sensor_description.iv.universe.git
-    version: ros2
+    version: b04351f4bd4798f24311b7981bbda975e2e0e4af
   description/sensor/velodyne_simulator:
     type: git
     url: https://github.com/tier4/velodyne_simulator.git
-    version: ros2
+    version: 7bca7039a1d9b0a37a268e7ced3e97b96fe9f5ee
   description/vehicle/lexus_description:
     type: git
     url: https://github.com/tier4/lexus_description.iv.universe.git
-    version: ros2
+    version: 4a3a06e297f85a737d2b5879b508843b2998038a
   # simulator
   simulator/planning_simulator:
     type: git
     url: https://github.com/tier4/planning_simulator.iv.universe.git
-    version: ros2
+    version: e0632b3756eb1f110f90f0459c9c1549875beff9
   simulator/planning_simulator_launcher:
     type: git
     url: https://github.com/tier4/planning_sim_launcher.iv.universe.git
-    version: ros2
+    version: baffbe9141dce383a549731b583bf767ddf70f9d
   simulator/scenario_runner:
     type: git
     url: https://github.com/tier4/scenario_runner.iv.universe.git
-    version: ros2
+    version: 695d530e5e66794f0647db9e7cae4bf6f702de7d
   simulator/scenario_simulator:
     type: git
     url: git@github.com:tier4/scenario_simulator_v2.git
-    version: master
+    version: 5a97687f2855c1f8cb8f461c33d1a75af70f1b97
   # vendor
   vendor/quaternion_operation:
     type: git
@@ -50,70 +50,67 @@ repositories:
   vendor/grid_map:
     type: git
     url: https://github.com/ANYbotics/grid_map.git
-    version: ros2
+    version: a98472714697f753e9efd8da90d731ba23cb8dc1
   vendor/perception_pcl:
     type: git
     url: https://github.com/ros-perception/perception_pcl.git
-    version: foxy-devel
+    version: 135a2c29e3f46904f586e963cc4a4ec3fe594a9c
   vendor/rclcpp_generic:
     type: git
     url: https://github.com/ApexAI/rclcpp_generic.git
-    version: autoware
+    version: 855580e8b58c4e676907f7edbb91f074f34c830f
   vendor/topic_tools:
     type: git
     url: https://github.com/tier4/topic_tools.git
-    version: tier4/main
+    version: 3ea584f0b5c7854b7e917ce0fae047f826a1962a
   vendor/pacmod3: # TODO remove after foxy-version is released
     type: git
     url: https://github.com/astuff/pacmod3.git
-    version: dashing-devel
+    version: deec9f5bcf8585d1443f26f4731bbb7b4e6fb8eb
   vendor/kvaser_interface: # TODO remove after foxy-version is released
     type: git
     url: https://github.com/tier4/kvaser_interface.git
-    version: tier4/ros2
+    version: e702142c39cfe1ae3b3a512fc782a47cadcbe187
   vendor/usb_cam: # TODO remove after https://github.com/ros-drivers/usb_cam/pull/132 is available in foxy
     type: git
     url: https://github.com/tier4/usb_cam.git
-    version: tier4/ros2
+    version: f39210f4be530f3bddd7447fcf462d6efca1f748
   vendor/tamagawa_imu_driver:
     type: git
     url: https://github.com/tier4/tamagawa_imu_driver.git
-    version: ros2
+    version: ea2ed82264b0233de494270e04eb0738467276fe
   vendor/ublox:
     type: git
     url: https://github.com/tier4/ublox.git
-    version: tier4/ros2
-  vendor/septentrio:
-    type: git
-    url: https://github.com/tier4/septentrio_gnss_driver.git
-    version: tier4/ros2
+    version: cb0ad51188c0cb9a1fff37cead4e80fd14a529ae
   vendor/livox-driver:
     type: git
-    url: https://github.com/Livox-SDK/livox_ros2_driver.git
-    version: master
+    url: https://github.com/tier4/livox_ros2_driver.git
+    version: 4503947f9eea53d1c56b3cb842153a226b988034
   vendor/rosbridge_suite:
     type: git
     url: https://github.com/tier4/rosbridge_suite.git
-    version: tier4/ros2
+    version: ef2e0534f2feb7f58260e8a5ebc3135da7220fc7
   vendor/rosauth:
     type: git
     url: https://github.com/GT-RAIL/rosauth.git
-    version: ros2
+    version: 2.0.2
   vendor/clock_publisher:
     type: git
     url: https://github.com/mitsudome-r/clock_publisher.git
-    version: master
+    version: 193e5dc81390ab967ba440e26c85671924f552d6
   vendor/velodyne_vls:
     type: git
     url: https://github.com/tier4/velodyne_vls.git
-    version: ros2
+    version: 00760b6d7415ca8da46cf48813dc9249fef69ee7
   vendor/rqt_runtime_monitor:
     type: git
     url: https://github.com/tier4/rqt_runtime_monitor.git
-    version: dashing-devel
+    version: e76c9846da6a8728d03e80b8b01dca61c4e4d99d
   vendor/operational-design-domains:
     type: git
     url: https://gitlab.com/autowarefoundation/operational-design-domains
+    version: 60ae2b38be42c7508fd272b86aae6c62c06bb334
 # calibration
 #  calibration/tunable_static_tf_broadcaster:
 #    type: git
