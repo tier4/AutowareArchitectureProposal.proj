@@ -26,22 +26,22 @@ repositories:
     url: https://github.com/tier4/lexus_description.iv.universe.git
     version: ros2
   # simulator
-  simulator/planning_simulator:
-    type: git
-    url: https://github.com/tier4/planning_simulator.iv.universe.git
-    version: ros2
-  simulator/planning_simulator_launcher:
-    type: git
-    url: https://github.com/tier4/planning_sim_launcher.iv.universe.git
-    version: ros2
-  simulator/scenario_runner:
-    type: git
-    url: https://github.com/tier4/scenario_runner.iv.universe.git
-    version: ros2
-  simulator/scenario_simulator:
-    type: git
-    url: git@github.com:tier4/scenario_simulator_v2.git
-    version: master
+#  simulator/planning_simulator:
+#    type: git
+#    url: https://github.com/tier4/planning_simulator.iv.universe.git
+#    version: ros2
+#  simulator/planning_simulator_launcher:
+#    type: git
+#    url: https://github.com/tier4/planning_sim_launcher.iv.universe.git
+#    version: ros2
+#  simulator/scenario_runner:
+#    type: git
+#    url: https://github.com/tier4/scenario_runner.iv.universe.git
+#    version: ros2
+#  simulator/scenario_simulator:
+#    type: git
+#    url: git@github.com:tier4/scenario_simulator_v2.git
+#    version: master
   # vendor
   vendor/quaternion_operation:
     type: git
@@ -49,8 +49,8 @@ repositories:
     version: f08cd28b357f9feede55f1fb485cb21964f5d594
   vendor/grid_map:
     type: git
-    url: https://github.com/ANYbotics/grid_map.git
-    version: ros2
+    url: https://github.com/wep21/grid_map.git
+    version: rolling
   vendor/perception_pcl:
     type: git
     url: https://github.com/ros-perception/perception_pcl.git
@@ -111,9 +111,9 @@ repositories:
     type: git
     url: https://github.com/tier4/rqt_runtime_monitor.git
     version: dashing-devel
-  vendor/operational-design-domains:
-    type: git
-    url: https://gitlab.com/autowarefoundation/operational-design-domains
+#  vendor/operational-design-domains:
+#    type: git
+#    url: https://gitlab.com/autowarefoundation/operational-design-domains
 # calibration
 #  calibration/tunable_static_tf_broadcaster:
 #    type: git

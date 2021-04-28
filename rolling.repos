@@ -1,0 +1,34 @@
+repositories:
+  missing_pkgs/lanelet2:
+    type: git
+    url: https://github.com/fzi-forschungszentrum-informatik/Lanelet2.git
+    version: 1.1.1
+  missing_pkgs/mrt_cmake_modules:
+    type: git
+    url: https://github.com/KIT-MRT/mrt_cmake_modules.git
+    version: 1.0.8
+  missing_pkgs/nav2_msgs:
+    type: git
+    url: https://github.com/DynoRobotics/nav2_msgs.git
+    version: master
+  missing_pkgs/octomap:
+    type: git
+    url: https://github.com/OctoMap/octomap.git
+    version: ros2
+  missing_pkgs/octomap_msgs:
+    type: git
+    url: https://github.com/OctoMap/octomap_msgs.git
+    version: ros2
+  missing_pkgs/astuff_sensor_msgs:
+    type: git
+    url: https://github.com/astuff/astuff_sensor_msgs.git
+    version: 3.2.0
+  missing_pkgs/automotive_autonomy_msgs:
+    type: git
+    url: https://github.com/astuff/automotive_autonomy_msgs.git
+    version: 3.0.4
+  missing_pkgs/osqp_vendor:
+    type: git
+    url: https://github.com/tier4/osqp_vendor.git
+    version: 0.0.3
+
