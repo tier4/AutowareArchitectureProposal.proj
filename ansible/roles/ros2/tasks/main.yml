@@ -56,12 +56,12 @@
   command: rosdep update
   become: no
 
-- name: ROS2 (add path >> bashrc)
-  lineinfile:
-    dest: ~/.bashrc
-    line: source /opt/ros/{{ rosdistro }}/setup.bash
-    state: present
-  become: no
+# - name: ROS2 (add path >> bashrc)
+#   lineinfile:
+#     dest: ~/.bashrc
+#     line: source /opt/ros/{{ rosdistro }}/setup.bash
+#     state: present
+#   become: no
 
 - name: ROS2 (install colcon)
   apt:
