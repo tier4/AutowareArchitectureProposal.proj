@@ -7,7 +7,7 @@ repositories:
   autoware/launcher:
     type: git
     url: https://github.com/tier4/autoware_launcher.iv.universe.git
-    version: ros2
+    version: rolling-devel
   autoware/individual_params:
     type: git
     url: https://github.com/tier4/autoware_individual_params.git
