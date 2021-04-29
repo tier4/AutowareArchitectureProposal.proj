@@ -134,9 +134,9 @@ roslaunch autoware_launch planning_simulator.launch map_path:=/path/to/map_folde
 
 - Sample map: © 2020 Tier IV, Inc.
 
-## Detailed tutorial instructions
+## Tutorials
 
-Please refer to the [Simulation tutorial](./docs/SimulationTutorial.md) for more details about supported simulations, along with more verbose instructions including screenshots.
+For more information about supported simulations, along with more verbose instructions and screenshots, please refer to the [Simulation basic tutorial](./docs/SimulationTutorial.md). There's also some [additional tutorials here](./docs/tutorials/0_preparation.md) that were adapted from a workshop given at the 2020 Arm DevSummit.
 
 ## Running the AutowareArchitectureProposal source code with Autoware.Auto
 For anyone who would like to use the features of this architecture proposal with existing [Autoware.Auto](https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto) modules right now, [ros_bridge](https://github.com/ros2/ros1_bridge) can be used.
