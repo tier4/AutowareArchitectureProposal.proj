@@ -1,13 +1,33 @@
 # Tutorial 1: RViz basics and replaying a rosbag
 
-The purpose of this exercise is to gain familiarity with the basic functionality of RViz and how to replay a rosbag. [RVIz](http://wiki.ros.org/rviz) is a 3D visualization tool for the ROS middleware that Autoware is based on, and [rosbag](http://wiki.ros.org/rosbag) is the file format used to record and playback data from a ROS-based system.
+The purpose of this tutorial is to gain familiarity with the basic functionality of RViz and how to replay a rosbag. [RVIz](http://wiki.ros.org/rviz) is a 3D visualization tool for the ROS middleware that Autoware is based on, and [rosbag](http://wiki.ros.org/rosbag) is the file format used to record and playback data from a ROS-based system.
 
 Before starting, please download and unpack the following files:
 
 * [Tutorial 1 map files](https://drive.google.com/open?id=1ovrJcFS5CZ2H51D8xVWNtEvj_oiXW-zk)
 * [Tutorial 1 rosbag](https://drive.google.com/open?id=1BFcNjIBUVKwupPByATYczv2X4qZtdAeD)
 
-> Note that these are the same files used in the [rosbag quick launch exercise](../../README.md#rosbag-simulation)
+> Note that these are the same files used in the [rosbag quick launch tutorial](../../README.md#rosbag-simulation)
+
+### Sensors and ROS topics
+
+The rosbag file used in Tutorials 1 and 2 contains the sensor data and ROS topics listed in the table below (the second rosbag file used in Tutorial 2 is the same, but with the GNSS-related topics removed). Note that due to privacy concerns, the ROS topics relating to camera image data have been removed from the file.
+
+| Sensor                | Topic name                               |
+| --------------------- | ---------------------------------------- |
+| Velodyne 128 (Top)    | /sensing/velodyne/top/velodyne_packets   |
+| Velodyne 16 (Right)   | /sensing/velodyne/right/velodyne_packets |
+| Velodyne 16 (Left)    | /sensing/velodyne/left/velodyne_packets  |
+| IMU (Tamagawa TAG300) | /sensing/imu/tamagawa/imu_raw            |
+| GNSS (Ublox F9P)      | /sensing/gnss/ublox/fix_velocity         |
+|                       | /sensing/gnss/ublox/nav_sat_fix          |
+|                       | /sensing/gnss/ublox/navpvt               |
+| CAN data              | /vehicle/status/control_mode             |
+|                       | /vehicle/status/shift                    |
+|                       | /vehicle/status/steering                 |
+|                       | /vehicle/status/twist                    |
+| ~~Camera x 7~~        | ~~/sensing/camera/camera[]/image_raw~~   |
+
 
 ## Launch RViz, start and pause rosbag playback
 

@@ -1,6 +1,6 @@
 # Tutorial 2: Localization using NDT Scan Matching
 
-The purpose of this exercise is to show some features of Autoware's localization, which is achieved through a method called NDT Scan Matching. At a very basic level, NDT (Normal Distribution Transform) Scan Matching is an algorithm that is used to match LiDAR sensor data with an existing LiDAR point cloud map, in order to determine where the ego-vehicle is located. For a more detailed description of how the algorithm works, [read this Medium article by David Silver](https://medium.com/self-driving-cars/ndt-matching-acff8e7e01cb).
+The purpose of this tutorial is to show some features of Autoware's localization, which is achieved through a method called NDT Scan Matching. At a very basic level, NDT (Normal Distribution Transform) Scan Matching is an algorithm that is used to match LiDAR sensor data with an existing LiDAR point cloud map, in order to determine where the ego-vehicle is located. For a more detailed description of how the algorithm works, [read this Medium article by David Silver](https://medium.com/self-driving-cars/ndt-matching-acff8e7e01cb).
 
 ## Automatic self-pose estimation using GNSS
 
@@ -10,9 +10,9 @@ Before starting, please download and unpack the following files (note that the m
 
 * [Tutorial 2 map files](https://drive.google.com/open?id=1ovrJcFS5CZ2H51D8xVWNtEvj_oiXW-zk)
 * [Tutorial 2 rosbag](https://drive.google.com/open?id=1BFcNjIBUVKwupPByATYczv2X4qZtdAeD)
-* [Tutorial 2 rosbag (minus GNSS data)](TODO: ADD URL!)
+* [Tutorial 2 rosbag (minus GNSS data)](https://drive.google.com/file/d/1fEkNe0IksR9g_lq8aypZaGKxWtyaSZ2T)
 
-> Note that the first three files are the same files used in the [rosbag quick launch exercise](../../README.md#rosbag-simulation)
+> Note that the first two files are the same files used in the [rosbag quick launch tutorial](../../README.md#rosbag-simulation)
 
 1. Open two terminal windows and run the following commands in *both* terminals
 

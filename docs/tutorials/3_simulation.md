@@ -1,6 +1,6 @@
 # Tutorial 3: Simulation testing with dummy objects
 
-The purpose of this exercise is to become familiar with Autoware's planning simulator, which can be used for a variety of things such as validating vector maps (containing metadata about the road layout, traffic rules etc) and verifying Autoware's route planning functionality.
+The purpose of this tutorial is to become familiar with Autoware's planning simulator, which can be used for a variety of things such as validating vector maps (containing metadata about the road layout, traffic rules etc) and verifying Autoware's route planning functionality.
 
 For this exercise, we will only need to use a single terminal window.
 
@@ -8,7 +8,7 @@ Before starting, please download and unpack the following files:
 
 * [Tutorial 3 maps](https://drive.google.com/open?id=197kgRfSomZzaSbRrjWTx614le2qN-oxx)
 
-> Note that these are the same files used in the [Planning Simulator quick launch exercise](../../README.md#planning-simulator)
+> Note that these are the same files used in the [Planning Simulator quick launch tutorial](../../README.md#planning-simulator)
 
 ## Run RViz and set initial and goal poses
 
@@ -104,4 +104,20 @@ roslaunch autoware_launch planning_simulator.launch vehicle_model:=lexus sensor_
 
 ![Autoware UI engaged](images/ex3/autoware_ui_engaged.png)
 
-12. To finish, click on the terminal window and press Ctrl + C to stop RViz, then close the terminal.
+---
+
+## Bonus: Simulate a parking maneuver
+
+12. Once the ego-vehicle has reached the goal pose and stopped moving, use the Autoware Web UI to disengage the vehicle
+- Under “Autoware Engage: Connected”, click the “Disengage” button
+![Autoware UI disengage](images/ex3/autoware_ui_disengage.png)
+
+
+13. Set a new initial pose for the ego vehicle, and then set a goal pose that is in a parking area.
+
+14. Use the Autoware Web UI to start the ego vehicle moving
+- Under “Autoware Engage: Connected”, click the “Engage” button
+
+![parking](images/ex3/set_parking_goal.png)
+
+14. To finish, click on the terminal window and press Ctrl + C to stop RViz, then close the terminal.

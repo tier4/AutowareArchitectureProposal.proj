@@ -8,6 +8,13 @@ The following tutorials were originally created for a workshop given at the 2020
 
 We assume that you've [installed and set up the AutowareArchitectureProposal already](https://github.com/tier4/AutowareArchitectureProposal.proj#autoware-setup).
 
+## Simulation in Autoware
+
+Autoware provides two types of simulation:
+- rosbag-based simulation that can be used for testing/validation of the `Sensing`, `Localization` and `Perception` stacks (this was covered in the first two tutorials)
+- The Planning Simulator tool which is mainly used for testing/validation of `Planning` stack by simulating traffic rules, interactions with dynamic objects and control commands to the ego vehicle (covered in this tutorial)
+![sim](images/ex0/autoware_simulation_types.png)
+
 ## Note
 
 - For the first two tutorials, two terminal windows will be used. However, the number of terminals required when using Autoware scales with the complexity of the overall system and can be as many as 10-12 in an actual autonomous vehicle!
