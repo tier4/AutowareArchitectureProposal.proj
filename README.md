@@ -48,8 +48,8 @@ The following software will be installed during the installation process, so ple
 sudo apt install -y python3-vcstool
 mkdir -p ~/workspace
 cd ~/workspace
-git clone git@github.com:tier4/AutowareArchitectureProposal.git
-cd AutowareArchitectureProposal
+git clone git@github.com:tier4/AutowareArchitectureProposal.proj.git
+cd AutowareArchitectureProposal.proj
 mkdir -p src
 vcs import src < autoware.proj.repos
 ```

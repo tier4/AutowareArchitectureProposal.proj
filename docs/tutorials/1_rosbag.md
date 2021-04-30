@@ -14,7 +14,7 @@ Before starting, please download and unpack the following files:
 1. Open two terminal windows and run the following commands in *both* terminals
 
 ```bash
-cd ~/workspace/AutowareArchitectureProposal
+cd ~/workspace/AutowareArchitectureProposal.proj
 source install/setup.bash
 ```
 
