@@ -12,7 +12,7 @@ We assume that you've [installed and set up the AutowareArchitectureProposal alr
 
 Autoware provides two types of simulation:
 - rosbag-based simulation that can be used for testing/validation of the `Sensing`, `Localization` and `Perception` stacks (this was covered in the first two tutorials)
-- The Planning Simulator tool which is mainly used for testing/validation of `Planning` stack by simulating traffic rules, interactions with dynamic objects and control commands to the ego vehicle (covered in this tutorial)
+- The Planning Simulator tool which is mainly used for testing/validation of `Planning` stack by simulating traffic rules, interactions with dynamic objects and control commands to the ego vehicle (covered in the third tutorial)
 ![sim](images/ex0/autoware_simulation_types.png)
 
 ## Note
