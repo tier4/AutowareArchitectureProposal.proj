@@ -9,7 +9,7 @@ if [ $(id -u) -eq 0 ]; then
 fi
 
 echo "Setting up the pre-build environment for AutowareArchitectureProposal.IV can take up to 45 minutes."
-read -p ">  Are you sure you want to run setup? [y/N] " answer
+read -p ">  Are you sure you want to run setup? [y/n] " answer
 
 if [[ $answer = [cC] ]]; then
   if !(command -v cowsay  > /dev/null 2>&1); then
