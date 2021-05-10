@@ -91,7 +91,7 @@ The following files are provided as samples:
 3. Open a terminal and launch Autoware
 
 ```sh
-cd ~/workspace/AutowareArchitectureProposal
+cd ~/workspace/AutowareArchitectureProposal.proj
 source install/setup.bash
 roslaunch autoware_launch logging_simulator.launch map_path:=/path/to/map_folder vehicle_model:=lexus sensor_model:=aip_xx1 rosbag:=true
 ```
@@ -99,7 +99,7 @@ roslaunch autoware_launch logging_simulator.launch map_path:=/path/to/map_folder
 4. Open a second terminal and play the sample rosbag file
 
 ```sh
-cd ~/workspace/AutowareArchitectureProposal
+cd ~/workspace/AutowareArchitectureProposal.proj
 source install/setup.bash
 rosbag play --clock -r 0.2 /path/to/sample.bag
 ```
@@ -117,7 +117,7 @@ rosbag play --clock -r 0.2 /path/to/sample.bag
 2. Open a terminal and launch Autoware
 
 ```sh
-cd ~/workspace/AutowareArchitectureProposal
+cd ~/workspace/AutowareArchitectureProposal.proj
 source install/setup.bash
 roslaunch autoware_launch planning_simulator.launch map_path:=/path/to/map_folder vehicle_model:=lexus sensor_model:=aip_xx1
 ```
