@@ -28,7 +28,6 @@ The rosbag file used in Tutorials 1 and 2 contains the sensor data and ROS topic
 |                       | /vehicle/status/twist                    |
 | ~~Camera x 7~~        | ~~/sensing/camera/camera[]/image_raw~~   |
 
-
 ## Launch RViz, start and pause rosbag playback
 
 1. Open two terminal windows and run the following commands in *both* terminals

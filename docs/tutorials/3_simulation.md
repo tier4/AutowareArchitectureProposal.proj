@@ -109,15 +109,16 @@ roslaunch autoware_launch planning_simulator.launch vehicle_model:=lexus sensor_
 ## Bonus: Simulate a parking maneuver
 
 12. Once the ego-vehicle has reached the goal pose and stopped moving, use the Autoware Web UI to disengage the vehicle
+
 - Under “Autoware Engage: Connected”, click the “Disengage” button
 ![Autoware UI disengage](images/ex3/autoware_ui_disengage.png)
-
 
 13. Set a new initial pose for the ego vehicle, and then set a goal pose that is in a parking area.
 
 14. Use the Autoware Web UI to start the ego vehicle moving
+
 - Under “Autoware Engage: Connected”, click the “Engage” button
 
 ![parking](images/ex3/set_parking_goal.png)
 
-14. To finish, click on the terminal window and press Ctrl + C to stop RViz, then close the terminal.
+15. To finish, click on the terminal window and press Ctrl + C to stop RViz, then close the terminal.
