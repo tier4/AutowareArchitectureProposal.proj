@@ -26,10 +26,11 @@ A meta-repository for the new Autoware architecture feasibility study created by
 
 ### Software
 
- - Ubuntu 18.04
- - Nvidia driver
+- Ubuntu 18.04
+- Nvidia driver
 
 ## Review licenses
+
 The following software will be installed during the installation process, so please confirm their licenses first before proceeding.
 
 - [CUDA 10.2](https://docs.nvidia.com/cuda/eula/index.html)
@@ -48,8 +49,8 @@ The following software will be installed during the installation process, so ple
 sudo apt install -y python3-vcstool
 mkdir -p ~/workspace
 cd ~/workspace
-git clone git@github.com:tier4/AutowareArchitectureProposal.git
-cd AutowareArchitectureProposal
+git clone git@github.com:tier4/AutowareArchitectureProposal.proj.git
+cd AutowareArchitectureProposal.proj
 mkdir -p src
 vcs import src < autoware.proj.repos
 ```
@@ -90,7 +91,7 @@ The following files are provided as samples:
 3. Open a terminal and launch Autoware
 
 ```sh
-cd ~/workspace/AutowareArchitectureProposal
+cd ~/workspace/AutowareArchitectureProposal.proj
 source install/setup.bash
 roslaunch autoware_launch logging_simulator.launch map_path:=/path/to/map_folder vehicle_model:=lexus sensor_model:=aip_xx1 rosbag:=true
 ```
@@ -98,10 +99,11 @@ roslaunch autoware_launch logging_simulator.launch map_path:=/path/to/map_folder
 4. Open a second terminal and play the sample rosbag file
 
 ```sh
-cd ~/workspace/AutowareArchitectureProposal
+cd ~/workspace/AutowareArchitectureProposal.proj
 source install/setup.bash
 rosbag play --clock -r 0.2 /path/to/sample.bag
 ```
+
 5. Focus the view on the ego vehicle by changing the `Target Frame` in the RViz Views panel from `viewer` to `base_link`.
 
 #### Note
@@ -115,7 +117,7 @@ rosbag play --clock -r 0.2 /path/to/sample.bag
 2. Open a terminal and launch Autoware
 
 ```sh
-cd ~/workspace/AutowareArchitectureProposal
+cd ~/workspace/AutowareArchitectureProposal.proj
 source install/setup.bash
 roslaunch autoware_launch planning_simulator.launch map_path:=/path/to/map_folder vehicle_model:=lexus sensor_model:=aip_xx1
 ```
@@ -134,11 +136,12 @@ roslaunch autoware_launch planning_simulator.launch map_path:=/path/to/map_folde
 
 - Sample map: © 2020 Tier IV, Inc.
 
-## Detailed tutorial instructions
+## Tutorials
 
-Please refer to the [Simulation tutorial](./docs/SimulationTutorial.md) for more details about supported simulations, along with more verbose instructions including screenshots.
+For more information about running the AutowareArchitectureProposal code, along with more verbose instructions and screenshots, please refer to the [detailed tutorials here](./docs/tutorials/0_preparation.md). These tutorials were originally created for a workshop given at the 2020 Arm DevSummit, and have been adapted for use here.
 
 ## Running the AutowareArchitectureProposal source code with Autoware.Auto
+
 For anyone who would like to use the features of this architecture proposal with existing [Autoware.Auto](https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto) modules right now, [ros_bridge](https://github.com/ros2/ros1_bridge) can be used.
 > Until the two architectures become more aligned, message type conversions are required to enable communication between the Autoware.Auto and AutowareArchitectureProposal modules and these will need to be added manually.
 
