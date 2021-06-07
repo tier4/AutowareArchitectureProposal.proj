@@ -50,7 +50,7 @@ repositories:
   vendor/grid_map:
     type: git
     url: https://github.com/ANYbotics/grid_map.git
-    version: ros2
+    version: f5f166202fda5b5ec81f0f87e9539f13a7532224
   vendor/perception_pcl:
     type: git
     url: https://github.com/ros-perception/perception_pcl.git
