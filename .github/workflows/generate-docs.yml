@@ -50,6 +50,7 @@ jobs:
           pip3 install \
             fontawesome_markdown \
             markdown \
+            mdx_truly_sane_lists \
             mdx_unimoji \
             mkdocs \
             mkdocs-exclude \
@@ -58,17 +59,6 @@ jobs:
             plantuml-markdown \
             pymdown-extensions \
             python-markdown-math
-
-      - name: Remove non-document files
-        run: |
-          find . -type f \
-              -not -path './.git' \
-              -not -path './mkdocs.yml' \
-              -not -name '*.md' \
-              -not -name '*.svg' \
-              -not -name '*.png' \
-              -not -name '*.css' \
-            | xargs -I {} rm "{}"
 
       - name: Build MkDocs
         run: |
@@ -110,4 +100,4 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
           body: |
-            Documentation URL: ${{ env.GITHUB_PAGES_URL }}/pulls/${{ github.event.pull_request.number }}
+            Documentation URL: ${{ env.GITHUB_PAGES_URL }}/pulls/${{ github.event.pull_request.number }}/
