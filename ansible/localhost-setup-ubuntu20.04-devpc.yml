@@ -19,3 +19,4 @@
     - { role: vcs, tags: ["vcs"] }
     - { role: autoware, rosdistro: galactic, tags: ["autoware"] }
     - { role: pacmod, rosdistro: galactic, tags: ["pacmod"] }
+    - { role: libtorch, tags: ["libtorch"] }
