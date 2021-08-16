@@ -3,15 +3,15 @@ repositories:
   autoware/AutowareArchitectureProposal.iv:
     type: git
     url: https://github.com/tier4/AutowareArchitectureProposal.iv.git
-    version: ros2
+    version: sync-with-internal-main
   autoware/launcher:
     type: git
     url: https://github.com/tier4/autoware_launcher.iv.universe.git
-    version: ros2
+    version: sync-with-internal-main
   autoware/msgs/AutowareArchitectureProposal_msgs:
     type: git
     url: https://github.com/tier4/AutowareArchitectureProposal_msgs.git
-    version: main
+    version: sync-with-internal-main
   autoware/individual_params:
     type: git
     url: https://github.com/tier4/autoware_individual_params.git
@@ -37,15 +37,15 @@ repositories:
   simulator/planning_simulator:
     type: git
     url: https://github.com/tier4/planning_simulator.iv.universe.git
-    version: ros2
+    version: sync-with-internal-main
   simulator/planning_simulator_launcher:
     type: git
     url: https://github.com/tier4/planning_sim_launcher.iv.universe.git
-    version: ros2
+    version: sync-with-internal-main
   simulator/scenario_runner:
     type: git
     url: https://github.com/tier4/scenario_runner.iv.universe.git
-    version: ros2
+    version: sync-with-internal-main
   simulator/scenario_simulator:
     type: git
     url: https://github.com/tier4/scenario_simulator_v2.git
