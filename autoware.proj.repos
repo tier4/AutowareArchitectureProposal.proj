@@ -23,7 +23,7 @@ repositories:
   autoware/calibration_tools:
     type: git
     url: git@github.com:tier4/calibration_tools.git
-    version: main
+    version: develop
   # description
   description/sensor/sensor_description:
     type: git
