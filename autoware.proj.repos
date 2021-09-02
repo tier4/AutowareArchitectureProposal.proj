@@ -3,23 +3,23 @@ repositories:
   autoware/autoware.iv:
     type: git
     url: git@github.com:tier4/autoware.iv.git
-    version: main
+    version: develop
   autoware/launcher:
     type: git
     url: git@github.com:tier4/autoware_launcher.git
-    version: main
+    version: develop
   autoware/autoware_api_adaptor:
     type: git
     url: git@github.com:tier4/autoware_api_adaptor.git
-    version: main
+    version: develop
   autoware/msgs/autoware_api_msgs:
     type: git
     url: git@github.com:tier4/autoware_api_msgs.git
-    version: main
+    version: develop
   autoware/msgs/autoware_iv_msgs:
     type: git
     url: git@github.com:tier4/autoware_iv_msgs.git
-    version: main
+    version: develop
   autoware/individual_params:
     type: git
     url: https://github.com/tier4/autoware_individual_params.git
@@ -27,7 +27,7 @@ repositories:
   autoware/calibration_tools:
     type: git
     url: git@github.com:tier4/calibration_tools.git
-    version: main
+    version: develop
   # description
   description/sensor/sensor_description:
     type: git
@@ -156,6 +156,11 @@ repositories:
     type: git
     url: https://github.com/tier4/hash_library_vendor.git
     version: main
+  # TODO: Remove behavior tree from repos after runtime error is resolved in released package
+  vendor/behaviortree-cpp-v3:
+    type: git
+    url: https://github.com/BehaviorTree/BehaviorTree.CPP.git
+    version: 3.5.6
   # missing_packages
   missing_packages/astuff_sensor_msgs:
     type: git
