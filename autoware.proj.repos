@@ -24,10 +24,6 @@ repositories:
     type: git
     url: https://github.com/tier4/autoware_individual_params.git
     version: main
-  autoware/calibration_tools:
-    type: git
-    url: git@github.com:tier4/calibration_tools.git
-    version: main
   # description
   description/sensor/sensor_description:
     type: git
@@ -46,31 +42,10 @@ repositories:
     url: https://github.com/tier4/lexus_description.iv.git
     version: main
   # simulator
-  simulator/planning_simulator:
-    type: git
-    url: git@github.com:tier4/planning_simulator.git
-    version: main
-  simulator/planning_simulator_launcher:
-    type: git
-    url: git@github.com:tier4/planning_sim_launcher.git
-    version: main
-  simulator/scenario_runner:
-    type: git
-    url: git@github.com:tier4/scenario_simulator_v1.git
-    version: main
   simulator/scenario_simulator:
     type: git
     url: https://github.com/tier4/scenario_simulator_v2.git
     version: master
-  simulator/logsim:
-    type: git
-    url: git@github.com:tier4/logsim.git
-    version: ros2
-  # ecu_system_setup
-  ecu_system_setup:
-    type: git
-    url: git@github.com:tier4/autoware_ecu_system_setup.git
-    version: main
   # vendor
   vendor/quaternion_operation:
     type: git
