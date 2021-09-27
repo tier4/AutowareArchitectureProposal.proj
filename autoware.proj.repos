@@ -28,6 +28,10 @@ repositories:
     type: git
     url: git@github.com:tier4/calibration_tools.git
     version: develop
+  autoware/calibration_tools/sensor/image_pipeline:
+    type: git
+    url: https://github.com/tier4/image_pipeline.git
+    version: tier4/ros2-camera-calibration
   # description
   description/sensor/sensor_description:
     type: git
@@ -162,6 +166,14 @@ repositories:
     type: git
     url: https://github.com/BehaviorTree/BehaviorTree.CPP.git
     version: 3.5.6
+  vendor/spinnaker:
+    type: git
+    url: git@github.com:tier4/spinnaker.git
+    version: main
+  vendor/robot_state_publisher:
+    type: git
+    url: https://github.com/ros/robot_state_publisher.git
+    version: 51c5f53baa19232e6f99e2638619a9faa6697d78
   # missing_packages
   missing_packages/astuff_sensor_msgs:
     type: git
