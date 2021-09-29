@@ -165,7 +165,7 @@ repositories:
   vendor/spinnaker:
     type: git
     url: git@github.com:tier4/spinnaker.git
-    version: main
+    version: tier4/main
   vendor/image_pipeline:
     type: git
     url: https://github.com/tier4/image_pipeline.git
