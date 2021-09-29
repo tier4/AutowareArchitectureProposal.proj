@@ -2,4 +2,4 @@
 
 ## Sensor Calibration
 
-Please see [Sensor Calibration Tools](../../../src/autoware/calibration_tools/sensor/README.md).
+Please see [Sensor Calibration Tools](https://github.com/tier4/calibration_tools/blob/main/sensor/README.md).
