@@ -28,10 +28,6 @@ repositories:
     type: git
     url: git@github.com:tier4/calibration_tools.git
     version: develop
-  autoware/calibration_tools/sensor/image_pipeline:
-    type: git
-    url: https://github.com/tier4/image_pipeline.git
-    version: tier4/ros2-camera-calibration
   # description
   description/sensor/sensor_description:
     type: git
@@ -170,6 +166,11 @@ repositories:
     type: git
     url: git@github.com:tier4/spinnaker.git
     version: main
+  vendor/image_pipeline:
+    type: git
+    url: https://github.com/tier4/image_pipeline.git
+    version: tier4/ros2-camera-calibration
+  # TODO: Remove robot_state_publisher from repos after preventing timer publish is resolved in released package
   vendor/robot_state_publisher:
     type: git
     url: https://github.com/ros/robot_state_publisher.git
