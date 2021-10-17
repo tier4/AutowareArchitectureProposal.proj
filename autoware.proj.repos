@@ -136,6 +136,10 @@ repositories:
     type: git
     url: https://github.com/tier4/hash_library_vendor.git
     version: main
+  vendor/diagnostics:
+    type: git
+    url: https://github.com/tier4/diagnostics.git
+    version: tier4/main
   # TODO: Remove behavior tree from repos after runtime error is resolved in released package
   vendor/behaviortree-cpp-v3:
     type: git
