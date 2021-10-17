@@ -3,11 +3,11 @@ repositories:
   autoware/autoware.iv:
     type: git
     url: git@github.com:tier4/autoware.iv.git
-    version: main
+    version: develop
   autoware/launcher:
     type: git
     url: git@github.com:tier4/autoware_launcher.git
-    version: main
+    version: develop
   autoware/aip_launcher:
     type: git
     url: git@github.com:tier4/aip_launcher.iv.git
@@ -15,15 +15,15 @@ repositories:
   autoware/autoware_api_adaptor:
     type: git
     url: git@github.com:tier4/autoware_api_adaptor.git
-    version: main
+    version: develop
   autoware/msgs/autoware_api_msgs:
     type: git
     url: git@github.com:tier4/autoware_api_msgs.git
-    version: main
+    version: develop
   autoware/msgs/autoware_iv_msgs:
     type: git
     url: git@github.com:tier4/autoware_iv_msgs.git
-    version: main
+    version: develop
   autoware/individual_params:
     type: git
     url: https://github.com/tier4/autoware_individual_params.git
@@ -31,7 +31,7 @@ repositories:
   autoware/calibration_tools:
     type: git
     url: git@github.com:tier4/calibration_tools.git
-    version: main
+    version: develop
   # description
   description/sensor/sensor_component_description:
     type: git
@@ -165,6 +165,24 @@ repositories:
     type: git
     url: https://github.com/tier4/diagnostics.git
     version: tier4/main
+  # TODO: Remove behavior tree from repos after runtime error is resolved in released package
+  vendor/behaviortree-cpp-v3:
+    type: git
+    url: https://github.com/BehaviorTree/BehaviorTree.CPP.git
+    version: 3.5.6
+  vendor/spinnaker:
+    type: git
+    url: https://github.com/tier4/spinnaker.git
+    version: tier4/main
+  vendor/image_pipeline:
+    type: git
+    url: https://github.com/tier4/image_pipeline.git
+    version: tier4/ros2-camera-calibration
+  # TODO: Remove robot_state_publisher from repos after preventing timer publish is resolved in released package
+  vendor/robot_state_publisher:
+    type: git
+    url: https://github.com/ros/robot_state_publisher.git
+    version: 51c5f53baa19232e6f99e2638619a9faa6697d78
   # missing_packages
   missing_packages/astuff_sensor_msgs:
     type: git
