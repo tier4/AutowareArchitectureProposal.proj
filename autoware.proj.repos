@@ -11,7 +11,7 @@ repositories:
   autoware/aip_launcher:
     type: git
     url: git@github.com:tier4/aip_launcher.iv.git
-    version: main
+    version: develop
   autoware/autoware_api_adaptor:
     type: git
     url: git@github.com:tier4/autoware_api_adaptor.git
