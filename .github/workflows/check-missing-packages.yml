@@ -12,16 +12,20 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { ros_distribution: galactic, package: rqt-runtime-monitor }
+          - { ros_distribution: galactic, package: __dummy__ }
 
     container: ros:${{ matrix.ros_distribution }}
 
     steps:
-      - name: Check ros-${{ matrix.ros_distribution }}-${{ matrix.package }}
+      - name: Run apt-get update
         run: |
           sudo apt-get -y update
+
+      - name: Check ros-${{ matrix.ros_distribution }}-${{ matrix.package }}
+        run: |
           result=$(apt-cache search ros-${{ matrix.ros_distribution }}-${{ matrix.package }})
           if [ "$result" != "" ]; then
-            sudo apt-get -y install ros-${{ matrix.ros_distribution }}-${{ matrix.package }}
+            sudo apt-get -y -q install ros-${{ matrix.ros_distribution }}-${{ matrix.package }} >/dev/null
+            echo "${{ matrix.package }} is successfully installed. We can remove it from repos file."
             exit 1
           fi
