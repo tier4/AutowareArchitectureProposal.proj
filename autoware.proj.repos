@@ -70,10 +70,10 @@ repositories:
     type: git
     url: git@github.com:tier4/logsim.git
     version: ros2
-  simulator/​awml_evaluation:
+  simulator/awml_evaluation:
     type: git
     url: git@github.com:tier4/AWMLevaluation.git
-    ​version: main
+    version: main
   # ecu_system_setup
   ecu_system_setup:
     type: git
