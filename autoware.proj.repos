@@ -3,11 +3,11 @@ repositories:
   autoware/AutowareArchitectureProposal.iv:
     type: git
     url: git@github.com:tier4/AutowareArchitectureProposal.iv.git
-    version: master 
+    version: ros1 
   autoware/launcher:
     type: git
     url: git@github.com:tier4/autoware_launcher.iv.universe.git
-    version: master 
+    version: ros1 
   # description
   description/sensor/sensor_description:
     type: git
