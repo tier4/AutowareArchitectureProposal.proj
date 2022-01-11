@@ -7,7 +7,7 @@ repositories:
   autoware/launcher:
     type: git
     url: https://github.com/tier4/AutowareArchitectureProposal_launcher.git
-    version: main
+    version: feature/e2e_simulator
   autoware/aip_launcher:
     type: git
     url: https://github.com/tier4/AutowareArchitectureProposal_aip_launcher.git
