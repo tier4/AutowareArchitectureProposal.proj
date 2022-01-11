@@ -65,11 +65,15 @@ repositories:
   simulator/scenario_simulator:
     type: git
     url: https://github.com/tier4/scenario_simulator_v2.git
-    version: master
+    version: 0.5.8
   simulator/logsim:
     type: git
     url: git@github.com:tier4/logsim.git
     version: ros2
+  simulator/awml_evaluation:
+    type: git
+    url: git@github.com:tier4/AWMLevaluation.git
+    version: main
   # ecu_system_setup
   ecu_system_setup:
     type: git
