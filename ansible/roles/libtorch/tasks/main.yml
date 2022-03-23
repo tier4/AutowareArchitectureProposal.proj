@@ -2,7 +2,7 @@
 - name: LibTorch (download)
   when: cuda_version == '11.1'
   become: no
-  command: gdown https://drive.google.com/u/0/uc?id=1eNh3F3xCQ4AMJEHtwb1dhshSyzWMjoc8 -O /tmp/libtorch.zip
+  command: gdown https://download.pytorch.org/libtorch/cu111/libtorch-cxx11-abi-shared-with-deps-1.8.1%2Bcu111.zip -O /tmp/libtorch.zip
 - name: LibTorch (unarchive)
   when: cuda_version == '11.1'
   become: yes
