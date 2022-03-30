@@ -4,10 +4,15 @@ https://raw.githubusercontent.com/eclipse-cyclonedds/cyclonedds/master/etc/cyclo
     <Domain id="any">
         <General>
             <MaxMessageSize>65500B</MaxMessageSize>
+            <FragmentSize>4000B</FragmentSize>
             <NetworkInterfaceAddress>enp3s0</NetworkInterfaceAddress>
+            <AllowMulticast>spdp</AllowMulticast>
+            <!-- <NetworkInterfaceAddress>eno1</NetworkInterfaceAddress> -->
+            <DontRoute>true</DontRoute>
         </General>
         <Internal>
             <MinimumSocketReceiveBufferSize>50MB</MinimumSocketReceiveBufferSize>
+            <MinimumSocketSendBufferSize>50MB</MinimumSocketSendBufferSize>
             <SynchronousDeliveryPriorityThreshold>1</SynchronousDeliveryPriorityThreshold>
         </Internal>
     </Domain>
