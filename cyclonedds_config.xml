@@ -7,7 +7,6 @@ https://raw.githubusercontent.com/eclipse-cyclonedds/cyclonedds/master/etc/cyclo
             <FragmentSize>4000B</FragmentSize>
             <NetworkInterfaceAddress>enp3s0</NetworkInterfaceAddress>
             <AllowMulticast>spdp</AllowMulticast>
-            <!-- <NetworkInterfaceAddress>eno1</NetworkInterfaceAddress> -->
             <DontRoute>true</DontRoute>
         </General>
         <Internal>
