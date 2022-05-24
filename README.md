@@ -1,4 +1,3 @@
-
 # Autoware (Architecture Proposal)
 
 [![autoware](https://user-images.githubusercontent.com/8327598/69472442-cca50b00-0ded-11ea-9da0-9e2302aa1061.png)](https://youtu.be/kn2bIU_g0oY)
