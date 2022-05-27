@@ -139,7 +139,7 @@ repositories:
   vendor/ars408_driver:
     type: git
     url: https://github.com/tier4/ars408_driver.git
-    version: tier4/ros2
+    version: use-autoware-iv-msgs
   vendor/diagnostics:
     type: git
     url: https://github.com/tier4/diagnostics.git
