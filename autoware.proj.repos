@@ -131,7 +131,7 @@ repositories:
   vendor/ars408_driver:
     type: git
     url: https://github.com/tier4/ars408_driver.git
-    version: tier4/ros2
+    version: use-autoware-iv-msgs
   vendor/hash_library_vendor:
     type: git
     url: https://github.com/tier4/hash_library_vendor.git
