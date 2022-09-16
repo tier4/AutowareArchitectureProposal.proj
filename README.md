@@ -9,10 +9,9 @@ AutowareArchitectureProposal is a repository to explore and establish the archit
 > - As this repository is simply a mirror of a private repository, issues and pull requests are not accepted. Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for more details.
 > - In the documentation, some links may appear broken. These links are pointing to internal Tier IV documents, so please ignore them.
 
-## Update: 2022/05/24
+## Update: 2022/09/16
 
-This repository was proposed to the Autoware Foundation and incorporated [HERE](https://github.com/autowarefoundation/autoware).
-Therefore, we are not developing in this repository and may archive.
+The architecture investigated in this repository was proposed to the Autoware Foundation and incorporated [HERE](https://github.com/autowarefoundation/autoware). As we are doing further development in the Autoware Foundation repository, we have decided to archive this repository. We apologize for any inconvenience this may cause and appreciate your understanding.
 
 ## Documentation
 
